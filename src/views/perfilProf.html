@@ -77,6 +77,105 @@
             </div>
 
         </div>
+        
+        <div class="modal-overlay" id="modalOverlay">
+            <div class="modal">
+                <button class="modal-close" id="closeModal">✕</button>
+                <p>Reservar horário das <span>13:30</span> a <span>14:00</span> na <span>Terça</span></p>
+                <h3>Agendar horário?</h3>
+                <button class="modal-confirm">✔ Confirmar</button>
+            </div>
+        </div>
+
+        <div class="modal-overlay" id="modalConfirmed">
+            <div class="modal">
+                <button class="modal-close" id="closeModal">✕</button>
+                <h3>Aula agendada com sucesso!</h3>
+                <img src="../../public/images/confirmed-icon.png" alt="">
+            </div>
+        </div>
+
+        <div class="modal-overlay" id="modalLink">
+            <div class="modal">
+                <button class="modal-close" id="closeModal">✕</button>
+                <h3>Direcionar para video chamada</h3>
+                <a href="">Link</a>
+            </div>
+        </div>
+
+        <div class="modal-agenda">
+            <div class="modal-header-agenda">
+              <span class="close-btn-agenda">&times;</span>
+            </div>
+            <div class="modal-body-agenda">
+              <table class="schedule-table-agenda">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Segunda</th>
+                    <th>Terça</th>
+                    <th>Quarta</th>
+                    <th>Quinta</th>
+                    <th>Sexta</th>
+                    <th>Sábado</th>
+                    <th>Domingo</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>13:00</td>
+                    <td class="selected-agenda">&#10003;</td>
+                    <td class="selected-agenda">&#10003;</td>
+                    <td class="available-agenda"></td>
+                    <td class="available-agenda"></td>
+                    <td class="available-agenda"></td>
+                    <td class="available-agenda"></td>
+                    <td class="unavailable-agenda">X</td>
+                  </tr>
+                  <tr>
+                    <td>14:10</td>
+                    <td class="selected-agenda">&#10003;</td>
+                    <td class="selected-agenda">&#10003;</td>
+                    <td class="available-agenda"></td>
+                    <td class="available-agenda"></td>
+                    <td class="available-agenda"></td>
+                    <td class="available-agenda"></td>
+                    <td class="unavailable-agenda">X</td>
+                  </tr>
+                  <tr>
+                    <td>15:10</td>
+                    <td class="available-agenda"></td>
+                    <td class="available-agenda"></td>
+                    <td class="available-agenda"></td>
+                    <td class="available-agenda"></td>
+                    <td class="available-agenda"></td>
+                    <td class="available-agenda"></td>
+                    <td class="unavailable-agenda">X</td>
+                  </tr>
+                  <tr>
+                    <td>16:30</td>
+                    <td class="available-agenda"></td>
+                    <td class="available-agenda"></td>
+                    <td class="available-agenda"></td>
+                    <td class="available-agenda"></td>
+                    <td class="available-agenda"></td>
+                    <td class="available-agenda"></td>
+                    <td class="unavailable-agenda">X</td>
+                  </tr>
+                  <tr>
+                    <td>17:40</td>
+                    <td class="unavailable-agenda">X</td>
+                    <td class="unavailable-agenda">X</td>
+                    <td class="unavailable-agenda">X</td>
+                    <td class="unavailable-agenda">X</td>
+                    <td class="unavailable-agenda">X</td>
+                    <td class="unavailable-agenda">X</td>
+                    <td class="unavailable-agenda">X</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+        </div>
 
     </main>
 
