@@ -1,0 +1,174 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --fonte-principal: 'Inter Tight', sans-serif;
+}
+
+body {
+    font-family: var(--fonte-principal);
+}
+
+header {
+    display: flex;
+    background-color: #AA6767;
+    height: 85px;
+    border-bottom-right-radius: 25px;
+    border-bottom-left-radius: 25px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.header {
+    max-width: 1200px;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    width: 10rem;
+    height: 5rem;
+}
+
+.logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.perfil-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 5.5rem;
+    height: 2.5rem;
+    background-color: #F9F2F0;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.perfil-button.prof {
+    width: 12rem;
+}
+
+.perfil-button img {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+}
+
+main {
+    width: 80vw;
+    margin: 0 auto;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 17em;
+    padding: 3em;
+    margin: auto;
+}
+
+.left-side {
+    display: flex;
+    flex-direction: column;
+}
+
+.photo-area {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    height: 300px;
+    background-color: #FFE7D1;
+    border-radius: 10px;
+}
+
+.photo-area img {
+    width: 60%;
+    height: 60%;
+    border-radius: 10px;
+}
+
+.photo-area h2 {
+    margin-top: 20px;
+}
+
+.button-prt {
+    display: block;
+    margin: 0 auto;
+    padding: 10px;
+    background-color: white;
+    color: #A4876C;
+    border: 1px solid #A4876C;
+    border-radius: 10px;
+    margin-top: 2em;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.prof-photos {
+    display: flex;
+    gap: 20px;
+}
+
+.photo {
+    display: flex;
+    width: 320px;
+    height: 280px;
+    overflow: hidden;
+    border-radius: 10px;
+    position: relative;
+}
+
+.photo img {
+    width: inherit;
+    height: inherit;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.info {
+    position: absolute;
+    padding: 10px;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    width: 100%;
+    text-align: center;
+}
+
+textarea {
+    background-color: #FFE7D1;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    width: 100%;
+    height: auto;
+    resize: none;
+}
+
+label h2 {
+    margin-top: 30px;
+}
+
+.right-side h2 {
+    margin-bottom: 7px;
+}

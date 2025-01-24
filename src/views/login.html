@@ -6,7 +6,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../public/css/style.css">
+    <link rel="stylesheet" href="../../public/css/style.css">   
     <title>Delfos</title>
 </head>
 <body>
@@ -38,9 +38,26 @@
                     <button type="submit">Criar</button>
                 </form>
             </div>
+     
+        </div>
 
-            
-            
+        <div class="modal-overlay" id="modalLogin">
+            <div class="modal">
+                <button class="modal-close" id="closeModal">✕</button>
+
+                <form>
+                    <label>
+                        <h3>E-mail</h3>
+                        <input type="email">
+                    </label>    
+                    <label>
+                        <h3>Senha</h3>
+                        <input type="password">
+                    </label>
+                </form>
+
+                <button class="modal-confirm">Confirmar</button>
+            </div>
         </div>
     </main>
 
