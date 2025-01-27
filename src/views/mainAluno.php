@@ -1,15 +1,25 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aluno</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../public/css/aluno.css"> 
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../../public/css/aluno.css">
 </head>
+
 <body>
+    <?php
+
+    require_once("../config/config.php");
+    echo $_SESSION['token']."oasdoaijsdisaj";
+
+    ?>
 
     <header>
 
@@ -19,10 +29,11 @@
             </div>
             <div class="buttons">
                 <div class="perfil-button notif"><img src="../../public/images/sino-icon.png" alt=""></div>
-                <div class="perfil-button prof"><img src="../../public/images/school-icon.png" alt="">Seja um professor</div>
-                <div class="perfil-button"><img src="../../public/images/login-icon.png" alt="">Perfil</div> 
+                <div class="perfil-button prof"><img src="../../public/images/school-icon.png" alt="">Seja um professor
+                </div>
+                <div class="perfil-button"><img src="../../public/images/login-icon.png" alt="">Perfil</div>
             </div>
-            
+
 
         </div>
 
@@ -31,7 +42,7 @@
     <main>
 
         <div class="titulo-principal">
-            <h1>Escolha os melhores  <strong>★★★★★</strong></h1>
+            <h1>Escolha os melhores <strong>★★★★★</strong></h1>
         </div>
 
         <div class="slider-container">
@@ -104,7 +115,7 @@
                         </div>
                     </div>
                 </div>
-                
+
             </div>
 
             <button class="slider-btn next">▶</button>
@@ -119,7 +130,7 @@
                 <img src="../../public/images/Group 46.png" alt="">
             </div>
         </div>
-    
+
         <div class="subtitulo">
             <h1>Aprenda com profissionais qualificados</h1>
             <button>O que deseja aprender ? <img src="../../public/images/pesquisaIcon.png" alt=""></button>
@@ -197,7 +208,7 @@
                         </div>
                     </div>
                 </div>
-                
+
             </div>
 
             <button class="slider-btn next">▶</button>
@@ -276,7 +287,7 @@
                         </div>
                     </div>
                 </div>
-                
+
             </div>
 
             <button class="slider-btn next">▶</button>
@@ -284,6 +295,7 @@
         </div>
 
     </main>
-    
+
 </body>
+
 </html>
