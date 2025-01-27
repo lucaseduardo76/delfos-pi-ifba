@@ -29,10 +29,7 @@
         exit;
     }
 
-    if (!empty($_SESSION['aviso']) && $_SESSION['aviso']) {
-        echo "<script>alert('" . $_SESSION['aviso'] . "')</script>";
-        $_SESSION['aviso'] = '';
-    }
+   
 
     ?>
 
@@ -105,6 +102,11 @@
     if (!empty($_SESSION['verifyCad']) && $_SESSION['verifyCad'] == true) {
         echo '<script> document.getElementById("popup").style.display = "flex"; </script>';
         $_SESSION['verifyCad'] = false;
+    }
+
+    if (!empty($_SESSION['aviso']) && $_SESSION['aviso']) {
+        echo "<script>alert('" . $_SESSION['aviso'] . "')</script>";
+        $_SESSION['aviso'] = '';
     }
 
     ?>
