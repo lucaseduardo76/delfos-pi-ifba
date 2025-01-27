@@ -8,15 +8,9 @@ class User
     private $senha;
     private $telefone;
     private $linkFoto;
+    private $cpf;
 
-    public function __construct($nome, $senha, $email, $telefone, $linkFoto)
-    {
-        $this->nome = $nome;
-        $this->email = $email;
-        $this->senha = $senha;
-        $this->telefone = $telefone;
-        $this->linkFoto = $linkFoto;
-    }
+
 
     public function getId()
     {
@@ -78,5 +72,27 @@ class User
         $this->linkFoto = $linkFoto;
     }
 
+    public function getCpf()
+    {
+        return $this->cpf;
+    }
 
+    public function setCpf($cpf)
+    {
+        $this->cpf = $cpf;
+    }
+
+
+}
+
+
+interface UsuarioDAO { 
+    public function insert(User $u);
+    public function findAll();
+    public function findById($id);
+    public function findByName($id);
+    
+    public function findByEmail($id);
+    public function update(User $u);
+    public function delete($id);
 }

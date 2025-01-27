@@ -10,8 +10,9 @@ class Professor
     private $quantidadeAlunos;
     private $descricao;
     private $userId;
+    private $diasAtivo;
 
-    public function __construct($precoHora, $area, $quantidadeAulasAplicadas, $quantidadeAlunos, $descricao, $userId)
+    public function __construct($precoHora, $area, $quantidadeAulasAplicadas, $quantidadeAlunos, $descricao, $userId, $diasAtivo)
     {
         $this->precoHora = $precoHora;
         $this->area = $area;
@@ -19,6 +20,7 @@ class Professor
         $this->quantidadeAlunos = $quantidadeAlunos;
         $this->descricao = $descricao;
         $this->userId = $userId;
+        $this->diasAtivo =  $diasAtivo;
     }
 
     public function getId()

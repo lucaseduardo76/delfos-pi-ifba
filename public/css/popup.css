@@ -1,0 +1,56 @@
+
+.modal-sign {
+    display: flex;
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  
+  .modal-content {
+    position: absolute;
+    background-color: #fff;
+    width: 400px;
+    height: 300px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .mensagem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .mensagem a{
+    background-color: #626aba;
+    color: #fff;
+    padding: 10px 45px;
+    margin-top: 25px;
+    border-radius: 10px;
+  }
+  
+  .checkGif {
+    width: 150px;
+    height: 150px;
+    margin: 8px;
+  }
+  
+  .close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+  }
