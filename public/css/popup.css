@@ -1,6 +1,6 @@
 
 .modal-sign {
-    display: flex;
+    display: none;
     position: absolute;
     z-index: 1;
     left: 0;

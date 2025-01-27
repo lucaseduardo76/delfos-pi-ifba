@@ -9,7 +9,17 @@ class User
     private $telefone;
     private $linkFoto;
     private $cpf;
+    private $token;
+    
+    public function getToken()
+    {
+        return $this->token;
+    }
 
+    public function setToken($token)
+    {
+        $this->token = $token;
+    }
 
 
     public function getId()
@@ -86,12 +96,13 @@ class User
 }
 
 
-interface UsuarioDAO { 
+interface UsuarioDAO
+{
     public function insert(User $u);
     public function findAll();
     public function findById($id);
     public function findByName($id);
-    
+
     public function findByEmail($id);
     public function update(User $u);
     public function delete($id);

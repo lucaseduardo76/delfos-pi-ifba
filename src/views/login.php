@@ -18,7 +18,16 @@
     <?php
 
     require_once("../config/config.php");
+    require_once("../models/auth/auth.php");
+    
+    $auth = new Auth();
+    $userInfo = $auth->checkToken($pdo); 
 
+    if($userInfo != false){
+        echo"asdhoasdhsa";
+        header("Location: ./mainAluno.php");
+        exit;
+    }
 
     if (!empty($_SESSION['aviso']) && $_SESSION['aviso']) {
         echo "<script>alert('" . $_SESSION['aviso'] . "')</script>";
@@ -58,33 +67,33 @@
             <div class="forms-container">
                 <form class="signup-form" method="post" action="./../service/cadastro.php">
                     <h2>Se junte ao Delfos</h2>
-                    <input type="text" name="nome" placeholder="Nome Completo">
-                    <input type="text" name="cpf" placeholder="CPF">
-                    <input type="email" name="email" placeholder="E-mail">
-                    <input type="text" name="telefone" placeholder="Telefone">
-                    <input type="password" name="senha" placeholder="Senha">
+                    <input type="text" name="nome" placeholder="Nome Completo" required >
+                    <input type="text" name="cpf" placeholder="CPF" required>
+                    <input type="email" name="email" placeholder="E-mail" required>
+                    <input type="text" name="telefone" placeholder="Telefone" required>
+                    <input type="password" name="senha" placeholder="Senha" required>
                     <button type="submit">Criar</button>
                 </form>
             </div>
 
         </div>
 
-        <div class="modal-overlay" id="modalLogin">
+        <div class="modal-overlay" id="modalLogin" style="display: flex;">
             <div class="modal">
                 <button class="modal-close" id="closeModal">✕</button>
 
-                <form>
+                <form method="POST" action="./../service/loginAction.php">
                     <label>
                         <h3>E-mail</h3>
-                        <input type="email">
+                        <input type="email" name="email" required>
                     </label>
                     <label>
                         <h3>Senha</h3>
-                        <input type="password">
+                        <input type="password" name="senha" required>
                     </label>
+                    <button class="modal-confirm" type="submit" >Confirmar</button>
                 </form>
 
-                <button class="modal-confirm">Confirmar</button>
             </div>
         </div>
     </main>

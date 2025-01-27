@@ -12,6 +12,15 @@ $cpf = ucwords(strtolower(filter_input(INPUT_POST, 'cpf')));
 $senha = ucwords(strtolower(filter_input(INPUT_POST, 'senha')));
 $telefone = filter_input(INPUT_POST, 'telefone');
 
+function token( $tamanho = 50 ) {
+    $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$';
+    $charactersLength = strlen( $characters );
+    $randomString = '';
+    for ( $i = 0; $i < $tamanho; $i++ ) {
+        $randomString .= $characters[ rand( 0, $charactersLength - 1 ) ];
+    }
+    return $randomString;
+}
 
 if ($nome && $email && $cpf && $senha && $telefone) {
     $emailInvalido = $uDao->findByEmail($email);
@@ -38,6 +47,15 @@ if ($nome && $email && $cpf && $senha && $telefone) {
         exit;
     }
 
+    $token = '';
+
+    do {
+        $token = token(); //CRIANDO TOKEN PARA O USUARIO
+        $tokenNovaEmpresa = token(); // CRIANDO TOKEN PARA EMPRESA
+        $verify = $uDao->findByToken( $token ) && $uDao->findByToken( $tokenNovaEmpresa ); //VERIFICANDO DE TOKENS 
+
+    }while( $verify );
+
     $hash = password_hash($senha, PASSWORD_DEFAULT);
 
     $u = new User();
@@ -46,6 +64,7 @@ if ($nome && $email && $cpf && $senha && $telefone) {
     $u->setcpf($cpf);
     $u->setsenha($hash);
     $u->setTelefone($telefone);
+    $u->setToken($token);
 
     $uDao->insert($u);
     $_SESSION['verifyCad'] = true;

@@ -107,13 +107,37 @@ class UsuarioDaoMySql implements UsuarioDao{
         return false;
 	}
 
+    public function findByToken($token){
+		$sql = $this->pdo->prepare("SELECT * FROM tb_user where token = :token");
+        $sql->bindValue(":token", $token);
+        $sql->execute();
+        
+        if($sql->rowCount() > 0){
+            $item = $sql->fetch();
+
+           
+			$u = new User();
+			$u->setEmail($item['email']);
+			$u->setNome($item['nome']);
+			$u->setSenha($item['senha']);
+			$u->setTelefone($item['telefone']);
+			$u->setId($item['id']);
+			$u->setLinkFoto($item['linkFoto']);
+
+            return $u;
+        }
+        
+        return false;
+	}
+
 	public function insert(User $u) {
 		
-        $sql = $this->pdo->prepare("INSERT INTO tb_user (nome, senha, email, telefone) VALUES (:nome, :senha, :email, :telefone)"); 
+        $sql = $this->pdo->prepare("INSERT INTO tb_user (nome, senha, email, telefone, token) VALUES (:nome, :senha, :email, :telefone, :token)"); 
         $sql->bindValue(':nome', $u->getNome());
         $sql->bindValue(':email', $u->getEmail());		
         $sql->bindValue(':senha', $u->getSenha());		
         $sql->bindValue(':telefone', $u->getTelefone());
+        $sql->bindValue(':token', $u->getToken());
         $sql->execute();
 	}
 
