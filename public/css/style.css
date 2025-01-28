@@ -138,16 +138,6 @@ main {
     align-items: center;
 }
 
-.modal-overlay.show {
-    display: flex;
-    opacity: 1;
-}
-
-.modal-overlay.hide {
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
 .modal {
     background-color: #FFE7D1;
     border-radius: 10px;    
@@ -156,6 +146,8 @@ main {
     width: 300px;
     text-align: center;
     position: relative;
+    transition: all 0.5s;
+    opacity: 0;
 }
 
 .modal-close {
