@@ -133,12 +133,14 @@ class UsuarioDaoMySql implements UsuarioDao{
 
 	public function insert(User $u) {
 		
-        $sql = $this->pdo->prepare("INSERT INTO tb_user (nome, senha, email, telefone, token) VALUES (:nome, :senha, :email, :telefone, :token)"); 
+        $sql = $this->pdo->prepare("INSERT INTO tb_user (nome, senha, email, telefone, token, linkFoto) VALUES (:nome, :senha, :email, :telefone, :token, :linkFoto)"); 
         $sql->bindValue(':nome', $u->getNome());
         $sql->bindValue(':email', $u->getEmail());		
         $sql->bindValue(':senha', $u->getSenha());		
         $sql->bindValue(':telefone', $u->getTelefone());
         $sql->bindValue(':token', $u->getToken());
+        $sql->bindValue(':linkFoto', "../uploads/semPerfil.png");
+
         $sql->execute();
 	}
 

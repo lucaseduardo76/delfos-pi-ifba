@@ -26,13 +26,6 @@ if ($area && $preco && $sobre) {
         exit;
     }
 
-    $p = $pDao->findByUserId($usuario->getId());
-    if ($p) {
-        $_SESSION['aviso'] = "Usuario já possui um perfil de professor";
-        header('Location: ../views/editarPerfilProf.php');
-        exit;
-    }
-
     if (isset($_FILES['file']) && $_FILES['file']['error'] === UPLOAD_ERR_OK) {
         $arquivo = explode('.', $foto['name']);
         if ($arquivo[sizeof($arquivo) - 1] == 'png') {
@@ -54,14 +47,21 @@ if ($area && $preco && $sobre) {
         }
     }
 
-    $professor = new Professor();
+    $professor = $pDao->findByUserId($usuario->getId());
+
+    if (!$professor) {
+        $_SESSION = "Erro interno, contate o suporte";
+        header('Location: ../views/editarPerfilProf.php');
+        exit;
+    }
+
     $professor->setArea($area);
     $professor->setPrecoAula(convertToFloat($preco));
     $professor->setQuantidadeAulasAplicadas(0);
     $professor->setDescricao($sobre);
     $professor->setUserId($usuario->getId());
 
-    $pDao->insert($professor);
+    $pDao->update($professor);
 
 } else {
 
@@ -80,6 +80,6 @@ function convertToFloat($valor)
     return $precoNumerico;
 }
 
-header('Location: ../views/main.php');
+header('Location: ../views/editarPerfilProf.php');
 exit;
 

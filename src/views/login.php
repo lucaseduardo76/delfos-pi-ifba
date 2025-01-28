@@ -19,13 +19,13 @@
 
     require_once("../config/config.php");
     require_once("../models/auth/auth.php");
-    
-    $auth = new Auth();
-    $userInfo = $auth->checkToken($pdo); 
 
-    if($userInfo != false){
-        echo"asdhoasdhsa";
-        header("Location: ./mainAluno.php");
+    $auth = new Auth();
+    $userInfo = $auth->checkToken($pdo);
+
+    if ($userInfo != false) {
+        echo "asdhoasdhsa";
+        header("Location: ./main.php");
         exit;
     }
     ?>
@@ -61,7 +61,7 @@
             <div class="forms-container">
                 <form class="signup-form" method="post" action="./../service/cadastro.php">
                     <h2>Se junte ao Delfos</h2>
-                    <input type="text" name="nome" placeholder="Nome Completo" required >
+                    <input type="text" name="nome" placeholder="Nome Completo" required>
                     <input type="text" name="cpf" placeholder="CPF" required>
                     <input type="email" name="email" placeholder="E-mail" required>
                     <input type="text" name="telefone" placeholder="Telefone" required>
@@ -85,7 +85,7 @@
                         <h3>Senha</h3>
                         <input type="password" name="senha" required>
                     </label>
-                    <button class="modal-confirm" type="submit" >Confirmar</button>
+                    <button class="modal-confirm" type="submit">Confirmar</button>
                 </form>
 
             </div>
@@ -108,7 +108,12 @@
 
     ?>
 
-<script src="../../public/js/closeModal.js"></script>
+    <script src="../../public/js/closeModal.js"></script>
+    <script>
+        document.getElementById("closeModalBtn").addEventListener("click", () => {
+            document.getElementById("popup").style.display = "none";
+        });
+    </script>
 </body>
 
 </html>

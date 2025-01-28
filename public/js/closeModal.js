@@ -13,3 +13,4 @@ document.getElementById("loginButton").addEventListener("click", () => {
         document.getElementById("modal").style.opacity = "1";
     }, 10);
 });
+

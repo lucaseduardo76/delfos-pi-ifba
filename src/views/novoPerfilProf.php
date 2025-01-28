@@ -33,9 +33,13 @@
         exit;
     }
 
-    $pDao = new ProfesorDaoMySql($pdo);
+    $pDao = new ProfesorDaoMySql($pdo); 
+    
 
-
+    if($pDao->findByUserId($userInfo->getId())){
+        header("Location: ./editarPerfilProf.php");
+        exit;
+    }
 
 
     $areaDao = new AreaDao($pdo);
@@ -47,24 +51,10 @@
 
     $caminhoFoto;
 
-    if ($usuario->getLinkFoto() != null) {
+    if($usuario->getLinkFoto() != null){
         $caminhoFoto = $usuario->getLinkFoto();
     }
 
-
-    $pDao = new ProfesorDaoMySql($pdo);
-    $professor = $pDao->findByUserId($userInfo->getId());
-
-    if (!$professor) {
-        header("Location: ./novoPerfilProf.php");
-        exit;
-    }
-
-    function formatarParaReais(float $valor): string
-    {
-        // Função number_format formata o número com 2 casas decimais e separadores de milhar
-        return 'R$ ' . number_format($valor, 2, ',', '.');
-    }
     ?>
 
 
@@ -85,11 +75,11 @@
     </header>
 
     <main>
-        <form method="post" action="./../service/editarProfessor.php" enctype="multipart/form-data">
+        <form method="post" action="./../service/novoProfessor.php" enctype="multipart/form-data">
             <div class="container">
                 <div class="left-side">
                     <div class="perfil-foto">
-                        <img src="<?= $caminhoFoto ?>" alt="">
+                        <img src="<?=$caminhoFoto?>" alt="">
                         <h2>Perfil</h2>
                         <input type="file" name="file" accept="image/png, image/jpeg">
                     </div>
@@ -103,27 +93,23 @@
                         <select name="materia" id="materia" required>
                             <option value="" disabled selected>Selecione a sua área de ensino</option>
                             <?php foreach ($areas as $area): ?>
-                                <option value="<?= $area->getId() ?>" <?= $area->getId() == $professor->getArea() ? 'selected' : '' ?>>
-                                    <?= $area->getArea() ?>
-                                </option>
+                                <option value="<?= $area->getId() ?>"><?= $area->getArea() ?></option>
                             <?php endforeach ?>
                         </select>
                     </label>
 
                     <label>
                         <h3>Valor da aula:</h3>
-                        <input type="text" id="preco" name="preco" placeholder="R$ 0,00"
-                            value="<?= formatarParaReais($professor->getPrecoAula()) ?>" required>
+                        <input type="text" id="preco" name="preco" placeholder="R$ 0,00" required>
                     </label>
 
                     <label>
                         <h3>Sobre você:</h3>
-                        <textarea rows="5" name="sobre" required
-                            placeholder="Fale sobre você..."><?= $professor->getDescricao() ?></textarea>
+                        <textarea rows="5" name="sobre" required placeholder="Fale sobre você..."></textarea>
                     </label>
 
 
-                    <button class="button-prt" type="submit">Salvar Alterações</button>
+                    <button class="button-prt" type="submit">Criar Perfil</button>
 
 
 

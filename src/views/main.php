@@ -17,6 +17,15 @@
     <?php
 
     require_once("../config/config.php");
+    require_once("../models/auth/auth.php");
+
+    $auth = new Auth();
+    $userInfo = $auth->checkToken($pdo);
+
+    if ($userInfo == false) {
+        header("Location: ./login.php");
+        exit;
+    }
 
     ?>
 

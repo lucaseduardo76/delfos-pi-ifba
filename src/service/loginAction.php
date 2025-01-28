@@ -16,7 +16,7 @@ if ($email && $pass) {
 
         if (password_verify($pass, $hash)) {
             $_SESSION['token'] = $u->getToken();
-            header('Location: ../views/mainAluno.php');
+            header('Location: ../views/main.php');
             exit;
 
         } else {
