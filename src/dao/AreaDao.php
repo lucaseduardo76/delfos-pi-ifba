@@ -63,7 +63,7 @@ class AreaDao implements AreaDaoImplementa{
         "); 
     
         // Faz o binding dos parâmetros
-        $sql->bindValue(':nome', $area->getNome());
+        $sql->bindValue(':nome', $area->getArea());
         
         // Executa a query
         $sql->execute();

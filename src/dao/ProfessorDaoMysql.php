@@ -28,7 +28,7 @@ class ProfesorDaoMySql implements ProfessorDao{
                 $professor->setArea($item['area']);
                 $professor->setQuantidadeAulasAplicadas($item['quantidade_aulas_aplicadas']);
                 $professor->setDescricao($item['descricao']);
-                $professor->setAlunosId($this->getQuantidadeAlunosByProfessor($item['id']));
+                $professor->setAlunosId($this->getAlunosIdByProfessor($item['id']));
     
                 $array[] = $professor;
             }
