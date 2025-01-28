@@ -95,15 +95,15 @@
             </div>
         </div>
 
-        <div class="modal-overlay" id="modalLink">
-            <div class="modal">
-                <button class="modal-close" id="closeModal">✕</button>
-                <h3>Direcionar para video chamada</h3>
-                <a href="">Link</a>
+            <div class="modal-overlay" id="modalLink">
+                <div class="modal">
+                    <button class="modal-close" id="closeModal">✕</button>
+                    <h3>Direcionar para video chamada</h3>
+                    <a href="">Link</a>
+                </div>
             </div>
-        </div>
 
-        <div class="modal-agenda">
+        <div class="modal-agenda" style="display: flex; z-index: 99;">
             <div class="modal-header-agenda">
               <span class="close-btn-agenda">&times;</span>
             </div>
@@ -179,5 +179,6 @@
 
     </main>
 
+<script src="../../public/js/closeModal.js"></script>
 </body>
 </html>

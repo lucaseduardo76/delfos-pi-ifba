@@ -41,7 +41,7 @@
                 <form>
 
                     <label>
-                        <h3>Matérias que você mestra:</h3>
+                        <h3>Assuntos que você ensina:</h3>
                         <select name="materia" id="materia" required>
                             <option value="" disabled selected>Selecione a sua tag de ensino</option>
                             <option value="matematica">Matemática</option>

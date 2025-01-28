@@ -125,14 +125,15 @@ main {
     width: 50%;
 } 
 
-#modalLogin {
+.modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.4);
-    display: flex; 
+    display: none; 
+    transition: opacity 0.3s ease;
     justify-content: center;
     align-items: center;
 }
@@ -145,6 +146,8 @@ main {
     width: 300px;
     text-align: center;
     position: relative;
+    transition: all 0.5s;
+    opacity: 0;
 }
 
 .modal-close {

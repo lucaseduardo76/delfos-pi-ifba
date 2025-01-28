@@ -46,7 +46,7 @@
             <div class="logo">
                 <img src="../../public/images/Logo Delfos branco.svg">
             </div>
-            <div class="login-button">Login</div>
+            <div class="login-button" id="loginButton">Login</div>
 
         </div>
 
@@ -72,8 +72,8 @@
 
         </div>
 
-        <div class="modal-overlay" id="modalLogin" style="display: flex;">
-            <div class="modal">
+        <div class="modal-overlay" id="modalLogin">
+            <div class="modal" id="modal">
                 <button class="modal-close" id="closeModal">✕</button>
 
                 <form method="POST" action="./../service/loginAction.php">
