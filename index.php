@@ -1,0 +1,1 @@
+<script>window.location.assign("./src/views/login.php")</script>

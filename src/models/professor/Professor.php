@@ -4,24 +4,12 @@ class Professor
 {
 
     private $id;
-    private $precoHora;
+    private $precoAula;
     private $area;
     private $quantidadeAulasAplicadas;
-    private $quantidadeAlunos;
+    private $alunosId;
     private $descricao;
     private $userId;
-    private $diasAtivo;
-
-    public function __construct($precoHora, $area, $quantidadeAulasAplicadas, $quantidadeAlunos, $descricao, $userId, $diasAtivo)
-    {
-        $this->precoHora = $precoHora;
-        $this->area = $area;
-        $this->quantidadeAulasAplicadas = $quantidadeAulasAplicadas;
-        $this->quantidadeAlunos = $quantidadeAlunos;
-        $this->descricao = $descricao;
-        $this->userId = $userId;
-        $this->diasAtivo =  $diasAtivo;
-    }
 
     public function getId()
     {
@@ -33,14 +21,14 @@ class Professor
         $this->id = $id;
     }
 
-    public function getPrecoHora()
+    public function getPrecoAula()
     {
-        return $this->precoHora;
+        return $this->precoAula;
     }
 
-    public function setPrecoHora($precoHora)
+    public function setPrecoAula($precoAula)
     {
-        $this->precoHora = $precoHora;
+        $this->precoAula = $precoAula;
     }
 
     public function getArea()
@@ -63,19 +51,14 @@ class Professor
         $this->quantidadeAulasAplicadas = $quantidadeAulasAplicadas;
     }
 
-    public function getQuantidadeAlunos()
+    public function getAlunosId()
     {
-        return $this->quantidadeAlunos;
+        return $this->alunosId;
     }
 
-    public function setQuantidadeAlunos($quantidadeAlunos)
+    public function setAlunosId($alunosId)
     {
-        $this->quantidadeAlunos = $quantidadeAlunos;
-    }
-
-    public function adicionarAluno()
-    {
-        $this->quantidadeAlunos += 1;
+        $this->alunosId = $alunosId;
     }
 
     public function getDescricao()
@@ -88,5 +71,26 @@ class Professor
         $this->descricao = $descricao;
     }
 
+    public function getUserId()
+    {
+        return $this->userId;
+    }
 
+    public function setUserId($userId)
+    {
+        $this->userId = $userId;
+    }
+
+
+}
+
+
+interface ProfessorDao
+{
+    public function insert(Professor $u);
+    public function findAll();
+    public function findById($id);
+    public function findByUserId($userId);
+    public function update(Professor $u);
+    public function delete($id);
 }
