@@ -18,7 +18,7 @@ if ($email && $pass) {
             $_SESSION['token'] = $u->getToken();
             header('Location: ../views/mainAluno.php');
             exit;
-           
+
         } else {
             $_SESSION['aviso'] = 'Email e/ou senha incorretos';
             header('Location: ../views/login.php');
