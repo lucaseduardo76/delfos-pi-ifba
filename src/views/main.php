@@ -98,7 +98,7 @@
                         ?>
                         <div class="slider-item">
                             <div class="image-container">
-                                <img src="<?= getFoto($usuario->getLinkFoto(),$usuario, $uDao) ?>" alt="Professor Walter White">
+                                <img src="<?= getFoto($usuario->getLinkFoto(),$usuario, $uDao) ?>" alt="foto">
                                 <div class="info">
 
                                     <p class="name"><?= $usuario->getNome() ?></p>
