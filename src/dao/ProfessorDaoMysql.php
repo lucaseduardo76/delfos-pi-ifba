@@ -47,8 +47,8 @@ class ProfesorDaoMySql implements ProfessorDao{
         if($quantidadeAula == 0){
             return 0;
         }
-        
-        return $rating / $quantidadeAula;
+        $total = $rating / $quantidadeAula;
+        return $total > 5 ? 5 : $total;
     }
     
     private function getAlunosIdByProfessor($professorId) {

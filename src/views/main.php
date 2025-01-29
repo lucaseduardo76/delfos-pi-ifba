@@ -49,6 +49,71 @@
         return $caminhoFoto;
     }
 
+
+
+
+    function selecionarTopProfessores(array $professores, array &$areasSelecionadas): array {
+        if (empty($professores)) {
+            return [];
+        }
+    
+        // Filtra professores cujas áreas ainda não foram selecionadas
+        $professoresDisponiveis = array_filter($professores, fn($professor) => !in_array($professor->getArea(), $areasSelecionadas));
+        
+        if (empty($professoresDisponiveis)) {
+            return []; // Se todas as áreas já foram escolhidas, retorna vazio
+        }
+        
+        // Seleciona randomicamente um professor e usa sua área
+        $professorAleatorio = $professoresDisponiveis[array_rand($professoresDisponiveis)];
+        $areaSelecionada = $professorAleatorio->getArea();
+    
+        // Adiciona a área selecionada à lista de áreas já escolhidas
+        $areasSelecionadas[] = $areaSelecionada;
+    
+        // Filtra os professores pela área selecionada
+        $professoresFiltrados = array_filter($professores, fn($professor) => $professor->getArea() === $areaSelecionada);
+    
+        // Ordena a lista filtrada pelo rating de forma decrescente
+        usort($professoresFiltrados, fn($a, $b) => $b->getRating() <=> $a->getRating());
+    
+        // Retorna os primeiros 20 ou toda a lista caso tenha menos de 20
+        return array_slice($professoresFiltrados, 0, min(20, count($professoresFiltrados)));
+    }
+
+    function selecionaTop(array $professores): array {
+        if (empty($professores)) {
+            return [];
+        }
+    
+        // Ordena a lista de professores pelo rating de forma decrescente
+        usort($professores, fn($a, $b) => $b->getRating() <=> $a->getRating());
+    
+        // Seleciona os primeiros 20 professores ou toda a lista caso tenha menos de 20
+        $topProfessores = array_slice($professores, 0, min(20, count($professores)));
+    
+        // Embaralha a lista para garantir que a seleção seja aleatória
+        shuffle($topProfessores);
+    
+        return $topProfessores;
+    }
+    
+    function randomArea($pDao) {
+        $listaGeral = [];
+        $areasSelecionadas = [];
+        
+        for ($i = 0; $i < 3; $i++) {
+            $topProfessores = selecionarTopProfessores($pDao->findAll(), $areasSelecionadas);
+            if (!empty($topProfessores)) {
+                $listaGeral[] = $topProfessores;
+            }
+        }
+    
+        return $listaGeral;
+    }
+    
+    
+
     ?>
 
     <header>
@@ -90,7 +155,7 @@
 
             <div class="slider">
 
-                <?php foreach ($todosProfessores as $p): ?>
+                <?php foreach (selecionaTop($pDao->findAll()) as $p): ?>
                     <?php
                     $usuario = $uDao->findById($p->getUserId());
                     $rating = $p->getRating() == 0 ? 1 : $p->getRating();
@@ -98,14 +163,14 @@
                         ?>
                         <div class="slider-item">
                             <div class="image-container">
-                                <img src="<?= getFoto($usuario->getLinkFoto(),$usuario, $uDao) ?>" alt="foto">
+                                <img src="<?= getFoto($usuario->getLinkFoto(), $usuario, $uDao) ?>" alt="foto">
                                 <div class="info">
 
                                     <p class="name"><?= $usuario->getNome() ?></p>
 
 
                                     <p class="subject">Assunto: <?= $aDao->findById($p->getArea())->getArea(); ?></p>
-                                    <p class="rating"><?php echo str_repeat('★', round($rating));?></p>
+                                    <p class="rating"><?php echo str_repeat('★', round($rating)); ?></p>
                                 </div>
                             </div>
                         </div>
@@ -131,161 +196,58 @@
             <button>O que deseja aprender ? <img src="../../public/images/pesquisaIcon.png" alt=""></button>
         </div>
 
-        <div class="slider-container slider-small">
+        <?php
 
-            <h2>Os melhores em Programação <strong>★★★★★</strong></h2>
+        $listaArea = randomArea($pDao);
 
-            <button class="slider-btn prev">◀</button>
+        ?>
 
-            <div class="slider">
-                <div class="slider-item">
-                    <div class="image-container">
-                        <img src="../../public/images/walter white.jpg" alt="Professor Walter White">
-                        <div class="info">
-                            <p class="name">Walter White</p>
-                            <p class="subject">Assunto: Química</p>
-                            <p class="rating">★★★★★</p>
-                        </div>
-                    </div>
+
+        <?php foreach ($listaArea as $area): ?>
+            <div class="slider-container slider-small">
+
+
+                <h2>Os melhores em <?= $aDao->findById($area[0]->getArea())->getArea(); ?> <strong>★★★★★</strong></h2>
+
+                <button class="slider-btn prev">◀</button>
+
+                <div class="slider">
+
+                    <?php foreach ($area as $p): ?>
+                        <?php
+                        $usuario = $uDao->findById($p->getUserId());
+                        $rating = $p->getRating() == 0 ? 1 : $p->getRating();
+                        if ($usuario):
+                            ?>
+                            <div class="slider-item">
+                                <div class="image-container">
+                                    <img src="<?= getFoto($usuario->getLinkFoto(), $usuario, $uDao) ?>" alt="foto">
+                                    <div class="info">
+
+                                        <p class="name"><?= $usuario->getNome() ?></p>
+
+
+                                        <p class="subject">Assunto: <?= $aDao->findById($p->getArea())->getArea(); ?></p>
+                                        <p class="rating"><?php echo str_repeat('★', round($rating)); ?></p>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+
                 </div>
 
-                <div class="slider-item">
-                    <div class="image-container">
-                        <img src="../../public/images/professor girafales.jpg" alt="Professor Girafales">
-                        <div class="info">
-                            <p class="name">Girafales</p>
-                            <p class="subject">Assunto: História</p>
-                            <p class="rating">★★★★★</p>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="slider-item">
-                    <div class="image-container">
-                        <img src="../../public/images/professora helena.jpeg" alt="Professora Helena">
-                        <div class="info">
-                            <p class="name">Professora Helena</p>
-                            <p class="subject">Assunto: Português</p>
-                            <p class="rating">★★★★★</p>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="slider-item">
-                    <div class="image-container">
-                        <img src="../../public/images/professor vanderlei.jpg" alt="Pufexô">
-                        <div class="info">
-                            <p class="name">Pufexô Vanderlei</p>
-                            <p class="subject">Assunto: Ed. Física</p>
-                            <p class="rating">★★★★★</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="slider-item">
-                    <div class="image-container">
-                        <img src="../../public/images/fortune-tiger-logo.png" alt="Tigrinho">
-                        <div class="info">
-                            <p class="name">Tigrinho</p>
-                            <p class="subject">Assunto: Economia</p>
-                            <p class="rating">★★★★★</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="slider-item">
-                    <div class="image-container">
-                        <img src="../../public/images/inri-cristo.jpg" alt="Inri Cristo">
-                        <div class="info">
-                            <p class="name">Inri Cristo</p>
-                            <p class="subject">Assunto: Religião</p>
-                            <p class="rating">★★★★★</p>
-                        </div>
-                    </div>
-                </div>
+                <button class="slider-btn next">▶</button>
 
             </div>
+        <?php endforeach; ?>
 
-            <button class="slider-btn next">▶</button>
 
-        </div>
 
-        <div class="slider-container slider-small">
 
-            <h2>Os melhores em Matemática <strong>★★★★★</strong></h2>
-
-            <button class="slider-btn prev">◀</button>
-
-            <div class="slider">
-                <div class="slider-item">
-                    <div class="image-container">
-                        <img src="../../public/images/walter white.jpg" alt="Professor Walter White">
-                        <div class="info">
-                            <p class="name">Walter White</p>
-                            <p class="subject">Assunto: Química</p>
-                            <p class="rating">★★★★★</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="slider-item">
-                    <div class="image-container">
-                        <img src="../../public/images/professor girafales.jpg" alt="Professor Girafales">
-                        <div class="info">
-                            <p class="name">Girafales</p>
-                            <p class="subject">Assunto: História</p>
-                            <p class="rating">★★★★★</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="slider-item">
-                    <div class="image-container">
-                        <img src="../../public/images/professora helena.jpeg" alt="Professora Helena">
-                        <div class="info">
-                            <p class="name">Professora Helena</p>
-                            <p class="subject">Assunto: Português</p>
-                            <p class="rating">★★★★★</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="slider-item">
-                    <div class="image-container">
-                        <img src="../../public/images/professor vanderlei.jpg" alt="Pufexô">
-                        <div class="info">
-                            <p class="name">Pufexô Vanderlei</p>
-                            <p class="subject">Assunto: Ed. Física</p>
-                            <p class="rating">★★★★★</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="slider-item">
-                    <div class="image-container">
-                        <img src="../../public/images/fortune-tiger-logo.png" alt="Tigrinho">
-                        <div class="info">
-                            <p class="name">Tigrinho</p>
-                            <p class="subject">Assunto: Economia</p>
-                            <p class="rating">★★★★★</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="slider-item">
-                    <div class="image-container">
-                        <img src="../../public/images/inri-cristo.jpg" alt="Inri Cristo">
-                        <div class="info">
-                            <p class="name">Inri Cristo</p>
-                            <p class="subject">Assunto: Religião</p>
-                            <p class="rating">★★★★★</p>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <button class="slider-btn next">▶</button>
+        <button class="slider-btn next">▶</button>
 
         </div>
 

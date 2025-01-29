@@ -18,6 +18,8 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    transition: all 0.5s;
+    opacity: 1;
     text-align: center;
     border-radius: 20px;
     display: flex;

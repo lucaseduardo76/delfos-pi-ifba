@@ -1,0 +1,157 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --fonte-principal: 'Inter Tight', sans-serif;
+}
+
+body {
+    font-family: var(--fonte-principal);
+}
+
+header {
+    display: flex;
+    background-color: #AA6767;
+    height: 85px;
+    border-bottom-right-radius: 25px;
+    border-bottom-left-radius: 25px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.header {
+    max-width: 1200px;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    width: 10rem;
+    height: 5rem;
+}
+
+.logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.perfil-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 5.5rem;
+    height: 2.5rem;
+    background-color: #F9F2F0;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.perfil-button.notif {
+    width: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.perfil-button.notif img {
+    margin: 0;
+}
+
+.perfil-button img {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    outline: none;
+}
+
+main {
+    width: 100%;
+    margin: 40px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 3em;
+    height: auto;
+}
+
+/* Container para centralizar a tabela */
+.tabela-container {
+    display: flex;
+    justify-content: center;
+    width: 80vw;
+    margin-top: 20px;
+}
+
+/* Estilo da tabela */
+.tabela-aulas {
+    width: 80%;
+    max-width: 800px;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Título da tabela */
+.tabela-aulas caption {
+    background: #9c6562;
+    color: white;
+    font-weight: bold;
+    padding: 10px;
+    font-size: 1.2em;
+}
+
+/* Cabeçalho da tabela */
+.tabela-aulas thead {
+    background: #c08986;
+    color: white;
+}
+
+.tabela-aulas th, 
+.tabela-aulas td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+/* Centraliza os ícones dentro da célula */
+.acoes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px; /* Espaçamento entre os ícones */
+}
+
+/* Ícones de ações */
+.icone {
+    cursor: pointer;
+    margin: 0 5px;
+    font-size: 1.2em;
+}
+
+/* Ícone de ação ao passar o mouse */
+.icone:hover {
+    opacity: 0.7;
+    transform: scale(1.1);
+}
