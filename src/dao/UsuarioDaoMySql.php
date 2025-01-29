@@ -99,7 +99,8 @@ class UsuarioDaoMySql implements UsuarioDao{
 			$u->setSenha($item['senha']);
 			$u->setTelefone($item['telefone']);
 			$u->setId($item['id']);
-			$u->setLinkFoto($item['linkFoto']);
+			$u->setLinkFoto($item['linkFoto']);         
+			$u->setToken($item['token']);
 
             return $u;
         }

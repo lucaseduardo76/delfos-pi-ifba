@@ -28,9 +28,6 @@
         header("Location: ./mainAluno.php");
         exit;
     }
-
-   
-
     ?>
 
     <div id="popup" class="modal-sign">
@@ -64,7 +61,7 @@
             <div class="forms-container">
                 <form class="signup-form" method="post" action="./../service/cadastro.php">
                     <h2>Se junte ao Delfos</h2>
-                    <input type="text" name="nome" placeholder="Nome Completo" required >
+                    <input type="text" name="nome" placeholder="Nome Completo" required>
                     <input type="text" name="cpf" placeholder="CPF" required>
                     <input type="email" name="email" placeholder="E-mail" required>
                     <input type="text" name="telefone" placeholder="Telefone" required>
