@@ -52,67 +52,70 @@
 
 
 
-    function selecionarTopProfessores(array $professores, array &$areasSelecionadas): array {
+    function selecionarTopProfessores(array $professores, array &$areasSelecionadas): array
+    {
         if (empty($professores)) {
             return [];
         }
-    
+
         // Filtra professores cujas áreas ainda não foram selecionadas
         $professoresDisponiveis = array_filter($professores, fn($professor) => !in_array($professor->getArea(), $areasSelecionadas));
-        
+
         if (empty($professoresDisponiveis)) {
             return []; // Se todas as áreas já foram escolhidas, retorna vazio
         }
-        
+
         // Seleciona randomicamente um professor e usa sua área
         $professorAleatorio = $professoresDisponiveis[array_rand($professoresDisponiveis)];
         $areaSelecionada = $professorAleatorio->getArea();
-    
+
         // Adiciona a área selecionada à lista de áreas já escolhidas
         $areasSelecionadas[] = $areaSelecionada;
-    
+
         // Filtra os professores pela área selecionada
         $professoresFiltrados = array_filter($professores, fn($professor) => $professor->getArea() === $areaSelecionada);
-    
+
         // Ordena a lista filtrada pelo rating de forma decrescente
         usort($professoresFiltrados, fn($a, $b) => $b->getRating() <=> $a->getRating());
-    
+
         // Retorna os primeiros 20 ou toda a lista caso tenha menos de 20
         return array_slice($professoresFiltrados, 0, min(20, count($professoresFiltrados)));
     }
 
-    function selecionaTop(array $professores): array {
+    function selecionaTop(array $professores): array
+    {
         if (empty($professores)) {
             return [];
         }
-    
+
         // Ordena a lista de professores pelo rating de forma decrescente
         usort($professores, fn($a, $b) => $b->getRating() <=> $a->getRating());
-    
+
         // Seleciona os primeiros 20 professores ou toda a lista caso tenha menos de 20
         $topProfessores = array_slice($professores, 0, min(20, count($professores)));
-    
+
         // Embaralha a lista para garantir que a seleção seja aleatória
         shuffle($topProfessores);
-    
+
         return $topProfessores;
     }
-    
-    function randomArea($pDao) {
+
+    function randomArea($pDao)
+    {
         $listaGeral = [];
         $areasSelecionadas = [];
-        
+
         for ($i = 0; $i < 3; $i++) {
             $topProfessores = selecionarTopProfessores($pDao->findAll(), $areasSelecionadas);
             if (!empty($topProfessores)) {
                 $listaGeral[] = $topProfessores;
             }
         }
-    
+
         return $listaGeral;
     }
-    
-    
+
+
 
     ?>
 
@@ -161,19 +164,23 @@
                     $rating = $p->getRating() == 0 ? 1 : $p->getRating();
                     if ($usuario):
                         ?>
+
                         <div class="slider-item">
-                            <div class="image-container">
-                                <img src="<?= getFoto($usuario->getLinkFoto(), $usuario, $uDao) ?>" alt="foto">
-                                <div class="info">
-
-                                    <p class="name"><?= $usuario->getNome() ?></p>
-
-
-                                    <p class="subject">Assunto: <?= $aDao->findById($p->getArea())->getArea(); ?></p>
-                                    <p class="rating"><?php echo str_repeat('★', round($rating)); ?></p>
-                                </div>
-                            </div>
+                            <form action="../service/redirecionaPerfilProf.php" method="GET">
+                                <input type="hidden" name="idProf" value="<?= $usuario->getId(); ?>">
+                                <button type="submit" style="border: none; background: none; padding: 0; cursor: pointer;">
+                                    <div class="image-container">
+                                        <img src="<?= getFoto($usuario->getLinkFoto(), $usuario, $uDao) ?>" alt="foto">
+                                        <div class="info">
+                                            <p class="name"><?= $usuario->getNome() ?></p>
+                                            <p class="subject">Assunto: <?= $aDao->findById($p->getArea())->getArea(); ?></p>
+                                            <p class="rating"><?php echo str_repeat('★', round($rating)); ?></p>
+                                        </div>
+                                    </div>
+                                </button>
+                            </form>
                         </div>
+
                     <?php endif; ?>
                 <?php endforeach; ?>
             </div>
@@ -219,19 +226,22 @@
                         $rating = $p->getRating() == 0 ? 1 : $p->getRating();
                         if ($usuario):
                             ?>
-                            <div class="slider-item">
-                                <div class="image-container">
-                                    <img src="<?= getFoto($usuario->getLinkFoto(), $usuario, $uDao) ?>" alt="foto">
-                                    <div class="info">
-
-                                        <p class="name"><?= $usuario->getNome() ?></p>
-
-
-                                        <p class="subject">Assunto: <?= $aDao->findById($p->getArea())->getArea(); ?></p>
-                                        <p class="rating"><?php echo str_repeat('★', round($rating)); ?></p>
+                            <form action="../service/redirecionaPerfilProf.php" method="GET">
+                                <input type="hidden" name="idProf" value="<?= $usuario->getId(); ?>">
+                                <button type="submit"
+                                    style="border: none; background: none; padding: 0; cursor: pointer; width: 100%;">
+                                    <div class="slider-item">
+                                        <div class="image-container">
+                                            <img src="<?= getFoto($usuario->getLinkFoto(), $usuario, $uDao) ?>" alt="foto">
+                                            <div class="info">
+                                                <p class="name"><?= $usuario->getNome() ?></p>
+                                                <p class="subject">Assunto: <?= $aDao->findById($p->getArea())->getArea(); ?></p>
+                                                <p class="rating"><?php echo str_repeat('★', round($rating)); ?></p>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
+                                </button>
+                            </form>
                         <?php endif; ?>
                     <?php endforeach; ?>
 

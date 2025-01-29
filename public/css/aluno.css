@@ -120,6 +120,14 @@ main {
 .slider-item {
     min-width: 330px;
     height: 330px;
+    cursor: pointer;
+}
+
+.slider-item:hover {
+    background-color: #000;
+    
+    border-radius: 15px;
+
 }
 
 .image-container {
@@ -129,6 +137,8 @@ main {
     overflow: hidden;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    
+
 }
 
 .image-container img {
@@ -138,6 +148,9 @@ main {
     border-radius: 10px;
 }
 
+.image-container img:hover {
+   opacity: 0.5;
+}
 .info {
     position: absolute;
     bottom: 0;

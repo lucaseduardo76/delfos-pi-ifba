@@ -28,7 +28,6 @@
     $userInfo = $auth->checkToken($pdo);
 
     if ($userInfo == false) {
-        echo "asdhoasdhsa";
         header("Location: ./login.php");
         exit;
     }

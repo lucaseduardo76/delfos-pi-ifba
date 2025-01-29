@@ -1,15 +1,52 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="../../public/css/perfilProf.css">
     <title>Document</title>
 </head>
+
 <body>
+    <?php
+
+    require_once("../config/config.php");
+    require_once("../models/auth/auth.php");
+    require_once("../dao/AreaDao.php");
+    require_once("../dao/UsuarioDaoMysql.php");
+    require_once("../dao/ProfessorDaoMysql.php");
+
+    $auth = new Auth();
+    $userInfo = $auth->checkToken($pdo);
+
+    if ($userInfo == false) {
+        header("Location: ./login.php");
+        exit;
+    }
+
+    $pDao = new ProfesorDaoMySql($pdo);
+    $uDao = new UsuarioDaoMySql($pdo);
+    $aDao = new AreaDao($pdo);
+
+    $usuario;
+    $professor;
+    if (!empty($_SESSION['idProfessor']) && $_SESSION['idProfessor']) {
+        $usuario = $uDao->findById($_SESSION['idProfessor']);
+        $professor = $pDao->findByUserId($usuario->getId());
+    } else {
+        header('Location: ./main.php');
+        exit;
+    }
+
+
+    ?>
+
 
     <header>
 
@@ -18,40 +55,36 @@
                 <img src="../../public/images/Logo Delfos branco.svg">
             </div>
             <div class="buttons">
-                <div class="perfil-button prof"><img src="../../public/images/school-icon.png" alt="">Perfil de professor</div>
-                <div class="perfil-button"><img src="../../public/images/login-icon.png" alt="">Perfil</div> 
+                <div class="perfil-button prof"><img src="../../public/images/school-icon.png" alt="">Perfil de
+                    professor</div>
+                <div class="perfil-button"><img src="../../public/images/login-icon.png" alt="">Perfil</div>
             </div>
-            
+
 
         </div>
 
     </header>
-    
+
     <main>
 
         <div class="container">
             <div class="left-panel">
                 <div class="profile-card">
-                    
+
                     <div class="profile-sup">
                         <div class="profile-img">
-                            <img src="../../public/images/walter white.jpg" alt="">
+                            <img src="<?=$usuario->getLinkFoto()?>" alt="">
                         </div>
 
                         <div class="profile-info">
-                            <h2>Walter White</h2>
-                            <h3>Química</h3>
-                            <h3>Bacharel de Química pela UESC</h3>
-    
+                            <h2><?=$usuario->getNome()?></h2>
+                            <h3><?=$aDao->findById($professor->getArea())->getArea()?></h3>
+
                             <div class="stats">
 
                                 <div class="stat">
                                     <p>Aulas Ministradas</p>
-                                    <h3>176</h3>
-                                </div>
-                                <div class="stat">
-                                    <p>Alunos</p>
-                                    <h3>30</h3>
+                                    <h3><?=$professor->getQuantidadeAulasAplicadas()?></h3>
                                 </div>
 
                             </div>
@@ -61,7 +94,7 @@
                     <div class="sobre">
                         <h3>Sobre o professor</h3>
                         <p>
-                            My name is Walter Hartwell White. I live at 308 Negra Arroyo Lane, Albuquerque, New Mexico, 87104. This is my confession. If you're watching this tape, I'm probably dead, murdered by my brother-in-law Hank Schrader. Hank has been building a meth empire for over a year now and using me as his chemist. Shortly after my 50th birthday, Hank came to me with a rather, shocking proposition. He asked that I use my chemistry knowledge to cook methamphetamine, which he would then sell using his connections in the drug world. Connections that he made through his career with the DEA. I was... astounded, I... I always thought that Hank was a very moral man and I was... thrown, confused, but I was also particularly vulnerable at the time, something he knew and took advantage of. 
+                            <?= $professor->getDescricao()?>
                         </p>
                     </div>
 
@@ -77,7 +110,7 @@
             </div>
 
         </div>
-        
+
         <div class="modal-overlay" id="modalOverlay">
             <div class="modal">
                 <button class="modal-close" id="closeModal">✕</button>
@@ -95,90 +128,16 @@
             </div>
         </div>
 
-            <div class="modal-overlay" id="modalLink">
-                <div class="modal">
-                    <button class="modal-close" id="closeModal">✕</button>
-                    <h3>Direcionar para video chamada</h3>
-                    <a href="">Link</a>
-                </div>
-            </div>
-
-        <div class="modal-agenda" style="display: flex; z-index: 99;">
-            <div class="modal-header-agenda">
-              <span class="close-btn-agenda">&times;</span>
-            </div>
-            <div class="modal-body-agenda">
-              <table class="schedule-table-agenda">
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th>Segunda</th>
-                    <th>Terça</th>
-                    <th>Quarta</th>
-                    <th>Quinta</th>
-                    <th>Sexta</th>
-                    <th>Sábado</th>
-                    <th>Domingo</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>13:00</td>
-                    <td class="selected-agenda">&#10003;</td>
-                    <td class="selected-agenda">&#10003;</td>
-                    <td class="available-agenda"></td>
-                    <td class="available-agenda"></td>
-                    <td class="available-agenda"></td>
-                    <td class="available-agenda"></td>
-                    <td class="unavailable-agenda">X</td>
-                  </tr>
-                  <tr>
-                    <td>14:10</td>
-                    <td class="selected-agenda">&#10003;</td>
-                    <td class="selected-agenda">&#10003;</td>
-                    <td class="available-agenda"></td>
-                    <td class="available-agenda"></td>
-                    <td class="available-agenda"></td>
-                    <td class="available-agenda"></td>
-                    <td class="unavailable-agenda">X</td>
-                  </tr>
-                  <tr>
-                    <td>15:10</td>
-                    <td class="available-agenda"></td>
-                    <td class="available-agenda"></td>
-                    <td class="available-agenda"></td>
-                    <td class="available-agenda"></td>
-                    <td class="available-agenda"></td>
-                    <td class="available-agenda"></td>
-                    <td class="unavailable-agenda">X</td>
-                  </tr>
-                  <tr>
-                    <td>16:30</td>
-                    <td class="available-agenda"></td>
-                    <td class="available-agenda"></td>
-                    <td class="available-agenda"></td>
-                    <td class="available-agenda"></td>
-                    <td class="available-agenda"></td>
-                    <td class="available-agenda"></td>
-                    <td class="unavailable-agenda">X</td>
-                  </tr>
-                  <tr>
-                    <td>17:40</td>
-                    <td class="unavailable-agenda">X</td>
-                    <td class="unavailable-agenda">X</td>
-                    <td class="unavailable-agenda">X</td>
-                    <td class="unavailable-agenda">X</td>
-                    <td class="unavailable-agenda">X</td>
-                    <td class="unavailable-agenda">X</td>
-                    <td class="unavailable-agenda">X</td>
-                  </tr>
-                </tbody>
-              </table>
+        <div class="modal-overlay" id="modalLink">
+            <div class="modal">
+                <button class="modal-close" id="closeModal">✕</button>
+                <h3>Direcionar para video chamada</h3>
+                <a href="">Link</a>
             </div>
         </div>
-
     </main>
 
-<script src="../../public/js/closeModal.js"></script>
+    <script src="../../public/js/closeModal.js"></script>
 </body>
+
 </html>
