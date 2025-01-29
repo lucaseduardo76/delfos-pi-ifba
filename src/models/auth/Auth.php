@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . '/../../config/config.php';
+require_once __DIR__ . '/../../dao/UsuarioDaoMysql.php';
 
 class Auth {   
 
@@ -18,7 +19,6 @@ class Auth {
 
            
         }  
-        return false; 
     }
     
 }

@@ -28,9 +28,6 @@
         header("Location: ./mainAluno.php");
         exit;
     }
-
-   
-
     ?>
 
     <div id="popup" class="modal-sign">
