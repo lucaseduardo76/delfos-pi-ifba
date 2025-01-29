@@ -1,7 +1,7 @@
 document.getElementById("closeModal").addEventListener("click", () => {
     document.getElementById("modal").style.opacity = "0";
 
-    const timer =setTimeout(() => {
+    const timer = setTimeout(() => {
         document.getElementById("modalLogin").style.display = "none";
     }, 450);
 });
@@ -12,4 +12,8 @@ document.getElementById("loginButton").addEventListener("click", () => {
     const timer = setTimeout(() => {
         document.getElementById("modal").style.opacity = "1";
     }, 10);
+});
+
+document.getElementById("closeModalBtn").addEventListener("click", () => {
+    document.getElementById("popup").style.display = "none";
 });
