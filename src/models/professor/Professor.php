@@ -10,6 +10,17 @@ class Professor
     private $alunosId;
     private $descricao;
     private $userId;
+    private $rating;
+
+    public function getRating()
+    {
+        return $this->rating;
+    }
+
+    public function setRating($rating)
+    {
+        $this->rating = $rating;
+    }
 
     public function getId()
     {

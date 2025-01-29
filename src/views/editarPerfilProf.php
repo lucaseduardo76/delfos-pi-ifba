@@ -51,6 +51,12 @@
         $caminhoFoto = $usuario->getLinkFoto();
     }
 
+    if (!file_exists($caminhoFoto)) {
+        $caminhoFoto = "../uploads/semPerfil.png";
+        $usuario->setLinkFoto($caminhoFoto);
+        $uDao->update($usuario);
+    }
+
 
     $pDao = new ProfesorDaoMySql($pdo);
     $professor = $pDao->findByUserId($userInfo->getId());

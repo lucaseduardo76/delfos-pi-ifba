@@ -29,12 +29,26 @@ class ProfesorDaoMySql implements ProfessorDao{
                 $professor->setQuantidadeAulasAplicadas($item['quantidade_aulas_aplicadas']);
                 $professor->setDescricao($item['descricao']);
                 $professor->setAlunosId($this->getAlunosIdByProfessor($item['id']));
+                $professor->setUserId($item["user_id"]);  
+                
+                $rating = $this->handleRating($item["rating"], $item['quantidade_aulas_aplicadas']);
+
+                $professor->setRating($rating);
     
                 $array[] = $professor;
             }
         }
     
         return $array;
+    }
+
+    private function handleRating($rating, $quantidadeAula) {
+        
+        if($quantidadeAula == 0){
+            return 0;
+        }
+        
+        return $rating / $quantidadeAula;
     }
     
     private function getAlunosIdByProfessor($professorId) {
