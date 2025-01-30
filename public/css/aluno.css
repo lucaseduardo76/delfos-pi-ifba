@@ -270,23 +270,25 @@ main {
     gap: 1em;
 }
 
-.subtitulo button {
+#botao-link {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     width: auto;
     padding: 13px;
-    text-decoration: center;
     font-size: 23px;
+    font-weight: bold;
+    text-decoration: none; /* Remove o estilo de link */
     border: none;
     border-radius: 50px;
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
     background-color: #FFE3C9;
-    font-weight: bold;
+    color: black; /* Garante que o texto fique visível */
+    cursor: pointer;
 }
 
-.subtitulo button img {
+#botao-link img {
     width: 20px;
     height: 20px;
-    text-align: center;
     margin-left: 10px;
 }

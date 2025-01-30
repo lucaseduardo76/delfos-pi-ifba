@@ -36,7 +36,7 @@
                     <h2>Perfil</h2>
                 </div>
 
-                <button class="button-prt">Minha agenda</button>
+                <a href="agenda.php" class="button-prt">Minha agenda</a>
 
             </div>
 

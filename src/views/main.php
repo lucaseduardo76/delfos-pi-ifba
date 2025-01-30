@@ -200,7 +200,7 @@
 
         <div class="subtitulo">
             <h1>Aprenda com profissionais qualificados</h1>
-            <button>O que deseja aprender ? <img src="../../public/images/pesquisaIcon.png" alt=""></button>
+            <a href="listaMaterias.php" id="botao-link">O que deseja aprender ? <img src="../../public/images/pesquisaIcon.png" alt=""></a>
         </div>
 
         <?php

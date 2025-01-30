@@ -9,7 +9,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="../../public/css/aulasMarcadas.css">
+    <link rel="stylesheet" href="../../public/css/agenda.css">
     <title>Document</title>
 </head>
 
