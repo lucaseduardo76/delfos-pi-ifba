@@ -73,18 +73,18 @@
 
                     <div class="profile-sup">
                         <div class="profile-img">
-                            <img src="<?=$usuario->getLinkFoto()?>" alt="">
+                            <img src="<?= $usuario->getLinkFoto() ?>" alt="">
                         </div>
 
                         <div class="profile-info">
-                            <h2><?=$usuario->getNome()?></h2>
-                            <h3><?=$aDao->findById($professor->getArea())->getArea()?></h3>
+                            <h2><?= $usuario->getNome() ?></h2>
+                            <h3><?= $aDao->findById($professor->getArea())->getArea() ?></h3>
 
                             <div class="stats">
 
                                 <div class="stat">
                                     <p>Aulas Ministradas</p>
-                                    <h3><?=$professor->getQuantidadeAulasAplicadas()?></h3>
+                                    <h3><?= $professor->getQuantidadeAulasAplicadas() ?></h3>
                                 </div>
 
                             </div>
@@ -94,7 +94,7 @@
                     <div class="sobre">
                         <h3>Sobre o professor</h3>
                         <p>
-                            <?= $professor->getDescricao()?>
+                            <?= $professor->getDescricao() ?>
                         </p>
                     </div>
 
@@ -103,7 +103,7 @@
 
             <div class="right-panel">
                 <div class="botoes">
-                    <button class="main-btn" id="linkBtn">Começar aula</button>
+                    <button class="main-btn" id="linkBtn" disabled>Começar aula</button>
                     <button class="secondary-btn" id="agendarBtn">Agendar aula</button>
                     <button class="secondary-btn">Enviar mensagem</button>
                 </div>
@@ -121,7 +121,7 @@
                     <h3>Aula agendada com sucesso!</h3>
                     <img src="../../public/images/confirmed-icon.png" alt="">
                 </div>
-                
+
             </div>
         </div>
 
@@ -135,7 +135,7 @@
                     <h3>Direcionar para video chamada</h3>
                     <a href="">Link</a>
                 </div>
-                
+
             </div>
         </div>
 
@@ -145,35 +145,22 @@
                     <button class="modal-close" id="closeModalRg">✕</button>
                 </div>
                 <div class="mod-body">
-                    <form action="">
-                        <div class="mod-inputs">
-                            <p>Nome do Prof.</p>
-                            <input type="text">
+                    <form action="../service/solicitaAgendamento.php" method="POST">
+                        <input type="hidden" name="idProf" id="id" value="<?=$professor->getId()?>">
 
-                            <p>Aula</p>
-                            <input type="text">
-                        </div>
+                        <label class="mod-inputs">
+                            <p>Qual sua dificuldade?</p>
+                            <textarea name="dificuldade" rows="8" style="width: 250px; resize: none;" ></textarea>
+                        </label>
 
                         <p>Reservar horário das
-                            <select>
-                                <option>13:30</option>
-                            </select> 
-                            a
-                            <select>
-                                <option>14:00</option>
-                            </select>
+                            <input id="hora" name="hora" type="time" step="3600">
                             no dia
-                            <select>
-                                <option>27</option>
-                            </select>
-                            de
-                            <select>
-                                <option>Jan</option>
-                            </select>
+                            <input id="data" name="data" type="date">
                         </p>
                         <p>Agendar horário ?</p>
 
-                        <input type="submit" value="Confirmar">
+                        <input type="submit" value="Confirmar" >
                     </form>
                 </div>
             </div>
@@ -182,5 +169,16 @@
 
     <script src="../../public/js/perfilProf.js"></script>
 </body>
+
+<?php
+
+   
+
+    if (!empty($_SESSION['avisoAgendamento']) && $_SESSION['avisoAgendamento']) {
+        echo "<script>alert('" . $_SESSION['avisoAgendamento'] . "')</script>";
+        $_SESSION['avisoAgendamento'] = '';
+    }
+
+    ?>
 
 </html>
