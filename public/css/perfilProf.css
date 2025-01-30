@@ -203,18 +203,6 @@ main {
     background-color: #F5AD9D;
 }
 
-#modalOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.4);
-    display: none; 
-    justify-content: center;
-    align-items: center;
-}
-
 #modalConfirmed  {
     position: fixed;
     top: 0;
@@ -239,18 +227,75 @@ main {
     align-items: center;
 }
 
+#modalRegister {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.mod-header {
+    display: block;
+    justify-content: flex-end;
+    background: #ffe4cc;
+    padding: 10px;
+    border-radius: 10px 10px 0 0;
+    height: 2.5em;
+    box-sizing: border-box;
+}
+
+.mod-body {
+    padding: 0 20px 20px 20px;
+}
+
+.mod-inputs input {
+    padding: 7px;
+    background-color: #F4EDE4;
+    border: 1px solid #B4783C;
+    border-radius: 10px;
+}
+
+.mod-inputs p {
+    display: flex;
+    margin-left: 45px;
+}
+
+.mod-body input[type="submit"] {
+    background: #d4edda;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.mod-body select {
+    background: #ffe4cc;
+    border: none;
+    padding: 4px;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
 #modalConfirmed img {
     cursor: pointer;
 }
 
 .modal {
-    background-color: #FFE7D1;
+    background-color: white;
     border-radius: 10px;    
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
     width: 300px;
     text-align: center;
     position: relative;
+    transition: all 0.5s;
+    opacity: 1;
 }
 
 .modal-close {
@@ -277,8 +322,8 @@ main {
 }
 .modal p,
 .modal a {
-    margin: 10px 0;
-    line-height: 1.8;
+    margin-top: 10px;
+    line-height: 2.0;
 }
 
 .modal span {
@@ -298,95 +343,3 @@ main {
     cursor: pointer;
     margin-top: 5px;
 }
-
-.modal-agenda {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 630px;
-    background-color: #fff;
-    border-radius: 10px;
-    z-index: 20;
-    display: flex;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .modal-header-agenda {
-    background-color: #d9a89c;
-    padding: 10px;
-    display: flex;
-    justify-content: flex-end;
-  }
-  
-  .close-btn-agenda {
-    font-size: 18px;
-    cursor: pointer;
-  }
-  
-  .modal-body-agenda {
-    padding: 10px;
-  }
-  
-  /* Tabela */
-  .schedule-table-agenda {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .schedule-table-agenda thead {
-    background-color: #d9a89c;
-  }
-  
-  .schedule-table-agenda th,
-  .schedule-table-agenda td {
-    text-align: center;
-    padding: 10px;
-    border: 1px solid #ddd;
-  }
-  
-  .schedule-table-agenda th {
-    font-weight: bold;
-    color: #fff;
-  }
-  
-  .schedule-table-agenda td {
-    height: 50px;
-  }
-  
-  /* Células selecionadas (verdes) */
-  .selected-agenda {
-    background-color: #d4f4d4;
-    color: #4caf50;
-    font-weight: bold;
-    pointer-events: none; /* Desativa interação */
-  }
-  
-  /* Células disponíveis */
-  .available-agenda {
-    background-color: #f7f7f7;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
-  }
-  
-  .available-agenda:hover {
-    background-color: #4caf50;
-    color: #fff;
-  }
-  
-  /* Células indisponíveis (vermelhas) */
-  .unavailable-agenda {
-    background-color: #f4d4d4;
-    color: #f44336;
-    font-weight: bold;
-    pointer-events: none; /* Desativa interação */
-  }
-  
-  /* Exibir o modal com o overlay */
-  .modal-agenda.show {
-    display: block;
-  }
-  
-  .modal-overlay.show {
-    display: block;
-  }

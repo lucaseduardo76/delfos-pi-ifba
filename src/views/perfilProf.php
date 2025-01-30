@@ -51,9 +51,9 @@
     <header>
 
         <div class="header">
-            <div class="logo">
+            <a href="main.php" class="logo">
                 <img src="../../public/images/Logo Delfos branco.svg">
-            </div>
+            </a>
             <div class="buttons">
                 <div class="perfil-button prof"><img src="../../public/images/school-icon.png" alt="">Perfil de
                     professor</div>
@@ -103,41 +103,84 @@
 
             <div class="right-panel">
                 <div class="botoes">
-                    <button class="main-btn">Começar aula</button>
-                    <button class="secondary-btn">Agendar aula</button>
+                    <button class="main-btn" id="linkBtn">Começar aula</button>
+                    <button class="secondary-btn" id="agendarBtn">Agendar aula</button>
                     <button class="secondary-btn">Enviar mensagem</button>
                 </div>
             </div>
 
         </div>
 
-        <div class="modal-overlay" id="modalOverlay">
-            <div class="modal">
-                <button class="modal-close" id="closeModal">✕</button>
-                <p>Reservar horário das <span>13:30</span> a <span>14:00</span> na <span>Terça</span></p>
-                <h3>Agendar horário?</h3>
-                <button class="modal-confirm">✔ Confirmar</button>
-            </div>
-        </div>
-
         <div class="modal-overlay" id="modalConfirmed">
-            <div class="modal">
-                <button class="modal-close" id="closeModal">✕</button>
-                <h3>Aula agendada com sucesso!</h3>
-                <img src="../../public/images/confirmed-icon.png" alt="">
+            <div class="modal" id="modalCn">
+
+                <div class="mod-header">
+                    <button class="modal-close" id="closeModalCn">✕</button>
+                </div>
+                <div class="mod-body">
+                    <h3>Aula agendada com sucesso!</h3>
+                    <img src="../../public/images/confirmed-icon.png" alt="">
+                </div>
+                
             </div>
         </div>
 
         <div class="modal-overlay" id="modalLink">
-            <div class="modal">
-                <button class="modal-close" id="closeModal">✕</button>
-                <h3>Direcionar para video chamada</h3>
-                <a href="">Link</a>
+            <div class="modal" id="modalLi">
+
+                <div class="mod-header">
+                    <button class="modal-close" id="closeModalLi">✕</button>
+                </div>
+                <div class="mod-body">
+                    <h3>Direcionar para video chamada</h3>
+                    <a href="">Link</a>
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="modal-overlay" id="modalRegister">
+            <div class="modal" id="modal">
+                <div class="mod-header">
+                    <button class="modal-close" id="closeModalRg">✕</button>
+                </div>
+                <div class="mod-body">
+                    <form action="">
+                        <div class="mod-inputs">
+                            <p>Nome do Prof.</p>
+                            <input type="text">
+
+                            <p>Aula</p>
+                            <input type="text">
+                        </div>
+
+                        <p>Reservar horário das
+                            <select>
+                                <option>13:30</option>
+                            </select> 
+                            a
+                            <select>
+                                <option>14:00</option>
+                            </select>
+                            no dia
+                            <select>
+                                <option>27</option>
+                            </select>
+                            de
+                            <select>
+                                <option>Jan</option>
+                            </select>
+                        </p>
+                        <p>Agendar horário ?</p>
+
+                        <input type="submit" value="Confirmar">
+                    </form>
+                </div>
             </div>
         </div>
     </main>
 
-    <script src="../../public/js/closeModal.js"></script>
+    <script src="../../public/js/perfilProf.js"></script>
 </body>
 
 </html>

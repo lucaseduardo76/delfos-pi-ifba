@@ -55,7 +55,7 @@
     <main>
         <div class="container">
             <div class="img-container">
-                <img src="../../public/images/Group 73.svg">
+                <img src="../../public/images/moça-do-login.png">
             </div>
 
             <div class="forms-container">
@@ -74,20 +74,24 @@
 
         <div class="modal-overlay" id="modalLogin">
             <div class="modal" id="modal">
-                <button class="modal-close" id="closeModal">✕</button>
 
-                <form method="POST" action="./../service/loginAction.php">
-                    <label>
-                        <h3>E-mail</h3>
-                        <input type="email" name="email" required>
-                    </label>
-                    <label>
-                        <h3>Senha</h3>
-                        <input type="password" name="senha" required>
-                    </label>
-                    <button class="modal-confirm" type="submit">Confirmar</button>
-                </form>
-
+                <div class="mod-header">
+                    <button class="modal-close" id="closeModal">✕</button>
+                </div>
+                <div class="mod-body">
+                    <form method="POST" action="./../service/loginAction.php">
+                        <label>
+                            <h3>E-mail</h3>
+                            <input type="email" name="email" placeholder="exemplo@gmail.com" required>
+                        </label>
+                        <label>
+                            <h3>Senha</h3>
+                            <input type="password" name="senha" placeholder="Digite sua senha" required>
+                        </label>
+                        <button class="modal-confirm" type="submit">Confirmar</button>
+                    </form>
+                </div>
+             
             </div>
         </div>
     </main>

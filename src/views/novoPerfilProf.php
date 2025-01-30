@@ -67,9 +67,9 @@
     <header>
 
         <div class="header">
-            <div class="logo">
+            <a href="main.php" class="logo">
                 <img src="../../public/images/Logo Delfos branco.svg">
-            </div>
+            </a>
             <div class="buttons">
                 <div class="perfil-button prof"><img src="../../public/images/school-icon.png" alt="">Perfil de
                     professor</div>

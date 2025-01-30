@@ -139,15 +139,28 @@ main {
 }
 
 .modal {
-    background-color: #FFE7D1;
+    background-color: white;
     border-radius: 10px;    
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
     width: 300px;
     text-align: center;
     position: relative;
     transition: all 0.5s;
-    opacity: 0;
+    opacity: 1;
+}
+
+.mod-header {
+    display: block;
+    justify-content: flex-end;
+    background: #ffe4cc;
+    padding: 10px;
+    border-radius: 10px 10px 0 0;
+    height: 2.5em;
+    box-sizing: border-box;
+}
+
+.mod-body {
+    padding: 0 20px 20px 20px;
 }
 
 .modal-close {
@@ -178,6 +191,7 @@ main {
 }
 
 .modal input {
+    background-color: #ffe4cc;
     border: none;
     border-radius: 10px;
     width: 100%;
@@ -187,7 +201,7 @@ main {
 .modal-confirm {
     background: #E3C6BF;
     color: #333;
-    width: 50px;
+    width: 40%;
     border: none;
     border-radius: 10px;
     padding: 10px 20px;

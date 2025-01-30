@@ -33,9 +33,9 @@
     <header>
 
         <div class="header">
-            <div class="logo">
+            <a href="main.php" class="logo">
                 <img src="../../public/images/Logo Delfos branco.svg">
-            </div>
+            </a>
             <div class="buttons">
                 <a href="">
                     <div class="perfil-button notif"><img src="../../public/images/sino-icon.png" alt=""></div>
