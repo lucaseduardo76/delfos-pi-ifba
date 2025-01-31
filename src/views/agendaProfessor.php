@@ -111,7 +111,9 @@
                                 <td>
                                     <div class="acoes">
                                         <img src="../../public/images/eye-icon.png" alt="Visualizar" class="icone">
-                                        <img src="../../public/images/delete-icon.png" alt="Excluir" class="icone">
+                                        <a
+                                            href="../service/deleteAula.php?aula=<?= $aula->getId() ?>&idProfessor=<?= $aula->getProfessorId() ?>"><img
+                                                src="../../public/images/delete-icon.png" alt="Excluir" class="icone"></a>
                                     </div>
                                 </td>
                             </tr>
@@ -142,8 +144,14 @@
 
 
     </main>
+    <?php
+   
+    if (!empty($_SESSION['avisoDeleteAula']) && $_SESSION['avisoDeleteAula']) {
+        echo "<script>alert('" . $_SESSION['avisoDeleteAula'] . "')</script>";
+        $_SESSION['avisoDeleteAula'] = '';
+    }
 
-
+    ?>
 </body>
 
 </html>
