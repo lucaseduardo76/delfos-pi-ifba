@@ -173,7 +173,7 @@
                         </p>
                         <p>Agendar horário ?</p>
 
-                        <input type="submit" value="Confirmar">
+                        <input type="submit" value="Confirmar" id="confirmBtn">
                     </form>
                 </div>
             </div>
