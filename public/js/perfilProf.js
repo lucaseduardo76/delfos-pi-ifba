@@ -14,6 +14,16 @@ document.getElementById("closeModalRg").addEventListener("click", () => {
     }, 450);
 });
 
+document.getElementById("confirmBtn").addEventListener("click", () => {
+    document.getElementById("modal").style.opacity = "0";
+    document.getElementById("modalRegister").style.display = "none";
+    document.getElementById("modalConfirmed").style.display = "flex";
+
+    const timer = setTimeout(() => {
+        document.getElementById("modalCn").style.opacity = "1";
+    }, 450);
+});
+
 
 document.getElementById("closeModalCn").addEventListener("click", () => {
     document.getElementById("modalCn").style.opacity = "0";

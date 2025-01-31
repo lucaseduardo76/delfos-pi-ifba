@@ -115,6 +115,8 @@ main {
     display: flex;
     gap: 20px;
     transition: transform 0.5s ease;
+    flex-wrap: nowrap;
+    min-width: 100%;
 }
 
 .slider-item {
