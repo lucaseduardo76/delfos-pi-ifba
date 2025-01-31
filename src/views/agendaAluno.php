@@ -13,6 +13,8 @@
 
     <link rel="stylesheet" href="../../public/css/style.css">
     <title>Document</title>
+
+    <script src="../../public/js/agendaAluno.js"></script>
 </head>
 
 <body>
@@ -25,6 +27,7 @@
     require_once("../dao/AgendaDaoMysql.php");
     require_once("../dao/ProfessorDaoMysql.php");
     require_once("../dao/UsuarioDaoMysql.php");
+    require_once("../script/retornaDiaPelaData.php");
 
     $auth = new Auth();
     $userInfo = $auth->checkToken($pdo);
@@ -38,13 +41,8 @@
     $pDao = new ProfesorDaoMySql($pdo);
     $aDao = new AgendaDAOMySql($pdo);
 
-    $professor = $pDao->findByUserId($userInfo->getId());
-    if (!$professor) {
-        header('Location: ./main.php');
-        exit;
-    }
 
-    $agenda = $aDao->findAllByProfessor($professor->getId());
+    $agenda = $aDao->findAllByAluno($userInfo->getId());
 
     function corBola($confirma)
     {
@@ -79,12 +77,12 @@
 
         <div class="tabela-container">
             <table class="tabela-aulas">
-                <caption>Agenda Professor</caption>
+                <caption>Agenda Aluno</caption>
                 <thead>
                     <tr>
                         <th>Dia</th>
                         <th>Mês</th>
-                        <th>Nome Aluno</th>
+                        <th>Nome Professor</th>
                         <th>Horário</th>
                         <th>Semana</th>
                         <th>Confirmada</th>
@@ -95,6 +93,7 @@
 
                     <?php
                     if ($agenda):
+
                         usort($agenda, function ($a, $b) {
                             // Primeiro critério: 'confirmada' (1 primeiro, 0 depois)
                             if ($a->getConfirmada() != $b->getConfirmada()) {
@@ -104,6 +103,7 @@
                             // Segundo critério: 'data' (ordem crescente)
                             return strtotime($a->getData()) - strtotime($b->getData());
                         });
+
                         echo '<script> let listaAulas = []; </script>';
 
                         foreach ($agenda as $aula):
@@ -119,16 +119,14 @@
                                         });
                                     </script>';
                             list($ano, $mes, $dia) = explode('-', $aula->getData());
-
-
-
                             ?>
                             <tr>
                                 <td><?= $dia ?></td>
                                 <td><?= $mes ?></td>
-                                <td><?= $uDao->findById($aula->getAlunoId())->getNome() ?></td>
+                                <td><?= $uDao->findById($pDao->findById($aula->getProfessorId())->getUserId())->getNome() ?>
+                                </td>
                                 <td><?= $aula->getHora(); ?></td>
-                                <td>Seg</td>
+                                <td><?= retornaDiaPelaData($aula->getData()) ?></td>
                                 <td style="">
                                     <div class="bola <?= corBola($aula->getConfirmada()) ?>"></div>
                                 </td>
@@ -136,9 +134,7 @@
                                     <div class="acoes">
                                         <img src="../../public/images/eye-icon.png" alt="Visualizar" class="icone"
                                             onclick="abrirmodal(<?= $aula->getId() ?>)">
-                                        <a
-                                            href="../service/deleteAula.php?aula=<?= $aula->getId() ?>&idProfessor=<?= $aula->getProfessorId() ?>"><img
-                                                src="../../public/images/delete-icon.png" alt="Excluir" class="icone"></a>
+
                                     </div>
                                 </td>
                             </tr>
@@ -153,7 +149,9 @@
                             <td></td>
                             <td></td>
                             <td>
-
+                                <div class="acoes">
+                                    <img src="../../public/images/eye-icon.png" alt="Visualizar" class="icone">
+                                </div>
                             </td>
                         </tr>
 
@@ -172,7 +170,6 @@
                 </div>
                 <div class="mod-body">
                     <form action="../service/confirmarAula.php" method="GET">
-                        <input type="hidden" name="idProfessor" id="id" value="<?= $professor->getId() ?>">
                         <input type="hidden" name="aula" id="idAulaHidden">
 
                         <label class="mod-inputs">
@@ -192,18 +189,14 @@
                         </label>
 
                         <label>
-                            <h4>no dia</h4>
+                        <h4>no dia</h4>
                             <input id="data" name="data" type="date" value="" disabled>
                         </label>
 
                         <label>
-                            <h4>Confirmação</h4>
+                        <h4>Confirmação</h4>
                             <input id="conf" name="conf" type="text" value="" disabled>
                         </label>
-
-                        <p id="textConf">Deseja confirmar o agendamento ?</p>
-
-                        <input id="botaoConf" type="submit" value="Confirmar" id="confirmBtn">
 
                     </form>
                 </div>
@@ -221,84 +214,7 @@
 
     ?>
 
-    <script>
-
-        document.getElementById("closeModalRg").addEventListener("click", () => {
-
-
-            document.getElementById("modal").style.opacity = "0";
-
-            const timer = setTimeout(() => {
-                document.getElementById("modalRegister").style.display = "none";
-                document.getElementById("textArea").innerHTML = "";
-                document.getElementById("hora").value = "";
-                document.getElementById("data").value = "";
-                document.getElementById("idAulaHidden").value = "";
-                document.getElementById("aluno").value = "";
-
-            }, 450);
-
-
-
-        });
-
-
-        function abrirmodal(id) {
-            const textConfirmacao = (n) => {
-                let textConfElement = document.getElementById("textConf");
-                let botaoConfElement = document.getElementById("botaoConf");
-
-                if (textConfElement && botaoConfElement) {
-                    if (n == 1) {
-                        textConfElement.style.display = "none";
-                        botaoConfElement.style.opacity = 0;
-                        return "Agendamento Confirmado";
-                    } else if (n == 0) {
-                        textConfElement.style.display = "block";
-                        botaoConfElement.style.opacity = 1;
-                        return "Agendamento Pendente de confirmação";
-                    }
-                }
-                return "";
-            };
-
-            for (let aula of listaAulas) {
-                if (aula.id == id) {
-                    document.getElementById("textArea").innerHTML = aula.dificuldade;
-                    document.getElementById("hora").value = aula.hora;
-                    document.getElementById("data").value = aula.data;
-                    document.getElementById("idAulaHidden").value = aula.id;
-                    document.getElementById("conf").value = textConfirmacao(aula.confirmada);
-                    document.getElementById("aluno").value = aula.aluno;
-                }
-            }
-
-            document.getElementById("modalRegister").style.display = "flex";
-
-            setTimeout(() => {
-                document.getElementById("modal").style.opacity = "1";
-            }, 10);
-        }
-        
-        document.addEventListener("keydown", function (event) {
-        if (event.key === "Escape") {
-            document.getElementById("modal").style.opacity = "0";
-
-            const timer = setTimeout(() => {
-                document.getElementById("modalRegister").style.display = "none";
-                document.getElementById("textArea").innerHTML = "";
-                document.getElementById("hora").value = "";
-                document.getElementById("data").value = "";
-                document.getElementById("idAulaHidden").value = "";
-                document.getElementById("aluno").value = "";
-            }, 450);
-    
-    
-        }
-    });
-
-
-    </script>
+   
 
 </body>
 

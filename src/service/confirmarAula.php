@@ -31,7 +31,7 @@ if ($idAula && $idProfessor) {
     }
 
     if ($aula->getProfessorId() != $idProfessor || $usuarioLogado->getId() != $professor->getUserId()) {
-        $_SESSION["avisoDeleteAula"] = "Você não tem autorização para apagar o registro";
+        $_SESSION["avisoDeleteAula"] = "Você não tem autorização para confirmar a aula";
         header('Location: ../views/agendaProfessor.php');
         exit;
     }

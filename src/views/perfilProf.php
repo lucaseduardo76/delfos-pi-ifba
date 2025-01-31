@@ -38,7 +38,12 @@
     $professor;
     if (!empty($_SESSION['idProfessor']) && $_SESSION['idProfessor']) {
         $usuario = $uDao->findById($_SESSION['idProfessor']);
-        $professor = $pDao->findByUserId($usuario->getId());
+        if ($usuario) {
+            $professor = $pDao->findByUserId($usuario->getId());
+        }else {
+            header('Location: ./main.php');
+            exit;
+        }
     } else {
         header('Location: ./main.php');
         exit;
@@ -146,11 +151,11 @@
                 </div>
                 <div class="mod-body">
                     <form action="../service/solicitaAgendamento.php" method="POST">
-                        <input type="hidden" name="idProf" id="id" value="<?=$professor->getId()?>">
+                        <input type="hidden" name="idProf" id="id" value="<?= $professor->getId() ?>">
 
                         <label class="mod-inputs">
                             <p>Qual sua dificuldade?</p>
-                            <textarea name="dificuldade" rows="8" style="width: 250px; resize: none;" ></textarea>
+                            <textarea name="dificuldade" rows="8" id="area-text"></textarea>
                         </label>
 
                         <p>Reservar horário das
@@ -160,7 +165,7 @@
                         </p>
                         <p>Agendar horário ?</p>
 
-                        <input type="submit" value="Confirmar" id="confirmBtn">
+                        <input type="submit" value="Confirmar">
                     </form>
                 </div>
             </div>
@@ -172,13 +177,18 @@
 
 <?php
 
-   
 
-    if (!empty($_SESSION['avisoAgendamento']) && $_SESSION['avisoAgendamento']) {
-        echo "<script>alert('" . $_SESSION['avisoAgendamento'] . "')</script>";
-        $_SESSION['avisoAgendamento'] = '';
-    }
+if (!empty($_SESSION['verifyAgendamento']) && $_SESSION['verifyAgendamento'] == true) {
+    echo '<script> document.getElementById("modalConfirmed").style.display = "flex"; </script>';
+    echo '<script> document.getElementById("modalCn").style.opacity = 1; </script>';
+    $_SESSION['verifyAgendamento'] = false;
+}
 
-    ?>
+if (!empty($_SESSION['avisoAgendamento']) && $_SESSION['avisoAgendamento']) {
+    echo "<script>alert('" . $_SESSION['avisoAgendamento'] . "')</script>";
+    $_SESSION['avisoAgendamento'] = '';
+}
+
+?>
 
 </html>

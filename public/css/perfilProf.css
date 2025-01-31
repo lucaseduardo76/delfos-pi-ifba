@@ -341,3 +341,10 @@ main {
     cursor: pointer;
     margin-top: 5px;
 }
+
+#area-text{
+    border-radius: 5px;
+    padding: 5px;
+    border: 1.5px solid black;
+    width: 250px; resize: none;
+}

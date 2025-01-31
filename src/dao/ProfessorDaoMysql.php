@@ -42,6 +42,36 @@ class ProfesorDaoMySql implements ProfessorDao{
         return $array;
     }
 
+    public function findAllByArea($id) {
+        $array = [];
+        $sql = $this->pdo->prepare('SELECT * FROM tb_professor WHERE area = :id');
+        $sql->bindValue(":id", $id, PDO::PARAM_INT);
+        $sql->execute();
+    
+        if ($sql->rowCount() > 0) {
+            $data = $sql->fetchAll();
+    
+            foreach ($data as $item) {
+                $professor = new Professor();
+                $professor->setId($item['id']);
+                $professor->setPrecoAula($item['preco_aula']);
+                $professor->setArea($item['area']);
+                $professor->setQuantidadeAulasAplicadas($item['quantidade_aulas_aplicadas']);
+                $professor->setDescricao($item['descricao']);
+                $professor->setAlunosId($this->getAlunosIdByProfessor($item['id']));
+                $professor->setUserId($item["user_id"]);  
+                
+                $rating = $this->handleRating($item["rating"], $item['quantidade_aulas_aplicadas']);
+
+                $professor->setRating($rating);
+    
+                $array[] = $professor;
+            }
+        }
+    
+        return $array;
+    }
+
     private function handleRating($rating, $quantidadeAula) {
         
         if($quantidadeAula == 0){

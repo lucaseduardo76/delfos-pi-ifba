@@ -27,7 +27,11 @@
         header("Location: ./login.php");
         exit;
     }
-    ?>
+
+
+    $aDao = new AreaDao($pdo);
+    $areas = $aDao->findAll()
+        ?>
 
     <header>
 
@@ -49,18 +53,11 @@
 
         <div class="container">
             <div class="categorias">
-                <button class="category">Matemática &#128208;</button>
-                <button class="category">Português &#128218;</button>
-                <button class="category">Inglês &#127760;</button>
-                <button class="category">Música &#127925;</button>
-                <button class="category">Programação &#128187;</button>
-                <button class="category">Reforço Escolar &#127891;</button>
-                <button class="category">ENEM &#127891;</button>
-                <button class="category">Figma &#127929;</button>
-                <button class="category">Photoshop &#128196;</button>
-                <button class="category">Illustrator &#128208;</button>
-                <button class="category">Art digital &#128187;</button>
-                <button class="category">Libras &#128070;</button>
+                <?php
+                foreach ($areas as $area):
+                    ?>
+                    <a class="category" href="./professoresPorMateria.php?area=<?=$area->getId()?>" ><?= $area->getArea()?></a>
+                <?php endforeach; ?>
             </div>
         </div>
 
