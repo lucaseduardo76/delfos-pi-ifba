@@ -28,44 +28,52 @@ class AgendaDaoMysql implements AgendaDaoImplementa
 
     public function findAllByProfessor($id)
     {
+        $array = [];
         $sql = $this->pdo->prepare("SELECT * FROM agenda_aula WHERE professor = :id");
         $sql->bindValue(":id", $id, PDO::PARAM_INT);
         $sql->execute();
-
         if ($sql->rowCount() > 0) {
-            $item = $sql->fetch();
+            $data = $sql->fetchAll(PDO::FETCH_ASSOC);
 
-            $agenda = new Agenda();
-            $agenda->setId($item['id']);
-            $agenda->setData($item['data']);
-            $agenda->setHora($item['hora']);
-            $agenda->setAlunoId($item['aluno']);
-            $agenda->setProfessorid($item['professor']);
-            $agenda->setConfirmada($item['confirmada']);
-            $agenda->setDificuldadeAluno($item['dificuldade_aluno']);
+            foreach ($data as $item) {
+                $agenda = new Agenda();
+                $agenda->setId($item['id']);
+                $agenda->setData($item['data']);
+                $agenda->setHora($item['hora']);
+                $agenda->setAlunoId($item['aluno']);
+                $agenda->setProfessorid($item['professor']);
+                $agenda->setConfirmada($item['confirmada']);
+                $agenda->setDificuldadeAluno($item['dificuldade_aluno']);
 
-            return $agenda;
+                $array[] = $agenda;
+            }
+            return $array;
         }
         return false;
     }
 
     public function findAllByAluno($id)
     {
+        $array = [];
         $sql = $this->pdo->prepare("SELECT * FROM agenda_aula WHERE aluno = :id");
         $sql->bindValue(":id", $id, PDO::PARAM_INT);
         $sql->execute();
         if ($sql->rowCount() > 0) {
-            $item = $sql->fetch();
+            $data = $sql->fetchAll(PDO::FETCH_ASSOC);
 
-            $agenda = new Agenda();
-            $agenda->setId($item['id']);
-            $agenda->setData($item['data']);
-            $agenda->setHora($item['hora']);
-            $agenda->setAlunoId($item['aluno']);
-            $agenda->setProfessorid($item['professor']);
-            $agenda->setConfirmada($item['confirmada']);
-            $agenda->setDificuldadeAluno($item['dificuldade_aluno']);
-            return $agenda;
+            foreach ($data as $item) {
+                $agenda = new Agenda();
+                $agenda->setId($item['id']);
+                $agenda->setData($item['data']);
+                $agenda->setHora($item['hora']);
+                $agenda->setAlunoId($item['aluno']);
+                $agenda->setProfessorid($item['professor']);
+                $agenda->setConfirmada($item['confirmada']);
+                $agenda->setDificuldadeAluno($item['dificuldade_aluno']);
+
+                $array[] = $agenda;
+            }
+            return $array;
         }
         return false;
     }

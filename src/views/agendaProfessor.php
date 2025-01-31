@@ -44,6 +44,15 @@
 
     $agenda = $aDao->findAllByProfessor($professor->getId());
 
+    function corBola($confirma)
+    {
+        if ($confirma == 1) {
+            return 'g';
+        } else if ($confirma == 0) {
+            return 'o';
+        }
+    }
+
     ?>
 
     <header>
@@ -87,15 +96,17 @@
                         foreach ($agenda as $aula):
                             list($ano, $mes, $dia) = explode('-', $aula->getData());
 
+
+
                             ?>
                             <tr>
-                                <td><?=$dia?></td>
-                                <td><?=$mes?></td>
-                                <td><?=$uDao->findById($aula->getAlunoId)->getNome()?></td>
+                                <td><?= $dia ?></td>
+                                <td><?= $mes ?></td>
+                                <td><?= $uDao->findById($aula->getAlunoId())->getNome() ?></td>
                                 <td><?= $aula->getHora(); ?></td>
                                 <td>Seg</td>
                                 <td style="">
-                                    <div class="bola o"></div>
+                                    <div class="bola <?= corBola($aula->getConfirmada()) ?>"></div>
                                 </td>
                                 <td>
                                     <div class="acoes">
