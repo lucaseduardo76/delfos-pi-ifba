@@ -137,7 +137,13 @@
                                         <img src="../../public/images/eye-icon.png" alt="Visualizar" class="icone"
                                             onclick="abrirmodal(<?= $aula->getId() ?>)">
 
+                                            <a
+                                            href="../service/deleteAula.php?aula=<?= $aula->getId() ?>&idAluno=<?= $aula->getAlunoId() ?>"><img
+                                                src="../../public/images/delete-icon.png" alt="Excluir" class="icone"></a>
+
                                     </div>
+
+                                   
                                 </td>
                             </tr>
                         <?php endforeach; ?>
