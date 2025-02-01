@@ -59,13 +59,13 @@ if ($idAula && $idProfessor) {
 
     if ($aula->getAlunoId() != $usuarioLogado->getId()) {
         $_SESSION["avisoDeleteAula"] = "Você não tem autorização para apagar o registro";
-        header('Location: ../views/agendaProfessor.php');
+        header('Location: ../views/agendaAluno.php');
         exit;
     }
 
     if ($aula->getConfirmada() == 2) {
         $_SESSION["avisoDeleteAula"] = "Essa aula já foi confirmada, não é possivel exclui-la";
-        header('Location: ../views/agendaProfessor.php');
+        header('Location: ../views/agendaAluno.php');
         exit;
     }
 
@@ -81,6 +81,6 @@ if ($idAula && $idProfessor) {
 
 }
 
-header('Location: ../views/agendaProfessor.php');
+header('Location: ../views/agendaAluno.php');
 exit;
 
