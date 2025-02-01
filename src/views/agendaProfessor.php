@@ -69,9 +69,13 @@
                 <a href="">
                     <div class="perfil-button notif"><img src="../../public/images/sino-icon.png" alt=""></div>
                 </a>
-                <a href="">
-                    <div class="perfil-button"><img src="../../public/images/login-icon.png" alt="">Perfil</div>
+                <a class="perfil-button prof" href="./editarPerfilProf.php"><img
+                            src="../../public/images/school-icon.png" alt="">Perfil do professor
                 </a>
+                <a href="editarPerfilAluno.php">
+                    <div class="perfil-button">Perfil</div>
+                </a>
+                <a class="perfil-button notif" href="../service/logout.php"><img src="../../public/images/login-icon.png" alt=""></a>
             </div>
         </div>
 

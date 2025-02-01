@@ -45,6 +45,9 @@ if ($idAula && $idProfessor) {
     $aDao->delete($aula);
 
     $_SESSION["avisoDeleteAula"] = "Registro de aula deletado com sucesso";
+    
+    header('Location: ../views/agendaProfessor.php');
+    exit;
 
 } else if ($idAula && $idAluno) {
     $aluno = $uDao->findById($idAluno);
@@ -73,6 +76,9 @@ if ($idAula && $idProfessor) {
 
     $_SESSION["avisoDeleteAula"] = "Registro de aula deletado com sucesso";
 
+    header('Location: ../views/agendaAluno.php');
+    exit;
+
 } else {
 
     $_SESSION["avisoDeleteAula"] = "Preencha todos os campos";
@@ -81,6 +87,4 @@ if ($idAula && $idProfessor) {
 
 }
 
-header('Location: ../views/agendaAluno.php');
-exit;
 

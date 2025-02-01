@@ -36,8 +36,8 @@ if ($idAula && $idProfessor) {
         exit;
     }
 
-    if($aula->getConfirmada() == 1){
-        $_SESSION["avisoDeleteAula"] = "Essa aula já foi confirmada, não é possivel exclui-la";
+    if($aula->getConfirmada() == 2){
+        $_SESSION["avisoDeleteAula"] = "Essa aula já foi confirmada";
         header('Location: ../views/agendaProfessor.php');
         exit;
     }

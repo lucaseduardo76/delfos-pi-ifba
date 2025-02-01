@@ -60,6 +60,10 @@ header {
     font-weight: bold;
 }
 
+.perfil-button.prof {
+    width: 12rem;
+}
+
 .perfil-button.notif {
     width: 3rem;
     display: flex;
@@ -95,7 +99,7 @@ main {
 }
 
 /* Container para centralizar a tabela */
-abela-container {
+.tabela-container {
     display: flex;
     justify-content: center;
     width: 80vw;
