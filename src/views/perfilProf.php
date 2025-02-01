@@ -38,6 +38,12 @@
     $professor;
     if (!empty($_SESSION['idProfessor']) && $_SESSION['idProfessor']) {
         $usuario = $uDao->findById($_SESSION['idProfessor']);
+
+        if($usuario->getId() == $userInfo->getId()){
+            header('Location: ./editarPerfilProf.php');
+            exit;
+        }
+
         if ($usuario) {
             $professor = $pDao->findByUserId($usuario->getId());
         }else {
