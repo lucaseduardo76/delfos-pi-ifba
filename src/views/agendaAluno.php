@@ -46,10 +46,12 @@
 
     function corBola($confirma)
     {
-        if ($confirma == 1) {
+        if ($confirma == 2) {
             return 'g';
-        } else if ($confirma == 0) {
+        } else if ($confirma == 1) {
             return 'o';
+        }else if ($confirma == 0) {
+            return 'r';
         }
     }
 
