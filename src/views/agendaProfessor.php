@@ -203,7 +203,11 @@
 
                         <p id="textConf">Deseja confirmar o agendamento ?</p>
 
-                        <input id="botaoConf" type="submit" value="Confirmar" id="confirmBtn">
+                        <div id="botaoConf">
+                            <input id="botaoConfirm" type="submit" value="Confirmar" id="confirmBtn">
+                            <input id="botaoRec" type="submit" value="Recusar" id="recusaBtn">
+                        </div>
+                        
 
                     </form>
                 </div>
@@ -251,11 +255,11 @@
                 if (textConfElement && botaoConfElement) {
                     if (n == 1) {
                         textConfElement.style.display = "none";
-                        botaoConfElement.style.opacity = 0;
+                        botaoConfElement.style.display = "none";
                         return "Agendamento Confirmado";
                     } else if (n == 0) {
                         textConfElement.style.display = "block";
-                        botaoConfElement.style.opacity = 1;
+                        botaoConfElement.style.display = "block";
                         return "Agendamento Pendente de confirmação";
                     }
                 }

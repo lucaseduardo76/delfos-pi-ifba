@@ -41,7 +41,7 @@
     // echo "<pre>";
     // print_r($pDao->findAllByArea($areaId));
     // echo "</pre>";
-    
+
 
     function ordenarProfessoresPorRating(array $professores): array
     {
@@ -83,40 +83,44 @@
 
     </header>
 
+    <div class="titulo">
+        <h1>Resultados por '<?= $aDao->findById($areaId)->getArea() ?>'</h1>
+    </div>
+
     <main>
 
         <?php
         $professores = ordenarProfessoresPorRating($pDao->findAllByArea($areaId));
-        if($professores):
-        foreach ($professores as $p):
+        if ($professores):
+            foreach ($professores as $p):
 
-            $usuario = $uDao->findById($p->getUserId());
-            $rating = $p->getRating() == 0 ? 1 : $p->getRating();
-            if ($usuario):
-                ?>
-
-                <div class="slider-item">
-                    <form action="../service/redirecionaPerfilProf.php" method="GET">
-                        <input type="hidden" name="idProf" value="<?= $usuario->getId() ?>">
-                        <button type="submit" style="border: none; background: none; padding: 0; cursor: pointer;">
-                            <div class="image-container">
-                                <img src="<?= getFoto($usuario->getLinkFoto(), $usuario, $uDao) ?>" alt="foto">
-                                <div class="info">
-                                    <p class="name"><?= $usuario->getNome() ?></p>
-                                    <p class="subject">Assunto: <?= $aDao->findById($p->getArea())->getArea(); ?></p>
-                                    <p class="rating"><?php echo str_repeat('★', round($rating)); ?></p>
-                                </div>
-                            </div>
-                        </button>
-                    </form>
-                </div>
-                <?php
-            endif;
-        endforeach;
-        else:
+                $usuario = $uDao->findById($p->getUserId());
+                $rating = $p->getRating() == 0 ? 1 : $p->getRating();
+                if ($usuario):
         ?>
-        <h1>Ainda não há professores dessa área</h1>
-        <?php endif;?>
+
+                    <div class="slider-item">
+                        <form action="../service/redirecionaPerfilProf.php" method="GET">
+                            <input type="hidden" name="idProf" value="<?= $usuario->getId() ?>">
+                            <button type="submit" style="border: none; background: none; padding: 0; cursor: pointer;">
+                                <div class="image-container">
+                                    <img src="<?= getFoto($usuario->getLinkFoto(), $usuario, $uDao) ?>" alt="foto">
+                                    <div class="info">
+                                        <p class="name"><?= $usuario->getNome() ?></p>
+                                        <p class="subject">Assunto: <?= $aDao->findById($p->getArea())->getArea(); ?></p>
+                                        <p class="rating"><?php echo str_repeat('★', round($rating)); ?></p>
+                                    </div>
+                                </div>
+                            </button>
+                        </form>
+                    </div>
+            <?php
+                endif;
+            endforeach;
+        else:
+            ?>
+            <h1>Ainda não há professores dessa área</h1>
+        <?php endif; ?>
 
 </body>
 

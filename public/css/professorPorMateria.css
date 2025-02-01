@@ -165,3 +165,7 @@ main{
     justify-content: center;
     flex-wrap: wrap;
 }
+
+.titulo {
+    margin: 50px 95px;
+}

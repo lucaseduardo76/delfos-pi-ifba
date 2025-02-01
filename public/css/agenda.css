@@ -95,7 +95,7 @@ main {
 }
 
 /* Container para centralizar a tabela */
-.tabela-container {
+abela-container {
     display: flex;
     justify-content: center;
     width: 80vw;
@@ -173,13 +173,29 @@ main {
     background-color: orange;
 }
 
-#botaoConf{
+#botaoConf {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+}
+
+#botaoConfirm, #botaoRec {
     width: 100px;
     background-color: rgb(188, 206, 107);
     cursor: pointer;
     transition: all .5s;
 }
-#botaoConf:hover{
+
+#botaoRec {
+    background-color: rgb(233, 97, 97);
+}
+
+#botaoRec:hover {
+    background-color: rgb(266, 134, 146);
+}
+
+#botaoConfirm:hover {
     background-color: rgb(221, 240, 156);
     
 }
@@ -188,5 +204,9 @@ textarea{
     border-radius: 5px;
     padding: 5px;
     border: 1.5px solid black;
+}
+
+#textConf {
+    margin-bottom: 17px;
 }
 
