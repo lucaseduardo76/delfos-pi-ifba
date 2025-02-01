@@ -58,10 +58,23 @@ header {
     border-radius: 10px;
     cursor: pointer;
     font-weight: bold;
+    outline: none;
+    text-decoration: none;
+    color: black;
 }
 
 .perfil-button.prof {
     width: 12rem;
+}
+
+.perfil-button.notif {
+    width: inherit;
+    padding: 0 8px;
+    margin: 0;
+}
+
+.perfil-button.notif img {
+    margin: 0;
 }
 
 .perfil-button img {

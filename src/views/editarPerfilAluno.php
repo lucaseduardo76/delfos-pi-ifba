@@ -17,9 +17,11 @@
             <a href="main.php" class="logo">
                 <img src="../../public/images/Logo Delfos branco.svg">
             </a>
-            <div class="buttons">
-                <div class="perfil-button prof"><img src="../../public/images/school-icon.png" alt="">Perfil de professor</div>
-                <div class="perfil-button"><img src="../../public/images/login-icon.png" alt="">Perfil</div> 
+            <div class="buttons">`
+                <a class="perfil-button notif" href=""><img src="../../public/images/sino-icon.png" alt=""></a>
+                <a href="editarPerfilProf.php" class="perfil-button prof"><img src="../../public/images/school-icon.png" alt="">Perfil de professor</a>
+                <a href="editarPerfilAluno.php" class="perfil-button">Perfil</a>
+                <a class="perfil-button notif" href="../service/logout.php"><img src="../../public/images/login-icon.png" alt=""></a>
             </div>
             
         </div>
