@@ -3,13 +3,15 @@
 function abrirmodal(id) {
 
     const textConfirmacao = (n) => {
-        if (n == 1) {
-            return "Agendamento Confirmado"
-
+        if (n == 2) {
+            return "Agendamento Confirmado";
+        } else if (n == 1) {
+            return "Agendamento Pendente de confirmação";
         } else if (n == 0) {
-            return "Agendamento Pendente de confirmação"
+            return "Agendamento negado";
         }
     }
+
 
     for (let aula of listaAulas) {
         if (aula.id == id) {
@@ -80,8 +82,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("idAulaHidden").value = "";
                 document.getElementById("aluno").value = "";
             }, 450);
-    
-    
+
+
         }
     });
 });

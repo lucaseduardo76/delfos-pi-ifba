@@ -48,10 +48,12 @@
 
     function corBola($confirma)
     {
-        if ($confirma == 1) {
+        if ($confirma == 2) {
             return 'g';
-        } else if ($confirma == 0) {
+        } else if ($confirma == 1) {
             return 'o';
+        }else if ($confirma == 0) {
+            return 'r';
         }
     }
 
@@ -171,8 +173,7 @@
                     <button class="modal-close" id="closeModalRg">✕</button>
                 </div>
                 <div class="mod-body">
-                    <form action="../service/confirmarAula.php" method="GET">
-                        <input type="hidden" name="idProfessor" id="id" value="<?= $professor->getId() ?>">
+                    <form>
                         <input type="hidden" name="aula" id="idAulaHidden">
 
                         <label class="mod-inputs">
@@ -204,10 +205,13 @@
                         <p id="textConf">Deseja confirmar o agendamento ?</p>
 
                         <div id="botaoConf">
-                            <input id="botaoConfirm" type="submit" value="Confirmar" id="confirmBtn">
-                            <input id="botaoRec" type="submit" value="Recusar" id="recusaBtn">
+                            <a id="botaoConfirm"
+                                href="../service/confirmarAula.php?aula=1&idProfessor=<?= $professor->getId() ?>"
+                                id="confirmBtn">Confirmar</a>
+                            <a href="../service/rejeitaAula.php?aula=1&idProfessor=<?= $professor->getId() ?>"
+                                id="botaoRec" id="recusaBtn">Recusar</a>
                         </div>
-                        
+
 
                     </form>
                 </div>
@@ -253,14 +257,18 @@
                 let botaoConfElement = document.getElementById("botaoConf");
 
                 if (textConfElement && botaoConfElement) {
-                    if (n == 1) {
+                    if (n == 2) {
                         textConfElement.style.display = "none";
                         botaoConfElement.style.display = "none";
                         return "Agendamento Confirmado";
-                    } else if (n == 0) {
+                    } else if (n == 1) {
                         textConfElement.style.display = "block";
                         botaoConfElement.style.display = "block";
                         return "Agendamento Pendente de confirmação";
+                    }else if (n == 0){
+                        textConfElement.style.display = "none";
+                        botaoConfElement.style.display = "none";
+                        return "Agendamento negado";
                     }
                 }
                 return "";
@@ -274,6 +282,10 @@
                     document.getElementById("idAulaHidden").value = aula.id;
                     document.getElementById("conf").value = textConfirmacao(aula.confirmada);
                     document.getElementById("aluno").value = aula.aluno;
+
+                    // Atualiza os links dos botões
+                    document.getElementById("botaoConfirm").href = `../service/confirmarAula.php?aula=${id}&idProfessor=<?= $professor->getId() ?>`;
+                    document.getElementById("botaoRec").href = `../service/rejeitaAula.php?aula=${id}&idProfessor=<?= $professor->getId() ?>`;
                 }
             }
 
@@ -283,23 +295,24 @@
                 document.getElementById("modal").style.opacity = "1";
             }, 10);
         }
-        
-        document.addEventListener("keydown", function (event) {
-        if (event.key === "Escape") {
-            document.getElementById("modal").style.opacity = "0";
 
-            const timer = setTimeout(() => {
-                document.getElementById("modalRegister").style.display = "none";
-                document.getElementById("textArea").innerHTML = "";
-                document.getElementById("hora").value = "";
-                document.getElementById("data").value = "";
-                document.getElementById("idAulaHidden").value = "";
-                document.getElementById("aluno").value = "";
-            }, 450);
-    
-    
-        }
-    });
+
+        document.addEventListener("keydown", function (event) {
+            if (event.key === "Escape") {
+                document.getElementById("modal").style.opacity = "0";
+
+                const timer = setTimeout(() => {
+                    document.getElementById("modalRegister").style.display = "none";
+                    document.getElementById("textArea").innerHTML = "";
+                    document.getElementById("hora").value = "";
+                    document.getElementById("data").value = "";
+                    document.getElementById("idAulaHidden").value = "";
+                    document.getElementById("aluno").value = "";
+                }, 450);
+
+
+            }
+        });
 
 
     </script>

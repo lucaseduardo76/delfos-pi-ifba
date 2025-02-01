@@ -40,7 +40,7 @@ if ($idProfessor && $data && $hora && $aluno && $dificuldadeAluno) {
     $agenda->setHora($hora);
     $agenda->setDificuldadeAluno($dificuldadeAluno);
     $agenda->setProfessorId($idProfessor);
-    $agenda->setConfirmada(0);
+    $agenda->setConfirmada(1);
     $aDao->insert($agenda);
     $_SESSION['verifyAgendamento'] = true;
 } else {

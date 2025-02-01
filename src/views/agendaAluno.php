@@ -46,10 +46,12 @@
 
     function corBola($confirma)
     {
-        if ($confirma == 1) {
+        if ($confirma == 2) {
             return 'g';
-        } else if ($confirma == 0) {
+        } else if ($confirma == 1) {
             return 'o';
+        }else if ($confirma == 0) {
+            return 'r';
         }
     }
 
@@ -135,7 +137,13 @@
                                         <img src="../../public/images/eye-icon.png" alt="Visualizar" class="icone"
                                             onclick="abrirmodal(<?= $aula->getId() ?>)">
 
+                                            <a
+                                            href="../service/deleteAula.php?aula=<?= $aula->getId() ?>&idAluno=<?= $aula->getAlunoId() ?>"><img
+                                                src="../../public/images/delete-icon.png" alt="Excluir" class="icone"></a>
+
                                     </div>
+
+                                   
                                 </td>
                             </tr>
                         <?php endforeach; ?>

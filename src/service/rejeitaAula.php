@@ -14,7 +14,7 @@ $aDao = new AgendaDaoMysql($pdo);
 
 $idAula = filter_input(INPUT_GET, 'aula');
 $idProfessor = filter_input(INPUT_GET, 'idProfessor');
-$idAluno = filter_input(INPUT_GET, var_name: 'idAluno');
+
 
 
 
@@ -31,56 +31,28 @@ if ($idAula && $idProfessor) {
     }
 
     if ($aula->getProfessorId() != $idProfessor || $usuarioLogado->getId() != $professor->getUserId()) {
-        $_SESSION["avisoDeleteAula"] = "Você não tem autorização para apagar o registro";
+        $_SESSION["avisoDeleteAula"] = "Você não tem autorização para confirmar a aula";
         header('Location: ../views/agendaProfessor.php');
         exit;
     }
 
-    if ($aula->getConfirmada() == 2) {
+    if($aula->getConfirmada() == 2){
         $_SESSION["avisoDeleteAula"] = "Essa aula já foi confirmada, não é possivel exclui-la";
         header('Location: ../views/agendaProfessor.php');
         exit;
     }
 
-    $aDao->delete($aula);
-
-    $_SESSION["avisoDeleteAula"] = "Registro de aula deletado com sucesso";
-
-} else if ($idAula && $idAluno) {
-    $aluno = $uDao->findById($idAluno);
-    $aula = $aDao->findByid($idAula);
-    $usuarioLogado = $uDao->findByToken($_SESSION["token"]);
-
-    if (!$aluno || !$aula) {
-        $_SESSION["avisoDeleteAula"] = "Problemas internos, dados enviados não existem, consulte o suporte";
-        header('Location: ../views/agendaAluno.php');
-        exit;
-    }
-
-    if ($aula->getAlunoId() != $usuarioLogado->getId()) {
-        $_SESSION["avisoDeleteAula"] = "Você não tem autorização para apagar o registro";
-        header('Location: ../views/agendaAluno.php');
-        exit;
-    }
-
-    if ($aula->getConfirmada() == 2) {
-        $_SESSION["avisoDeleteAula"] = "Essa aula já foi confirmada, não é possivel exclui-la";
-        header('Location: ../views/agendaAluno.php');
-        exit;
-    }
-
-    $aDao->delete($aula);
-
-    $_SESSION["avisoDeleteAula"] = "Registro de aula deletado com sucesso";
+    $aDao->rejeitaAula($aula->getId());
+    
 
 } else {
 
     $_SESSION["avisoDeleteAula"] = "Preencha todos os campos";
-
+   
 
 
 }
 
-header('Location: ../views/agendaAluno.php');
+header('Location: ../views/agendaProfessor.php');
 exit;
 

@@ -111,7 +111,14 @@ class AgendaDaoMysql implements AgendaDaoImplementa
 
     public function confirmaAula(int $id)
     {
-        $sql = $this->pdo->prepare("UPDATE agenda_aula SET confirmada = 1 WHERE id = :id");
+        $sql = $this->pdo->prepare("UPDATE agenda_aula SET confirmada = 2 WHERE id = :id");
+        $sql->bindValue(":id", $id, PDO::PARAM_INT);
+        $sql->execute();
+    }
+
+    public function rejeitaAula(int $id)
+    {
+        $sql = $this->pdo->prepare("UPDATE agenda_aula SET confirmada = 0 WHERE id = :id");
         $sql->bindValue(":id", $id, PDO::PARAM_INT);
         $sql->execute();
     }
