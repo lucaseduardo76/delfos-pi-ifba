@@ -33,10 +33,10 @@
         exit;
     }
 
-    $pDao = new ProfesorDaoMySql($pdo); 
-    
+    $pDao = new ProfesorDaoMySql($pdo);
 
-    if($pDao->findByUserId($userInfo->getId())){
+
+    if ($pDao->findByUserId($userInfo->getId())) {
         header("Location: ./editarPerfilProf.php");
         exit;
     }
@@ -51,7 +51,7 @@
 
     $caminhoFoto;
 
-    if($usuario->getLinkFoto() != null){
+    if ($usuario->getLinkFoto() != null) {
         $caminhoFoto = $usuario->getLinkFoto();
     }
 
@@ -71,9 +71,16 @@
                 <img src="../../public/images/Logo Delfos branco.svg">
             </a>
             <div class="buttons">
-                <div class="perfil-button prof"><img src="../../public/images/school-icon.png" alt="">Perfil de
-                    professor</div>
-                <div class="perfil-button"><img src="../../public/images/login-icon.png" alt="">Perfil</div>
+                <a href="mensagem.php">
+                    <div class="perfil-button notif"><img src="../../public/images/sino-icon.png" alt=""></div>
+                </a>
+                <a class="perfil-button prof" href="./editarPerfilProf.php"><img
+                        src="../../public/images/school-icon.png" alt="">Perfil do professor
+                </a>
+                <a href="editarPerfilAluno.php">
+                    <div class="perfil-button">Perfil</div>
+                </a>
+                <a class="perfil-button notif" href="../service/logout.php"><img src="../../public/images/login-icon.png" alt=""></a>
             </div>
 
         </div>
@@ -85,7 +92,7 @@
             <div class="container">
                 <div class="left-side">
                     <div class="perfil-foto">
-                        <img src="<?=$caminhoFoto?>" alt="">
+                        <img src="<?= $caminhoFoto ?>" alt="">
                         <h2>Perfil</h2>
                         <input type="file" name="file" accept="image/png, image/jpeg">
                     </div>
@@ -129,7 +136,7 @@
     <script>
         const input = document.getElementById('preco');
 
-        input.addEventListener('input', function (event) {
+        input.addEventListener('input', function(event) {
             let value = event.target.value.replace(/\D/g, ''); // Remove tudo que não for número
             value = (value / 100).toFixed(2).replace('.', ','); // Formata como valor monetário
             event.target.value = 'R$ ' + value;
