@@ -46,7 +46,8 @@ header {
     object-fit: contain;
 }
 
-.login-button {
+.login-button,
+.botao-cadastrar {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -56,6 +57,12 @@ header {
     border-radius: 10px;
     cursor: pointer;
     font-weight: bold;
+}
+
+.botao-cadastrar {
+    text-decoration: none;
+    outline: none;
+    color: black;
 }
 
 main {
@@ -83,6 +90,18 @@ main {
 .img-container img {
     width: 100%;
     object-fit: cover;
+}
+
+.img-container2 {
+    flex: 1;
+    min-width: 400px;
+    min-height: 500px;
+}
+
+.img-container2 img {
+    width: 400px;
+    object-fit: cover;
+    height: 500px;
 }
 
 .forms-container {
