@@ -15,22 +15,22 @@
 
 <body>
 
-<script>
+    <script>
 
-document.addEventListener("DOMContentLoaded", function () {
-       document.getElementById("sent").addEventListener("click", ()=>{
-        document.getElementById("entrada").style.display = "none";
-        document.getElementById("enviada").style.display = "flex";
-    })
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("sent").addEventListener("click", () => {
+                document.getElementById("entrada").style.display = "none";
+                document.getElementById("enviada").style.display = "flex";
+            })
 
-    document.getElementById("inbox").addEventListener("click", ()=>{
-        document.getElementById("enviada").style.display = "none";
-        document.getElementById("entrada").style.display = "flex";
-    })
-});
+            document.getElementById("inbox").addEventListener("click", () => {
+                document.getElementById("enviada").style.display = "none";
+                document.getElementById("entrada").style.display = "flex";
+            })
+        });
 
 
-</script>
+    </script>
 
     <?php
     require_once("../config/config.php");
@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
     $uDao = new UsuarioDaoMySql($pdo);
     $mDao = new MensagemDaoMySql($pdo);
     $emailsRecebido = $mDao->findByDestinatario($userInfo->getId());
-    
+
     $emailsEnviado = $mDao->findByRemetente($userInfo->getId());
 
     ?>
@@ -76,8 +76,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     <main>
         <aside class="menu-sidebar">
-            <button class="menu-button" id="inbox" >Caixa de Entrada</button>
-            <button class="menu-button" id="sent" >Enviados</button>
+            <button class="menu-button" id="inbox">Caixa de Entrada</button>
+            <button class="menu-button" id="sent">Enviados</button>
         </aside>
         <div class="caixa-entrada" id="entrada">
             <div class="email-container">
@@ -124,7 +124,8 @@ document.addEventListener("DOMContentLoaded", function () {
                                         <p><strong>De:</strong> <?= $email->getRemetente()->getNome() ?></p>
                                     </div>
                                 </div>
-                                <img src="../../public/images/trash-icon.png" alt="" class="email-delete">
+                                <a href="../service/deleteByDestinatario.php?idEmail=<?= $email->getId() ?>"><img
+                                        src="../../public/images/trash-icon.png" alt="" class="email-delete"></a>
                             </div>
 
                             <div class="email-body">
@@ -208,14 +209,16 @@ document.addEventListener("DOMContentLoaded", function () {
                                         <p><strong>Para:</strong> <?= $email->getDestinatario()->getNome() ?></p>
                                     </div>
                                 </div>
-                                <img src="../../public/images/trash-icon.png" alt="" class="email-delete">
+                                <a href="../service/deleteByRemetente.php?idEmail=<?= $email->getId() ?>"><img
+                                        src="../../public/images/trash-icon.png" alt="" class="email-delete"></a>
+
                             </div>
 
                             <div class="email-body">
                                 <?= $email->getMensagem() ?>
                             </div>
 
-                            
+
                         </article>
                         <?php
                     endforeach;
@@ -256,6 +259,15 @@ document.addEventListener("DOMContentLoaded", function () {
         echo "<script>alert('" . $_SESSION['avisoEnviarMensagem'] . "')</script>";
         $_SESSION['avisoEnviarMensagem'] = '';
     }
+
+
+
+    if (!empty($_SESSION['avisoDeleteEmail']) && $_SESSION['avisoDeleteEmail']) {
+        echo "<script>alert('" . $_SESSION['avisoDeleteEmail'] . "')</script>";
+        $_SESSION['avisoDeleteEmail'] = '';
+    }
+
+   
 
     ?>
 </body>

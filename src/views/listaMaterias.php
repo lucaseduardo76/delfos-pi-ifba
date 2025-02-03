@@ -19,7 +19,9 @@
 
     require_once("../config/config.php");
     require_once("../models/auth/auth.php");
-    require_once("../dao/AreaDao.php");
+    require_once("../dao/AreaDao.php");    
+    require_once("../dao/ProfessorDaoMysql.php");    
+    require_once("../dao/UsuarioDaoMysql.php");
     $auth = new Auth();
     $userInfo = $auth->checkToken($pdo);
 
@@ -30,8 +32,24 @@
 
 
     $aDao = new AreaDao($pdo);
-    $areas = $aDao->findAll()
-        ?>
+    $pDao = new ProfesorDaoMySql($pdo);
+    $uDao = new UsuarioDaoMySql($pdo);
+    $areas = $aDao->findAll();
+        
+    // Exemplo de lista de professores
+    $listaProfessores = [];
+    foreach($pDao->findAll() as $p) {
+        $listaProfessores[] = $uDao->findById($p->getUserId())->getNome();
+    }
+
+  
+?>
+
+
+    <script>
+        // Passando a lista de professores para o JavaScript
+        var listaProfessores = <?php echo json_encode($listaProfessores); ?>;
+    </script>
 
     <header>
 
@@ -40,15 +58,16 @@
                 <img src="../../public/images/Logo Delfos branco.svg">
             </a>
             <div class="buttons">
-                
-            <a href="mensagem.php" class="perfil-button notif"><img src="../../public/images/email.svg" alt=""></a>
+
+                <a href="mensagem.php" class="perfil-button notif"><img src="../../public/images/email.svg" alt=""></a>
                 <a class="perfil-button prof" href="./editarPerfilProf.php"><img
-                            src="../../public/images/school-icon.png" alt="">Perfil do professor
+                        src="../../public/images/school-icon.png" alt="">Perfil do professor
                 </a>
                 <a href="editarPerfilAluno.php">
                     <div class="perfil-button">Perfil</div>
                 </a>
-                <a class="perfil-button notif" href="../service/logout.php"><img src="../../public/images/login-icon.png" alt=""></a>
+                <a class="perfil-button notif" href="../service/logout.php"><img
+                        src="../../public/images/login-icon.png" alt=""></a>
             </div>
 
         </div>
@@ -56,13 +75,21 @@
     </header>
 
     <main>
+        <div class="input-busca">
+            <form action="./pesquisaProf.php">
+                <input type="text" name="nome" id="busca" onkeyup="filtrarProfessores()"
+                    placeholder="Pesquise o professor pelo nome...">
+                <div id="sugestoes" class="sugestoes"></div> <!-- Container para as sugestões -->
 
+            </form>
+        </div>
         <div class="container">
             <div class="categorias">
                 <?php
                 foreach ($areas as $area):
                     ?>
-                    <a class="category" href="./professoresPorMateria.php?area=<?=$area->getId()?>" ><?= $area->getArea()?></a>
+                    <a class="category"
+                        href="./professoresPorMateria.php?area=<?= $area->getId() ?>"><?= $area->getArea() ?></a>
                 <?php endforeach; ?>
             </div>
         </div>
@@ -70,5 +97,38 @@
     </main>
 
 </body>
+
+<script>
+    function filtrarProfessores() {
+        var input = document.getElementById('busca').value.toLowerCase();
+        var sugestoesDiv = document.getElementById('sugestoes');
+
+        // Limpa as sugestões anteriores
+        sugestoesDiv.innerHTML = '';
+
+        // Se o campo de busca não estiver vazio
+        if (input.length > 0) {
+            // Filtra os professores com base no texto digitado
+            var resultados = listaProfessores.filter(function (professor) {
+                return professor.toLowerCase().includes(input);
+            });
+
+            // Exibe as sugestões
+            resultados.forEach(function (nome) {
+                var div = document.createElement('div');
+                div.classList.add('sugestao');
+                div.innerText = nome;
+                div.onclick = function () {
+                    document.getElementById('busca').value = nome; // Preenche o campo de busca com o nome selecionado
+                    sugestoesDiv.innerHTML = ''; // Limpa as sugestões após a seleção
+                };
+                sugestoesDiv.appendChild(div);
+            });
+        }
+    }
+
+    
+</script>
+</script>
 
 </html>

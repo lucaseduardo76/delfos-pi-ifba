@@ -104,4 +104,6 @@ interface ProfessorDao
     public function findByUserId($userId);
     public function update(Professor $u);
     public function delete($id);
+
+    public function findByName($name);
 }

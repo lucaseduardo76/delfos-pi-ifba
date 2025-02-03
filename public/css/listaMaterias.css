@@ -116,3 +116,64 @@ main {
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
     cursor: pointer;
 }
+
+.input-busca{
+    display: flex;
+    justify-content: center;
+    height: 200px;
+    align-items: center;
+}
+
+.input-busca input {
+    background-color: #fde2cf;
+    color: #161616;
+    border: 2px solid #fde2cf;
+    border-radius: 25px;
+    padding: 12px 20px;
+    font-size: 19px;
+    width: 500px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.input-busca input:focus {
+    border-color: #FFFFFF;
+    background-color: #FFFFFF;
+    color: #C9A1A1;
+}
+
+.input-busca input:hover {
+    background-color: #C9A1A1;
+    
+    border-color: #C9A1A1;
+    color: #ffffff;
+}
+
+.input-busca input:focus, .input-busca input:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sugestoes {
+    max-height: 150px;
+    overflow-y: auto;
+    position: absolute;
+    background-color: #fff;
+    width: 100%;    
+    width: 500px;
+    box-sizing: border-box;
+    z-index: 1000;
+    overflow-x: hidden;
+}
+
+.sugestao {
+    padding: 10px;
+    
+    width: 500px;
+    cursor: pointer;
+    border: .5px solid #C9A1A1;
+}
+
+.sugestao:hover {
+    background-color: #f0f0f0;
+}
+
