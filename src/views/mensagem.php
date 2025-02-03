@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
     $userInfo = $auth->checkToken($pdo);
 
     if ($userInfo == false) {
-        header("Location: ./login.php");
+        header("Location: ./telaLogin.php");
         exit;
     }
 

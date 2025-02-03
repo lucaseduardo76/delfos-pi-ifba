@@ -40,7 +40,13 @@ if ($area && $preco && $sobre) {
                 $usuario->setLinkFoto($caminhoArquivo);
                 $uDao->update($usuario);
             }
-        } else {
+        } else if ($arquivo[sizeof($arquivo) - 1] == 'jpeg') {
+            if (move_uploaded_file($foto['tmp_name'], '../uploads/fotoPerfil' . $usuario->getId() . '.jpeg')) {
+                $caminhoArquivo = '../uploads/fotoPerfil' . $usuario->getId() . '.jpeg';
+                $usuario->setLinkFoto($caminhoArquivo);
+                $uDao->update($usuario);
+            }
+        }else {
             $_SESSION['aviso'] = "O arquivo precisa ser do tipo JPG ou PNG.";
             header('Location: ../views/novoPerfilProf.php');
             exit;

@@ -108,7 +108,7 @@ class UsuarioDaoMySql implements UsuarioDao{
         return false;
 	}
 
-    public function findByToken($token){
+    public function findByToken($token): User|bool{
 		$sql = $this->pdo->prepare("SELECT * FROM tb_user where token = :token");
         $sql->bindValue(":token", $token);
         $sql->execute();

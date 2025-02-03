@@ -9,7 +9,7 @@ class AreaDao implements AreaDaoImplementa{
         $this->pdo = $pdo;
     }
 
-    public function findAll() {
+    public function findAll():array {
         $array = [];
         $sql = $this->pdo->query('SELECT * FROM areas');
     

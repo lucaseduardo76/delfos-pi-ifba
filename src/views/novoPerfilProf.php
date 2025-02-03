@@ -29,7 +29,7 @@
 
     if ($userInfo == false) {
         echo "asdhoasdhsa";
-        header("Location: ./login.php");
+        header("Location: ./telaLogin.php");
         exit;
     }
 

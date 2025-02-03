@@ -116,7 +116,7 @@ class ProfesorDaoMySql implements ProfessorDao{
     }
 
     
-    public function findByUserId($userId) {
+    public function findByUserId($userId):Professor|bool {
         $sql = $this->pdo->prepare("SELECT * FROM tb_professor WHERE user_id = :user_id");
         $sql->bindValue(":user_id", $userId, PDO::PARAM_INT);
         $sql->execute();
