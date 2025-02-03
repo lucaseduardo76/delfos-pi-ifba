@@ -50,7 +50,7 @@
             return 'g';
         } else if ($confirma == 1) {
             return 'o';
-        }else if ($confirma == 0) {
+        } else if ($confirma == 0) {
             return 'r';
         }
     }
@@ -68,12 +68,13 @@
                     <div class="perfil-button notif"><img src="../../public/images/sino-icon.png" alt=""></div>
                 </a>
                 <a class="perfil-button prof" href="./editarPerfilProf.php"><img
-                            src="../../public/images/school-icon.png" alt="">Perfil do professor
+                        src="../../public/images/school-icon.png" alt="">Perfil do professor
                 </a>
                 <a href="editarPerfilAluno.php">
                     <div class="perfil-button">Perfil</div>
                 </a>
-                <a class="perfil-button notif" href="../service/logout.php"><img src="../../public/images/login-icon.png" alt=""></a>
+                <a class="perfil-button notif" href="../service/logout.php"><img
+                        src="../../public/images/login-icon.png" alt=""></a>
             </div>
         </div>
 
@@ -141,13 +142,21 @@
                                         <img src="../../public/images/eye-icon.png" alt="Visualizar" class="icone"
                                             onclick="abrirmodal(<?= $aula->getId() ?>)">
 
-                                            <a
+                                        <a
+                                            href="./enviarMensagem.php?idDestinatario=<?= $pDao->findById($aula->getProfessorId())->getUserId()?>"><img
+                                                 class="carta" src="../../public/images/email.svg" alt="Excluir" class="icone"></a>
+                                                 
+
+                                        <a
                                             href="../service/deleteAula.php?aula=<?= $aula->getId() ?>&idAluno=<?= $aula->getAlunoId() ?>"><img
                                                 src="../../public/images/delete-icon.png" alt="Excluir" class="icone"></a>
 
+
+
                                     </div>
 
-                                   
+
+
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -169,7 +178,6 @@
 
                     <?php endif
                     ?>
-
 
             </table>
         </div>
@@ -201,12 +209,12 @@
                         </label>
 
                         <label>
-                        <h4>no dia</h4>
+                            <h4>no dia</h4>
                             <input id="data" name="data" type="date" value="" disabled>
                         </label>
 
                         <label>
-                        <h4>Confirmação</h4>
+                            <h4>Confirmação</h4>
                             <input id="conf" name="conf" type="text" value="" disabled>
                         </label>
 
@@ -226,7 +234,7 @@
 
     ?>
 
-   
+
 
 </body>
 

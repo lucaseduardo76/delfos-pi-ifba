@@ -61,7 +61,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 <img src="../../public/images/Logo Delfos branco.svg">
             </a>
             <div class="buttons">
-                <a class="perfil-button notif" href=""><img src="../../public/images/sino-icon.png" alt=""></a>
                 <a href="editarPerfilProf.php" class="perfil-button prof"><img src="../../public/images/school-icon.png"
                         alt="">Perfil de
                     professor</a>

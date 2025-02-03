@@ -147,6 +147,11 @@ main {
     gap: 10px; /* Espaçamento entre os ícones */
 }
 
+.acoes .carta{
+    height: 35px;
+    
+}
+
 /* Ícones de ações */
 .icone {
     cursor: pointer;

@@ -203,6 +203,14 @@ main {
     border-radius: 25px;
     border: none;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+}
+
+a{
+    
+    text-decoration: none;
+    color: black;
 }
 
 .main-btn, 

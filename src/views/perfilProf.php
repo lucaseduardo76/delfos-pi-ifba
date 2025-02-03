@@ -118,7 +118,7 @@
                 <div class="botoes">
                     <button class="main-btn" id="linkBtn" disabled>Começar aula</button>
                     <button class="secondary-btn" id="agendarBtn">Agendar aula</button>
-                    <button class="secondary-btn">Enviar mensagem</button>
+                    <a class="secondary-btn" href="./enviarMensagem.php?idDestinatario=<?=$usuario->getId()?>">Enviar mensagem</a>
                 </div>
             </div>
 

@@ -52,7 +52,7 @@
             return 'g';
         } else if ($confirma == 1) {
             return 'o';
-        }else if ($confirma == 0) {
+        } else if ($confirma == 0) {
             return 'r';
         }
     }
@@ -70,12 +70,13 @@
                     <div class="perfil-button notif"><img src="../../public/images/sino-icon.png" alt=""></div>
                 </a>
                 <a class="perfil-button prof" href="./editarPerfilProf.php"><img
-                            src="../../public/images/school-icon.png" alt="">Perfil do professor
+                        src="../../public/images/school-icon.png" alt="">Perfil do professor
                 </a>
                 <a href="editarPerfilAluno.php">
                     <div class="perfil-button">Perfil</div>
                 </a>
-                <a class="perfil-button notif" href="../service/logout.php"><img src="../../public/images/login-icon.png" alt=""></a>
+                <a class="perfil-button notif" href="../service/logout.php"><img
+                        src="../../public/images/login-icon.png" alt=""></a>
             </div>
         </div>
 
@@ -142,6 +143,11 @@
                                     <div class="acoes">
                                         <img src="../../public/images/eye-icon.png" alt="Visualizar" class="icone"
                                             onclick="abrirmodal(<?= $aula->getId() ?>)">
+
+                                        <a
+                                            href="./enviarMensagem.php?idDestinatario=<?= $aula->getAlunoId()?>"><img
+                                                class="carta" src="../../public/images/email.svg" alt="Excluir"
+                                                class="icone"></a>
                                         <a
                                             href="../service/deleteAula.php?aula=<?= $aula->getId() ?>&idProfessor=<?= $aula->getProfessorId() ?>"><img
                                                 src="../../public/images/delete-icon.png" alt="Excluir" class="icone"></a>
@@ -159,7 +165,9 @@
                             <td></td>
                             <td></td>
                             <td>
-
+                                <div class="acoes">
+                                    <img src="../../public/images/eye-icon.png" alt="Visualizar" class="icone">
+                                </div>
                             </td>
                         </tr>
 
@@ -269,7 +277,7 @@
                         textConfElement.style.display = "block";
                         botaoConfElement.style.display = "block";
                         return "Agendamento Pendente de confirmação";
-                    }else if (n == 0){
+                    } else if (n == 0) {
                         textConfElement.style.display = "none";
                         botaoConfElement.style.display = "none";
                         return "Agendamento negado";
