@@ -59,38 +59,17 @@
             </div>
 
             <div class="forms-container">
-                <form class="signup-form" method="post" action="./../service/cadastro.php">
+                <form method="POST" class="signup-form" action="./../service/loginAction.php">
                     <h2>Bem-vindo ao Delfos</h2>
-                    <input type="email" name="email" placeholder="E-mail" required>
-                    <input type="password" name="senha" placeholder="Senha" required>
+                    <input type="email" name="email" placeholder="exemplo@gmail.com" required>
+                    <input type="password" name="senha" placeholder="Digite sua senha" required>
                     <button type="submit">Entrar</button>
                 </form>
             </div>
 
         </div>
 
-        <div class="modal-overlay" id="modalLogin">
-            <div class="modal" id="modal">
-
-                <div class="mod-header">
-                    <button class="modal-close" id="closeModal">✕</button>
-                </div>
-                <div class="mod-body">
-                    <form method="POST" action="./../service/loginAction.php">
-                        <label>
-                            <h3>E-mail</h3>
-                            <input type="email" name="email" placeholder="exemplo@gmail.com" required>
-                        </label>
-                        <label>
-                            <h3>Senha</h3>
-                            <input type="password" name="senha" placeholder="Digite sua senha" required>
-                        </label>
-                        <button class="modal-confirm" type="submit">Confirmar</button>
-                    </form>
-                </div>
-             
-            </div>
-        </div>
+       
     </main>
 
 

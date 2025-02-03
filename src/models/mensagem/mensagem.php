@@ -1,20 +1,21 @@
 <?php
-class mensagem
-{
+class mensagem{
     private $id;
-    private $alunoId;
-    private $professorId;
-
-    private $tituloMensagem;
+    private $titulo;
     private $mensagem;
+    private $remetente;
+    private $destinatario;
 
-    public function __construct($id, $alunoId, $professorId, $tituloMensagem, $mensagem)
+    private $data;
+
+    public function getData()
     {
-        $this->id = $id;
-        $this->alunoId = $alunoId;
-        $this->professorId = $professorId;
-        $this->tituloMensagem = $tituloMensagem;
-        $this->mensagem = $mensagem;
+        return $this->data;
+    }
+
+    public function setData($data)
+    {
+        $this->data = $data;
     }
 
     public function getId()
@@ -27,34 +28,14 @@ class mensagem
         $this->id = $id;
     }
 
-    public function getAlunoId()
+    public function getTitulo()
     {
-        return $this->alunoId;
+        return $this->titulo;
     }
 
-    public function setAlunoId($alunoId)
+    public function setTitulo($titulo)
     {
-        $this->alunoId = $alunoId;
-    }
-
-    public function getProfessorId()
-    {
-        return $this->professorId;
-    }
-
-    public function setProfessorId($professorId)
-    {
-        $this->professorId = $professorId;
-    }
-
-    public function getTituloMensagem()
-    {
-        return $this->tituloMensagem;
-    }
-
-    public function setTituloMensagem($tituloMensagem)
-    {
-        $this->tituloMensagem = $tituloMensagem;
+        $this->titulo = $titulo;
     }
 
     public function getMensagem()
@@ -67,4 +48,23 @@ class mensagem
         $this->mensagem = $mensagem;
     }
 
+    public function getRemetente()
+    {
+        return $this->remetente;
+    }
+
+    public function setRemetente($remetente)
+    {
+        $this->remetente = $remetente;
+    }
+
+    public function getDestinatario()
+    {
+        return $this->destinatario;
+    }
+
+    public function setDestinatario($destinatario)
+    {
+        $this->destinatario = $destinatario;
+    }
 }

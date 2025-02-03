@@ -53,6 +53,24 @@
                             <h3 class="email-title">Obrigado pela Aula</h3>
                             <p class="email-prev">Precisamos confirmar a agenda para...</p>
                         </div>
+                        <span class="notificacao">10</span>
+                    </li>
+
+                    <li class="email-item" data-email-id="email2">
+                        <div class="profile-pic"></div>
+                        <div class="email-preview">
+                            <h3 class="email-title">Obrigado pela Aula</h3>
+                            <p class="email-prev">Precisamos confirmar a agenda para...</p>
+                        </div>
+                        <span class="notificacao">1</span>
+                    </li>
+
+                    <li class="email-item" data-email-id="email3">
+                        <div class="profile-pic"></div>
+                        <div class="email-preview">
+                            <h3 class="email-title">Obrigado pela Aula</h3>
+                            <p class="email-prev">Precisamos confirmar a agenda para...</p>
+                        </div>
                         <span class="notificacao">1</span>
                     </li>
 
@@ -75,6 +93,68 @@
 
                 <div class="email-body">
                     <p>Olá, Professor Felipe,</p>
+                    <p>
+                        Tudo bem? Me chamo Tales Costa e sou estudante/desenvolvedor do projeto Delfus,
+                        uma plataforma educacional que busca conectar estudantes e professores para aulas personalizadas e inclusivas.
+                    </p>
+                    <p>
+                        Admiro muito seu conhecimento e gostaria de tirar algumas dúvidas ou contar com sua orientação para aprimorar o projeto.
+                        Seria possível agendar um horário para uma breve conversa?
+                    </p>
+                </div>
+
+                <div class="email-footer">
+                    <a href="enviarMensagem.php">Responder</button>
+                </div>
+            </article>
+
+            <article class="email-content hidden" id="email2">
+                <div class="email-header">
+                    <div class="email-cab">
+                        <div class="email-img">
+                            <div class="profile-pic"></div>
+                        </div>
+                        <div class="email-rmt">
+                            <h2>Dúvida sobre o Projeto Delfos</h2>
+                            <p><strong>Para:</strong> Felipe Amorim</p>
+                        </div>
+                    </div>
+                    <img src="../../public/images/trash-icon.png" alt="" class="email-delete">
+                </div>
+
+                <div class="email-body">
+                    <p>AULA 2</p>
+                    <p>
+                        Tudo bem? Me chamo Tales Costa e sou estudante/desenvolvedor do projeto Delfus,
+                        uma plataforma educacional que busca conectar estudantes e professores para aulas personalizadas e inclusivas.
+                    </p>
+                    <p>
+                        Admiro muito seu conhecimento e gostaria de tirar algumas dúvidas ou contar com sua orientação para aprimorar o projeto.
+                        Seria possível agendar um horário para uma breve conversa?
+                    </p>
+                </div>
+
+                <div class="email-footer">
+                    <a href="enviarMensagem.php">Responder</button>
+                </div>
+            </article>
+
+            <article class="email-content hidden" id="email3">
+                <div class="email-header">
+                    <div class="email-cab">
+                        <div class="email-img">
+                            <div class="profile-pic"></div>
+                        </div>
+                        <div class="email-rmt">
+                            <h2>Dúvida sobre o Projeto Delfos</h2>
+                            <p><strong>Para:</strong> Felipe Amorim</p>
+                        </div>
+                    </div>
+                    <img src="../../public/images/trash-icon.png" alt="" class="email-delete">
+                </div>
+
+                <div class="email-body">
+                    <p>AULA 3</p>
                     <p>
                         Tudo bem? Me chamo Tales Costa e sou estudante/desenvolvedor do projeto Delfus,
                         uma plataforma educacional que busca conectar estudantes e professores para aulas personalizadas e inclusivas.

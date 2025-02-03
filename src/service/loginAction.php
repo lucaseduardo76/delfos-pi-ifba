@@ -21,16 +21,16 @@ if ($email && $pass) {
 
         } else {
             $_SESSION['aviso'] = 'Email e/ou senha incorretos';
-            header('Location: ../views/login.php');
+            header('Location: ../views/telaLogin.php');
             exit;
         }
     } else {
         $_SESSION['aviso'] = 'Email e/ou senha incorretos';
-        header('Location: ../views/login.php');
+        header('Location: ../views/telaLogin.php');
         exit;
     }
 } else {
     $_SESSION['aviso'] = 'Preencha todos os campos';
-    header('Location: ../views/login.php');
+    header('Location: ../views/telaLogin.php');
     exit;
 }

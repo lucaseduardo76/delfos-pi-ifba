@@ -46,7 +46,7 @@
             <div class="logo">
                 <img src="../../public/images/Logo Delfos branco.svg">
             </div>
-            <div class="login-button" id="loginButton">Login</div>
+            <a class="login-button" href="./telaLogin.php" style="text-decoration: none; color: #000;" id="loginButton">Login</a>
 
         </div>
 
@@ -72,28 +72,7 @@
 
         </div>
 
-        <div class="modal-overlay" id="modalLogin">
-            <div class="modal" id="modal">
-
-                <div class="mod-header">
-                    <button class="modal-close" id="closeModal">✕</button>
-                </div>
-                <div class="mod-body">
-                    <form method="POST" action="./../service/loginAction.php">
-                        <label>
-                            <h3>E-mail</h3>
-                            <input type="email" name="email" placeholder="exemplo@gmail.com" required>
-                        </label>
-                        <label>
-                            <h3>Senha</h3>
-                            <input type="password" name="senha" placeholder="Digite sua senha" required>
-                        </label>
-                        <button class="modal-confirm" type="submit">Confirmar</button>
-                    </form>
-                </div>
-             
-            </div>
-        </div>
+       
     </main>
 
 

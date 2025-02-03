@@ -2,5 +2,5 @@
 
 require '../config/config.php';
 unset($_SESSION['token']);
-header('Location: ../views/login.php');
+header('Location: ../views/telaLogin.php');
 exit;

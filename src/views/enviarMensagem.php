@@ -15,6 +15,43 @@
 
 <body>
 
+    <?php
+    require_once("../config/config.php");
+    require_once("../models/auth/auth.php");
+    require_once("../dao/ProfessorDaoMysql.php");
+    require_once("../dao/UsuarioDaoMysql.php");
+    require_once("../dao/AreaDao.php");
+    require_once("../models/user/User.php");
+
+    $auth = new Auth();
+    $userInfo = $auth->checkToken($pdo);
+
+    if ($userInfo == false) {
+        header("Location: ./login.php");
+        exit;
+    }
+
+    $uDao = new UsuarioDaoMySql($pdo);
+
+    $destinatarioId = filter_input(INPUT_GET, "idDestinatario");
+    $destinatario;
+
+    if ($destinatarioId) {
+        $destinatario = $uDao->findById($destinatarioId);
+    } else {
+        $_SESSION['avisoMensagem'] = 'Id de destinatário inválido';
+        header('Location: ../views/telaLogin.php');
+        exit;
+    }
+
+    if($destinatario->getId() == $userInfo->getId()){
+        $_SESSION['avisoMensagem'] = 'Você não pode enviar mensagem pra você mesmo';
+        header('Location: ../views/telaLogin.php');
+        exit;
+    }
+
+    ?>
+
     <header>
 
         <div class="header">
@@ -31,7 +68,8 @@
                 <a href="editarPerfilAluno.php">
                     <div class="perfil-button">Perfil</div>
                 </a>
-                <a class="perfil-button notif" href="../service/logout.php"><img src="../../public/images/login-icon.png" alt=""></a>
+                <a class="perfil-button notif" href="../service/logout.php"><img
+                        src="../../public/images/login-icon.png" alt=""></a>
             </div>
         </div>
 
@@ -40,15 +78,17 @@
     <main>
 
         <div class="container">
-            <form>
+            <form method="POST" action="../service/enviarMensagem.php">
+                <input type="hidden" name="mensagee">
+
                 <label class="campo">
                     <h2>Assunto da mensagem:</h2>
                     <input type="text" placeholder="Título..." required>
                 </label>
 
                 <label class="campo">
-                    <h2>Nome:</h2>
-                    <input type="text" placeholder="Nome..." required>
+                    <h2>Destinatário:</h2>
+                    <input type="text" placeholder="Nome..."  value="<?= $destinatario->getNome()?>" disabled required>
                 </label>
 
                 <label class="campo">
@@ -57,7 +97,7 @@
                 </label>
 
                 <div class="campo">
-                    <input type="submit" value="Enviar" class="btn-enviar" id="btnEnviar">
+                    <input type="submit" value="Enviar" class="btn-enviar" >
                 </div>
 
             </form>
