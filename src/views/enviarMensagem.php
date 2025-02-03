@@ -44,7 +44,7 @@
         exit;
     }
 
-    if($destinatario->getId() == $userInfo->getId()){
+    if ($destinatario->getId() == $userInfo->getId()) {
         $_SESSION['avisoMensagem'] = 'Você não pode enviar mensagem pra você mesmo';
         header('Location: ../views/telaLogin.php');
         exit;
@@ -79,25 +79,25 @@
 
         <div class="container">
             <form method="POST" action="../service/enviarMensagem.php">
-                <input type="hidden" name="mensagee">
+                <input type="hidden" name="idDestinatario" value="<?= $destinatario->getId() ?>">
 
                 <label class="campo">
                     <h2>Assunto da mensagem:</h2>
-                    <input type="text" placeholder="Título..." required>
+                    <input type="text" name="titulo" placeholder="Título..." required>
                 </label>
 
                 <label class="campo">
                     <h2>Destinatário:</h2>
-                    <input type="text" placeholder="Nome..."  value="<?= $destinatario->getNome()?>" disabled required>
+                    <input type="text" placeholder="Nome..." value="<?= $destinatario->getNome() ?>" disabled required>
                 </label>
 
                 <label class="campo">
                     <h2>Corpo da mensagem:</h2>
-                    <textarea rows="15" required></textarea>
+                    <textarea rows="15" name="mensagem" required></textarea>
                 </label>
 
                 <div class="campo">
-                    <input type="submit" value="Enviar" class="btn-enviar" >
+                    <input type="submit" value="Enviar" class="btn-enviar">
                 </div>
 
             </form>
@@ -119,6 +119,18 @@
     </main>
 
     <script src="../../public/js/enviarMensagem.js"></script>
+
+
+    <?php
+
+    if (!empty($_SESSION['avisoEnviarMensagem']) && $_SESSION['avisoEnviarMensagem']) {
+        echo "<script>alert('" . $_SESSION['avisoEnviarMensagem'] . "')</script>";
+        $_SESSION['avisoEnviarMensagem'] = '';
+    }
+
+    ?>
 </body>
+
+
 
 </html>

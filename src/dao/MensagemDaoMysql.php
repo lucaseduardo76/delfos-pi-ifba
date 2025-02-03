@@ -1,14 +1,18 @@
 <?php
 
 require_once __DIR__ . "../../models/mensagem/Mensagem.php";
+require_once __DIR__ . "./UsuarioDaoMySql.php";
+
 
 class MensagemDaoMySql
 {
     private $pdo;
+    private $uDao;
 
     public function __construct(PDO $pdo)
     {
         $this->pdo = $pdo;
+        $this->uDao = new UsuarioDaoMySql($pdo);
     }
 
     public function insert(Mensagem $m)
@@ -16,8 +20,8 @@ class MensagemDaoMySql
         $sql = $this->pdo->prepare("INSERT INTO mensagem (titulo, corpo, remetente, destinatario, data) VALUES (:titulo, :corpo, :remetente, :destinatario, :data)");
         $sql->bindValue(':titulo', $m->getTitulo());
         $sql->bindValue(':corpo', $m->getMensagem());
-        $sql->bindValue(':remetente', $m->getRemetente());
-        $sql->bindValue(':destinatario', $m->getDestinatario());
+        $sql->bindValue(':remetente', $m->getRemetente()->getId());
+        $sql->bindValue(':destinatario', $m->getDestinatario()->getId());
         $sql->bindValue(':data', $m->getData());
         $sql->execute();
     }
@@ -41,8 +45,8 @@ class MensagemDaoMySql
                 $m->setId($item['id']);
                 $m->setTitulo($item['titulo']);
                 $m->setMensagem($item['corpo']);
-                $m->setRemetente($item['remetente']);
-                $m->setDestinatario($item['destinatario']);
+                $m->setRemetente($this->uDao->findById($item['remetente']));
+                $m->setDestinatario($this->uDao->findById($item['destinatario']));
                 $m->setData($item['data']);
                 $array[] = $m;
             }
@@ -62,8 +66,8 @@ class MensagemDaoMySql
             $m->setId($item['id']);
             $m->setTitulo($item['titulo']);
             $m->setMensagem($item['corpo']);
-            $m->setRemetente($item['remetente']);
-            $m->setDestinatario($item['destinatario']);
+            $m->setRemetente($this->uDao->findById($item['remetente']));
+            $m->setDestinatario($this->uDao->findById($item['destinatario']));
             $m->setData($item['data']);
             return $m;
         }
@@ -84,8 +88,8 @@ class MensagemDaoMySql
                 $m->setId($item['id']);
                 $m->setTitulo($item['titulo']);
                 $m->setMensagem($item['corpo']);
-                $m->setRemetente($item['remetente']);
-                $m->setDestinatario($item['destinatario']);
+                $m->setRemetente($this->uDao->findById($item['remetente']));
+                $m->setDestinatario($this->uDao->findById($item['destinatario']));
                 $m->setData($item['data']);
                 $array[] = $m;
             }
@@ -107,8 +111,8 @@ class MensagemDaoMySql
                 $m->setId($item['id']);
                 $m->setTitulo($item['titulo']);
                 $m->setMensagem($item['corpo']);
-                $m->setRemetente($item['remetente']);
-                $m->setDestinatario($item['destinatario']);
+                $m->setRemetente($this->uDao->findById($item['remetente']));
+                $m->setDestinatario($this->uDao->findById($item['destinatario']));
                 $m->setData($item['data']);
                 $array[] = $m;
             }

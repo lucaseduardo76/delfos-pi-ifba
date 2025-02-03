@@ -1,1 +1,1 @@
-<script>window.location.assign("./src/views/login.php")</script>
+<script>window.location.assign("./src/views/telaLogin.php")</script>

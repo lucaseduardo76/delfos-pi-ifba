@@ -15,6 +15,26 @@
 
 <body>
 
+    <?php
+    require_once("../config/config.php");
+    require_once("../models/auth/auth.php");
+    require_once("../dao/UsuarioDaoMysql.php");
+    require_once("../dao/MensagemDaoMysql.php");
+    require_once("../models/user/User.php");
+
+    $auth = new Auth();
+    $userInfo = $auth->checkToken($pdo);
+
+    if ($userInfo == false) {
+        header("Location: ./login.php");
+        exit;
+    }
+
+    $uDao = new UsuarioDaoMySql($pdo);
+
+ 
+
+    ?>
     <header>
 
         <div class="header">
@@ -23,10 +43,12 @@
             </a>
             <div class="buttons">
                 <a class="perfil-button notif" href=""><img src="../../public/images/sino-icon.png" alt=""></a>
-                <a href="editarPerfilProf.php" class="perfil-button prof"><img src="../../public/images/school-icon.png" alt="">Perfil de
+                <a href="editarPerfilProf.php" class="perfil-button prof"><img src="../../public/images/school-icon.png"
+                        alt="">Perfil de
                     professor</a>
                 <a href="editarPerfilAluno.php" class="perfil-button">Perfil</a>
-                <a class="perfil-button notif" href="../service/logout.php"><img src="../../public/images/login-icon.png" alt=""></a>
+                <a class="perfil-button notif" href="../service/logout.php"><img
+                        src="../../public/images/login-icon.png" alt=""></a>
             </div>
 
 
@@ -95,10 +117,12 @@
                     <p>Olá, Professor Felipe,</p>
                     <p>
                         Tudo bem? Me chamo Tales Costa e sou estudante/desenvolvedor do projeto Delfus,
-                        uma plataforma educacional que busca conectar estudantes e professores para aulas personalizadas e inclusivas.
+                        uma plataforma educacional que busca conectar estudantes e professores para aulas personalizadas
+                        e inclusivas.
                     </p>
                     <p>
-                        Admiro muito seu conhecimento e gostaria de tirar algumas dúvidas ou contar com sua orientação para aprimorar o projeto.
+                        Admiro muito seu conhecimento e gostaria de tirar algumas dúvidas ou contar com sua orientação
+                        para aprimorar o projeto.
                         Seria possível agendar um horário para uma breve conversa?
                     </p>
                 </div>
@@ -126,10 +150,12 @@
                     <p>AULA 2</p>
                     <p>
                         Tudo bem? Me chamo Tales Costa e sou estudante/desenvolvedor do projeto Delfus,
-                        uma plataforma educacional que busca conectar estudantes e professores para aulas personalizadas e inclusivas.
+                        uma plataforma educacional que busca conectar estudantes e professores para aulas personalizadas
+                        e inclusivas.
                     </p>
                     <p>
-                        Admiro muito seu conhecimento e gostaria de tirar algumas dúvidas ou contar com sua orientação para aprimorar o projeto.
+                        Admiro muito seu conhecimento e gostaria de tirar algumas dúvidas ou contar com sua orientação
+                        para aprimorar o projeto.
                         Seria possível agendar um horário para uma breve conversa?
                     </p>
                 </div>
@@ -157,10 +183,12 @@
                     <p>AULA 3</p>
                     <p>
                         Tudo bem? Me chamo Tales Costa e sou estudante/desenvolvedor do projeto Delfus,
-                        uma plataforma educacional que busca conectar estudantes e professores para aulas personalizadas e inclusivas.
+                        uma plataforma educacional que busca conectar estudantes e professores para aulas personalizadas
+                        e inclusivas.
                     </p>
                     <p>
-                        Admiro muito seu conhecimento e gostaria de tirar algumas dúvidas ou contar com sua orientação para aprimorar o projeto.
+                        Admiro muito seu conhecimento e gostaria de tirar algumas dúvidas ou contar com sua orientação
+                        para aprimorar o projeto.
                         Seria possível agendar um horário para uma breve conversa?
                     </p>
                 </div>
@@ -186,7 +214,7 @@
                         <button class="modal-confirm" type="submit">Enviar</button>
                     </form>
                 </div>
-             
+
             </div>
         </div>
 
@@ -207,6 +235,16 @@
     </main>
 
     <script src="../../public/js/mensagens.js"></script>
+
+
+    <?php
+
+    if (!empty($_SESSION['avisoEnviarMensagem']) && $_SESSION['avisoEnviarMensagem']) {
+        echo "<script>alert('" . $_SESSION['avisoEnviarMensagem'] . "')</script>";
+        $_SESSION['avisoEnviarMensagem'] = '';
+    }
+
+    ?>
 </body>
 
 </html>
