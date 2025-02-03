@@ -48,7 +48,7 @@ class Mensagem{
         $this->mensagem = $mensagem;
     }
 
-    public function getRemetente()
+    public function getRemetente(): User
     {
         return $this->remetente;
     }
@@ -58,7 +58,7 @@ class Mensagem{
         $this->remetente = $remetente;
     }
 
-    public function getDestinatario()
+    public function getDestinatario(): User
     {
         return $this->destinatario;
     }

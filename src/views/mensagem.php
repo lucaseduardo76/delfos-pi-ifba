@@ -15,6 +15,23 @@
 
 <body>
 
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+       document.getElementById("sent").addEventListener("click", ()=>{
+        document.getElementById("entrada").style.display = "none";
+        document.getElementById("enviada").style.display = "flex";
+    })
+
+    document.getElementById("inbox").addEventListener("click", ()=>{
+        document.getElementById("enviada").style.display = "none";
+        document.getElementById("entrada").style.display = "flex";
+    })
+});
+
+
+</script>
+
     <?php
     require_once("../config/config.php");
     require_once("../models/auth/auth.php");
@@ -31,8 +48,10 @@
     }
 
     $uDao = new UsuarioDaoMySql($pdo);
-
- 
+    $mDao = new MensagemDaoMySql($pdo);
+    $emailsRecebido = $mDao->findByDestinatario($userInfo->getId());
+    
+    $emailsEnviado = $mDao->findByRemetente($userInfo->getId());
 
     ?>
     <header>
@@ -57,179 +76,174 @@
     </header>
 
     <main>
+        <aside class="menu-sidebar">
+            <button class="menu-button" id="inbox" >Caixa de Entrada</button>
+            <button class="menu-button" id="sent" >Enviados</button>
+        </aside>
+        <div class="caixa-entrada" id="entrada">
+            <div class="email-container">
 
-        <div class="email-container">
 
-            <aside class="menu-sidebar">
-                <button class="menu-button" onclick="showFolder('inbox')">Caixa de Entrada</button>
-                <button class="menu-button" onclick="showFolder('sent')">Enviados</button>
-            </aside>
 
-            <aside class="email-sidebar">
-                <input type="text" class="barra-pesquisa" placeholder="Procurando">
+                <aside class="email-sidebar">
+                    <input type="text" class="barra-pesquisa" placeholder="Procurando">
 
-                <ul class="email-list">
-                    <li class="email-item" data-email-id="email1">
-                        <div class="profile-pic"></div>
-                        <div class="email-preview">
-                            <h3 class="email-title">Obrigado pela Aula</h3>
-                            <p class="email-prev">Precisamos confirmar a agenda para...</p>
-                        </div>
-                        <span class="notificacao">10</span>
-                    </li>
+                    <ul class="email-list">
 
-                    <li class="email-item" data-email-id="email2">
-                        <div class="profile-pic"></div>
-                        <div class="email-preview">
-                            <h3 class="email-title">Obrigado pela Aula</h3>
-                            <p class="email-prev">Precisamos confirmar a agenda para...</p>
-                        </div>
-                        <span class="notificacao">1</span>
-                    </li>
+                        <?php
+                        if (!empty($emailsRecebido)):
+                            foreach ($emailsRecebido as $email): ?>
+                                <li class="email-item" data-email-id="<?= $email->getId() ?>">
+                                    <div class="profile-pic">
+                                        <img src="<?= $email->getRemetente()->getLinkFoto() ?>" alt="">
+                                    </div>
+                                    <div class="email-preview">
+                                        <h3 class="email-title"><?= $email->getTitulo() ?></h3>
+                                        <p class="email-prev"><?= substr($email->getMensagem(), 0, 25) . '...' ?></p>
+                                    </div>
+                                </li>
+                                <?php
+                            endforeach;
+                        endif; ?>
 
-                    <li class="email-item" data-email-id="email3">
-                        <div class="profile-pic"></div>
-                        <div class="email-preview">
-                            <h3 class="email-title">Obrigado pela Aula</h3>
-                            <p class="email-prev">Precisamos confirmar a agenda para...</p>
-                        </div>
-                        <span class="notificacao">1</span>
-                    </li>
+                    </ul>
+                </aside>
 
-                </ul>
-            </aside>
+                <?php
+                if (!empty($emailsRecebido)):
+                    foreach ($emailsRecebido as $email): ?>
+                        <article class="email-content hidden" id="<?= $email->getId() ?>">
+                            <div class="email-header">
+                                <div class="email-cab">
+                                    <div class="email-img">
+                                        <div class="profile-pic">
+                                            <img src="<?= $email->getRemetente()->getLinkFoto() ?>" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="email-rmt">
+                                        <h2><?= $email->getTitulo() ?></h2>
+                                        <p><strong>De:</strong> <?= $email->getRemetente()->getNome() ?></p>
+                                    </div>
+                                </div>
+                                <img src="../../public/images/trash-icon.png" alt="" class="email-delete">
+                            </div>
 
-            <article class="email-content hidden" id="email1">
-                <div class="email-header">
-                    <div class="email-cab">
-                        <div class="email-img">
-                            <div class="profile-pic"></div>
-                        </div>
-                        <div class="email-rmt">
-                            <h2>Dúvida sobre o Projeto Delfos</h2>
-                            <p><strong>Para:</strong> Felipe Amorim</p>
-                        </div>
-                    </div>
-                    <img src="../../public/images/trash-icon.png" alt="" class="email-delete">
-                </div>
+                            <div class="email-body">
+                                <?= $email->getMensagem() ?>
+                            </div>
 
-                <div class="email-body">
-                    <p>Olá, Professor Felipe,</p>
-                    <p>
-                        Tudo bem? Me chamo Tales Costa e sou estudante/desenvolvedor do projeto Delfus,
-                        uma plataforma educacional que busca conectar estudantes e professores para aulas personalizadas
-                        e inclusivas.
-                    </p>
-                    <p>
-                        Admiro muito seu conhecimento e gostaria de tirar algumas dúvidas ou contar com sua orientação
-                        para aprimorar o projeto.
-                        Seria possível agendar um horário para uma breve conversa?
-                    </p>
-                </div>
+                            <div class="email-footer">
+                                <a href="enviarMensagem.php?idDestinatario=<?= $email->getRemetente()->getId() ?>">Responder</a>
+                            </div>
+                        </article>
+                        <?php
+                    endforeach;
+                endif; ?>
 
-                <div class="email-footer">
-                    <a href="enviarMensagem.php">Responder</button>
-                </div>
-            </article>
-
-            <article class="email-content hidden" id="email2">
-                <div class="email-header">
-                    <div class="email-cab">
-                        <div class="email-img">
-                            <div class="profile-pic"></div>
-                        </div>
-                        <div class="email-rmt">
-                            <h2>Dúvida sobre o Projeto Delfos</h2>
-                            <p><strong>Para:</strong> Felipe Amorim</p>
-                        </div>
-                    </div>
-                    <img src="../../public/images/trash-icon.png" alt="" class="email-delete">
-                </div>
-
-                <div class="email-body">
-                    <p>AULA 2</p>
-                    <p>
-                        Tudo bem? Me chamo Tales Costa e sou estudante/desenvolvedor do projeto Delfus,
-                        uma plataforma educacional que busca conectar estudantes e professores para aulas personalizadas
-                        e inclusivas.
-                    </p>
-                    <p>
-                        Admiro muito seu conhecimento e gostaria de tirar algumas dúvidas ou contar com sua orientação
-                        para aprimorar o projeto.
-                        Seria possível agendar um horário para uma breve conversa?
-                    </p>
-                </div>
-
-                <div class="email-footer">
-                    <a href="enviarMensagem.php">Responder</button>
-                </div>
-            </article>
-
-            <article class="email-content hidden" id="email3">
-                <div class="email-header">
-                    <div class="email-cab">
-                        <div class="email-img">
-                            <div class="profile-pic"></div>
-                        </div>
-                        <div class="email-rmt">
-                            <h2>Dúvida sobre o Projeto Delfos</h2>
-                            <p><strong>Para:</strong> Felipe Amorim</p>
-                        </div>
-                    </div>
-                    <img src="../../public/images/trash-icon.png" alt="" class="email-delete">
-                </div>
-
-                <div class="email-body">
-                    <p>AULA 3</p>
-                    <p>
-                        Tudo bem? Me chamo Tales Costa e sou estudante/desenvolvedor do projeto Delfus,
-                        uma plataforma educacional que busca conectar estudantes e professores para aulas personalizadas
-                        e inclusivas.
-                    </p>
-                    <p>
-                        Admiro muito seu conhecimento e gostaria de tirar algumas dúvidas ou contar com sua orientação
-                        para aprimorar o projeto.
-                        Seria possível agendar um horário para uma breve conversa?
-                    </p>
-                </div>
-
-                <div class="email-footer">
-                    <a href="enviarMensagem.php">Responder</button>
-                </div>
-            </article>
-        </div>
-
-        <div class="modal-overlay" id="modalResposta">
-            <div class="modal" id="modal">
-
-                <div class="mod-header">
-                    <button class="modal-close" id="closeModal">✕</button>
-                </div>
-                <div class="mod-body">
-                    <form>
-                        <label>
-                            <h3>Resposta para 'Tales Costa'</h3>
-                            <textarea class="mod-resposta" rows="15" required></textarea>
-                        </label>
-                        <button class="modal-confirm" type="submit">Enviar</button>
-                    </form>
-                </div>
 
             </div>
+
+            <div class="modal-overlay" id="modalResposta">
+                <div class="modal" id="modal">
+
+                    <div class="mod-header">
+                        <button class="modal-close" id="closeModal">✕</button>
+                    </div>
+                    <div class="mod-body">
+                        <form>
+                            <label>
+                                <h3>Resposta para 'Tales Costa'</h3>
+                                <textarea class="mod-resposta" rows="15" required></textarea>
+                            </label>
+                            <button class="modal-confirm" type="submit">Enviar</button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
         </div>
 
-        <div class="modal-overlay" id="modalConfirmed">
-            <div class="modal" id="modalCn">
+        <div style="display:none;" class="caixa-enviadas" id="enviada">
+            <div class="email-container">
 
-                <div class="mod-header">
-                    <button class="modal-close" id="closeModalCn">✕</button>
-                </div>
-                <div class="mod-body">
-                    <h3>Resposta enviada!</h3>
-                    <img src="../../public/images/confirmed-icon.png" alt="">
-                </div>
+
+
+                <aside class="email-sidebar">
+                    <input type="text" class="barra-pesquisa" placeholder="Procurando">
+
+                    <ul class="email-list">
+
+                        <?php
+                        if (!empty($emailsEnviado)):
+                            foreach ($emailsEnviado as $email): ?>
+                                <li class="email-item" data-email-id="<?= $email->getId() ?>">
+                                    <div class="profile-pic">
+                                        <img src="<?= $email->getDestinatario()->getLinkFoto() ?>" alt="">
+                                    </div>
+                                    <div class="email-preview">
+                                        <h3 class="email-title"><?= $email->getTitulo() ?></h3>
+                                        <p class="email-prev"><?= substr($email->getMensagem(), 0, 25) . '...' ?></p>
+                                    </div>
+                                </li>
+                                <?php
+                            endforeach;
+                        endif; ?>
+
+                    </ul>
+                </aside>
+
+                <?php
+                if (!empty($emailsEnviado)):
+                    foreach ($emailsEnviado as $email): ?>
+                        <article class="email-content hidden" id="<?= $email->getId() ?>">
+                            <div class="email-header">
+                                <div class="email-cab">
+                                    <div class="email-img">
+                                        <div class="profile-pic">
+                                            <img src="<?= $email->getDestinatario()->getLinkFoto() ?>" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="email-rmt">
+                                        <h2><?= $email->getTitulo() ?></h2>
+                                        <p><strong>Para:</strong> <?= $email->getDestinatario()->getNome() ?></p>
+                                    </div>
+                                </div>
+                                <img src="../../public/images/trash-icon.png" alt="" class="email-delete">
+                            </div>
+
+                            <div class="email-body">
+                                <?= $email->getMensagem() ?>
+                            </div>
+
+                            
+                        </article>
+                        <?php
+                    endforeach;
+                endif; ?>
+
 
             </div>
+
+            <div class="modal-overlay" id="modalResposta">
+                <div class="modal" id="modal">
+
+                    <div class="mod-header">
+                        <button class="modal-close" id="closeModal">✕</button>
+                    </div>
+                    <div class="mod-body">
+                        <form>
+                            <label>
+                                <h3>Resposta para 'Tales Costa'</h3>
+                                <textarea class="mod-resposta" rows="15" required></textarea>
+                            </label>
+                            <button class="modal-confirm" type="submit">Enviar</button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
         </div>
 
     </main>

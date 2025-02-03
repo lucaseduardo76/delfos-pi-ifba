@@ -51,7 +51,7 @@ class MensagemDaoMySql
                 $array[] = $m;
             }
         }
-        return $array;
+        return array_reverse($array);
     }
 
     public function findById($id)
@@ -74,11 +74,11 @@ class MensagemDaoMySql
         return false;
     }
 
-    public function findByRemetente($remetente)
+    public function findByRemetente($id)
     {
         $array = [];
         $sql = $this->pdo->prepare("SELECT * FROM mensagem WHERE remetente = :remetente");
-        $sql->bindValue(":remetente", $remetente);
+        $sql->bindValue(":remetente", $id);
         $sql->execute();
 
         if ($sql->rowCount() > 0) {
@@ -94,14 +94,14 @@ class MensagemDaoMySql
                 $array[] = $m;
             }
         }
-        return $array;
+        return array_reverse($array);
     }
 
-    public function findByDestinatario($destinatario)
+    public function findByDestinatario($id)
     {
         $array = [];
         $sql = $this->pdo->prepare("SELECT * FROM mensagem WHERE destinatario = :destinatario");
-        $sql->bindValue(":destinatario", $destinatario);
+        $sql->bindValue(":destinatario", $id);
         $sql->execute();
 
         if ($sql->rowCount() > 0) {
@@ -117,6 +117,6 @@ class MensagemDaoMySql
                 $array[] = $m;
             }
         }
-        return $array;
+        return array_reverse($array);
     }
 }
