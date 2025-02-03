@@ -62,9 +62,8 @@
     <header>
 
         <div class="header">
-            <a href="main.php" class="logo">
-                <img src="../../public/images/Logo Delfos branco.svg">
-            </a>
+
+            <a href="mensagem.php" class="perfil-button notif"><img src="../../public/images/email.svg" alt=""></a>
             <div class="buttons">
                 <a href="mensagem.php">
                     <div class="perfil-button notif"><img src="../../public/images/sino-icon.png" alt=""></div>
@@ -144,8 +143,7 @@
                                         <img src="../../public/images/eye-icon.png" alt="Visualizar" class="icone"
                                             onclick="abrirmodal(<?= $aula->getId() ?>)">
 
-                                        <a
-                                            href="./enviarMensagem.php?idDestinatario=<?= $aula->getAlunoId()?>"><img
+                                        <a href="./enviarMensagem.php?idDestinatario=<?= $aula->getAlunoId() ?>"><img
                                                 class="carta" src="../../public/images/email.svg" alt="Excluir"
                                                 class="icone"></a>
                                         <a

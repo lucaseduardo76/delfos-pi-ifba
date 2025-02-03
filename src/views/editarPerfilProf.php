@@ -80,7 +80,8 @@
                 <img src="../../public/images/Logo Delfos branco.svg">
             </a>
             <div class="buttons">
-                <a href="mensagem.php" class="perfil-button notif"><img src="../../public/images/sino-icon.png" alt=""></a>
+                
+            <a href="mensagem.php" class="perfil-button notif"><img src="../../public/images/email.svg" alt=""></a>
                 <div class="perfil-button prof"><img src="../../public/images/school-icon.png" alt="">Perfil de
                     professor</div>
                 <a href="editarPerfilAluno.php" class="perfil-button">Perfil</a>

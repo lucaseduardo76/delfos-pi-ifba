@@ -64,9 +64,8 @@
                 <img src="../../public/images/Logo Delfos branco.svg">
             </a>
             <div class="buttons">
-                <a href="mensagem.php">
-                    <div class="perfil-button notif"><img src="../../public/images/sino-icon.png" alt=""></div>
-                </a>
+
+                <a href="mensagem.php" class="perfil-button notif"><img src="../../public/images/email.svg" alt=""></a>
                 <a class="perfil-button prof" href="./editarPerfilProf.php"><img
                         src="../../public/images/school-icon.png" alt="">Perfil do professor
                 </a>
@@ -143,9 +142,10 @@
                                             onclick="abrirmodal(<?= $aula->getId() ?>)">
 
                                         <a
-                                            href="./enviarMensagem.php?idDestinatario=<?= $pDao->findById($aula->getProfessorId())->getUserId()?>"><img
-                                                 class="carta" src="../../public/images/email.svg" alt="Excluir" class="icone"></a>
-                                                 
+                                            href="./enviarMensagem.php?idDestinatario=<?= $pDao->findById($aula->getProfessorId())->getUserId() ?>"><img
+                                                class="carta" src="../../public/images/email.svg" alt="Excluir"
+                                                class="icone"></a>
+
 
                                         <a
                                             href="../service/deleteAula.php?aula=<?= $aula->getId() ?>&idAluno=<?= $aula->getAlunoId() ?>"><img

@@ -39,14 +39,14 @@
     if (!empty($_SESSION['idProfessor']) && $_SESSION['idProfessor']) {
         $usuario = $uDao->findById($_SESSION['idProfessor']);
 
-        if($usuario->getId() == $userInfo->getId()){
+        if ($usuario->getId() == $userInfo->getId()) {
             header('Location: ./editarPerfilProf.php');
             exit;
         }
 
         if ($usuario) {
             $professor = $pDao->findByUserId($usuario->getId());
-        }else {
+        } else {
             header('Location: ./main.php');
             exit;
         }
@@ -66,11 +66,14 @@
                 <img src="../../public/images/Logo Delfos branco.svg">
             </a>
             <div class="buttons">
-                <a href="mensagem.php" class="perfil-button notif"><img src="../../public/images/sino-icon.png" alt=""></a>
-                <a href="editarPerfilProf.php" class="perfil-button prof"><img src="../../public/images/school-icon.png" alt="">Perfil de
+
+                <a href="mensagem.php" class="perfil-button notif"><img src="../../public/images/email.svg" alt=""></a>
+                <a href="editarPerfilProf.php" class="perfil-button prof"><img src="../../public/images/school-icon.png"
+                        alt="">Perfil de
                     professor</a>
                 <a href="editarPerfilAluno.php" class="perfil-button">Perfil</a>
-                <a class="perfil-button notif" href="../service/logout.php"><img src="../../public/images/login-icon.png" alt=""></a>
+                <a class="perfil-button notif" href="../service/logout.php"><img
+                        src="../../public/images/login-icon.png" alt=""></a>
             </div>
 
 
@@ -118,7 +121,8 @@
                 <div class="botoes">
                     <button class="main-btn" id="linkBtn" disabled>Começar aula</button>
                     <button class="secondary-btn" id="agendarBtn">Agendar aula</button>
-                    <a class="secondary-btn" href="./enviarMensagem.php?idDestinatario=<?=$usuario->getId()?>">Enviar mensagem</a>
+                    <a class="secondary-btn" href="./enviarMensagem.php?idDestinatario=<?= $usuario->getId() ?>">Enviar
+                        mensagem</a>
                 </div>
             </div>
 

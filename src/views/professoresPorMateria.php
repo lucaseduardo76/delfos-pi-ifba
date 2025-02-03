@@ -38,9 +38,7 @@
 
     $areaId = filter_input(INPUT_GET, "area");
 
-    // echo "<pre>";
-    // print_r($pDao->findAllByArea($areaId));
-    // echo "</pre>";
+
 
 
     function ordenarProfessoresPorRating(array $professores): array
@@ -74,16 +72,16 @@
                 <img src="../../public/images/Logo Delfos branco.svg">
             </a>
             <div class="buttons">
-                <a href="mensagem.php">
-                    <div class="perfil-button notif"><img src="../../public/images/sino-icon.png" alt=""></div>
-                </a>
+
+                <a href="mensagem.php" class="perfil-button notif"><img src="../../public/images/email.svg" alt=""></a>
                 <a class="perfil-button prof" href="./editarPerfilProf.php"><img
                         src="../../public/images/school-icon.png" alt="">Perfil do professor
                 </a>
                 <a href="editarPerfilAluno.php">
                     <div class="perfil-button">Perfil</div>
                 </a>
-                <a class="perfil-button notif" href="../service/logout.php"><img src="../../public/images/login-icon.png" alt=""></a>
+                <a class="perfil-button notif" href="../service/logout.php"><img
+                        src="../../public/images/login-icon.png" alt=""></a>
             </div>
 
         </div>
@@ -104,7 +102,7 @@
                 $usuario = $uDao->findById($p->getUserId());
                 $rating = $p->getRating() == 0 ? 1 : $p->getRating();
                 if ($usuario):
-        ?>
+                    ?>
 
                     <div class="slider-item">
                         <form action="../service/redirecionaPerfilProf.php" method="GET">
@@ -121,7 +119,7 @@
                             </button>
                         </form>
                     </div>
-            <?php
+                    <?php
                 endif;
             endforeach;
         else:

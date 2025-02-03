@@ -126,7 +126,7 @@
                 <img src="../../public/images/Logo Delfos branco.svg">
             </a>
             <div class="buttons">
-                <a href="mensagem.php" class="perfil-button notif"><img src="../../public/images/sino-icon.png" alt=""></a>
+                <a href="mensagem.php" class="perfil-button notif"><img src="../../public/images/email.svg" alt=""></a>
                 <?php if (!$professor): ?>
                     <a class="perfil-button prof" href="./novoPerfilProf.php"><img src="../../public/images/school-icon.png"
                             alt="">Seja um professor
