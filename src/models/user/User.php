@@ -96,7 +96,7 @@ class User
 }
 
 
-interface UsuarioDAO
+interface UserDaoMySql
 {
     public function insert(User $u);
     public function findAll();

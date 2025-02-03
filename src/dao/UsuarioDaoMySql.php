@@ -2,7 +2,7 @@
 
 require_once __DIR__ . "../../models/user/User.php";
 
-class UsuarioDaoMySql implements UsuarioDao{
+class UsuarioDaoMySql implements UserDaoMySql{
 
     private $pdo;
     public function __construct(PDO $pdo) {
