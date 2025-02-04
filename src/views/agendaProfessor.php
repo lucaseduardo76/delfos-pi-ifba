@@ -59,6 +59,7 @@
     }
 
     
+
     ?>
 
     <header>
@@ -70,7 +71,8 @@
 
             <div class="buttons">
 
-                <div class="perfil-button notifAgenda" id="agendaButton"><img src="../../public/images/agenda-icon.png"></div>
+                <div class="perfil-button notifAgenda" id="agendaButton"><img src="../../public/images/agenda-icon.png">
+                </div>
                 <nav id="dropdownMenu" class="hidden">
                     <ul>
                         <li><a href="agendaAluno.php">Agenda de Aluno</a></li>
@@ -105,7 +107,7 @@
                         <th>Horário</th>
                         <th>Semana</th>
                         <th>Confirmada</th>
-                        <th>Ir para aula</th>
+                        <th>Link Aula</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
@@ -140,7 +142,7 @@
 
 
 
-                    ?>
+                            ?>
                             <tr>
                                 <td><?= $dia ?></td>
                                 <td><?= $mes ?></td>
@@ -151,7 +153,20 @@
                                     <div class="bola <?= corBola($aula->getConfirmada()) ?>"></div>
                                 </td>
                                 <td>
-                                    <button href="" class="link-button" id="linkButton" onclick="abrirModalLink('<?= $aula->getId() ?>')">Adicionar link</button>
+                                    <?php if ($aula->getConfirmada() == 2):
+                                        if ($aula->getLinkAula() != null && $aula->isHorarioPermitido()):
+                                            ?>
+                                            <a href="<?=$aula->getLinkAula()?>" target="_blank" class="link-button" id="linkButton" style="margin-bottom: 10px; background-color: #FA8374;">Ir para Aula</a>
+                                            <button href="" class="link-button" id="linkButton"
+                                                onclick="abrirModalLink('<?= $aula->getId() ?>')">Adicionar
+                                                link</button>
+                                        <?php else: ?>
+                                            <button href="" class="link-button" id="linkButton"
+                                                onclick="abrirModalLink('<?= $aula->getId() ?>')">Adicionar link</button>
+                                        <?php endif; ?>
+                                    <?php else: ?>
+                                        <button href="" class="link-button" id="linkButton" disabled>Adicionar link</button>
+                                    <?php endif; ?>
                                 </td>
                                 <td>
                                     <div class="acoes">
@@ -250,7 +265,7 @@
                 </div>
                 <div class="mod-body">
                     <form method="POST" action="../service/insereLink.php">
-                        <h3>Insira o link da reunião: </h3>
+                        <h3>Insira o link da reunião: (Zoom ou Meet)</h3>
                         <input type="hidden" name="aulaId" value="" id="aulaIdModal">
                         <input type="link" name="linkAula" id="idLinkHidden" placeholder="Link aqui...">
                         <input type="submit" value="Enviar" id="enviar-submit">
@@ -337,7 +352,7 @@
         }
 
 
-        document.addEventListener("keydown", function(event) {
+        document.addEventListener("keydown", function (event) {
             if (event.key === "Escape") {
                 document.getElementById("modal").style.opacity = "0";
 
@@ -363,14 +378,27 @@
         });
 
         const abrirModalLink = (idAula) => {
+
+          
             document.getElementById("modalLink").style.display = "flex";
             document.getElementById("aulaIdModal").value = idAula;
+
+
             const timer = setTimeout(() => {
                 document.getElementById("modalLk").style.opacity = "1";
             }, 10);
-        });
+        };
     </script>
 
+    <?php
+
+
+    if (!empty($_SESSION['avisoLinkAula']) && $_SESSION['avisoLinkAula']) {
+        echo "<script>alert('" . $_SESSION['avisoLinkAula'] . "')</script>";
+        $_SESSION['avisoLinkAula'] = '';
+    }
+
+    ?>
 </body>
 
 </html>
