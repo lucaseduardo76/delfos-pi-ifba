@@ -58,6 +58,7 @@
         }
     }
 
+    
     ?>
 
     <header>
@@ -72,7 +73,6 @@
                 <div class="perfil-button notifAgenda" id="agendaButton"><img src="../../public/images/agenda-icon.png"></div>
                 <nav id="dropdownMenu" class="hidden">
                     <ul>
-                        <li><a href="agendaProfessor.php">Agenda de Professor</a></li>
                         <li><a href="agendaAluno.php">Agenda de Aluno</a></li>
                     </ul>
                 </nav>

@@ -55,6 +55,8 @@
         }
     }
 
+    $isUserProf = $pDao->findByUserId($userInfo->getId());
+
     ?>
 
     <header>
@@ -64,15 +66,18 @@
                 <img src="../../public/images/Logo Delfos branco.svg">
             </a>
             <div class="buttons">
+                <?php if ($isUserProf): ?>
+                    <div class="perfil-button notifAgenda" id="agendaButton"><img src="../../public/images/agenda-icon.png">
+                    </div>
+                    <nav id="dropdownMenu" class="hidden">
+                        <ul>
 
-                <div class="perfil-button notifAgenda" id="agendaButton"><img src="../../public/images/agenda-icon.png"></div>
-                <nav id="dropdownMenu" class="hidden">
-                    <ul>
-                        <li><a href="agendaProfessor.php">Agenda de Professor</a></li>
-                        <li><a href="agendaAluno.php">Agenda de Aluno</a></li>
-                    </ul>
-                </nav>
+                            <li><a href="agendaProfessor.php">Agenda de Professor</a></li>
 
+                            <li><a href="agendaAluno.php">Agenda de Aluno</a></li>
+                        </ul>
+                    </nav>
+                <?php endif; ?>
                 <a href="mensagem.php" class="perfil-button notif"><img src="../../public/images/email.svg" alt=""></a>
                 <a class="perfil-button prof" href="./editarPerfilProf.php"><img
                         src="../../public/images/school-icon.png" alt="">Perfil do professor
@@ -134,7 +139,7 @@
                                         });
                                     </script>';
                             list($ano, $mes, $dia) = explode('-', $aula->getData());
-                    ?>
+                            ?>
                             <tr>
                                 <td><?= $dia ?></td>
                                 <td><?= $mes ?></td>

@@ -39,7 +39,11 @@
 
     $nome = filter_input(INPUT_GET, "nome");
 
-
+    if ($nome == "" || !$nome) {
+        $_SESSION["avisoListaMateria"] = "Pesquisa inválida";
+        header("Location: ./listaMaterias.php");
+        exit;
+    }
 
 
     function ordenarProfessoresPorRating(array $professores): array
@@ -63,7 +67,7 @@
         return $caminhoFoto;
     }
 
-
+    $isUserProf = $pDao->findByUserId($userInfo->getId());
     ?>
 
     <header>
@@ -77,7 +81,9 @@
                 <div class="perfil-button notifAgenda" id="agendaButton"><img src="../../public/images/agenda-icon.png"></div>
                 <nav id="dropdownMenu" class="hidden">
                     <ul>
+                        <?php if($isUserProf): ?>
                         <li><a href="agendaProfessor.php">Agenda de Professor</a></li>
+                        <?php endif; ?>
                         <li><a href="agendaAluno.php">Agenda de Aluno</a></li>
                     </ul>
                 </nav>
@@ -107,6 +113,7 @@
         $professores = ordenarProfessoresPorRating($pDao->findByName($nome));
         if ($professores):
             foreach ($professores as $p):
+
 
                 $usuario = $uDao->findById($p->getUserId());
                 $rating = $p->getRating() == 0 ? 1 : $p->getRating();

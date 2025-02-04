@@ -18,15 +18,15 @@
 <body>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("sent").addEventListener("click", () => {
                 document.getElementById("entrada").style.display = "none";
-                document.getElementById("enviada").style.display = "flex";
+                document.getElementById("enviada").style.display = "block";
             })
 
             document.getElementById("inbox").addEventListener("click", () => {
                 document.getElementById("enviada").style.display = "none";
-                document.getElementById("entrada").style.display = "flex";
+                document.getElementById("entrada").style.display = "block";
             })
         });
     </script>
@@ -36,6 +36,7 @@
     require_once("../models/auth/auth.php");
     require_once("../dao/UsuarioDaoMysql.php");
     require_once("../dao/MensagemDaoMysql.php");
+    require_once("../dao/ProfessorDaoMySql.php");
     require_once("../models/user/User.php");
 
     $auth = new Auth();
@@ -48,10 +49,11 @@
 
     $uDao = new UsuarioDaoMySql($pdo);
     $mDao = new MensagemDaoMySql($pdo);
+    $pDao = new ProfesorDaoMySql($pdo);
     $emailsRecebido = $mDao->findByDestinatario($userInfo->getId());
 
     $emailsEnviado = $mDao->findByRemetente($userInfo->getId());
-
+    $isUserProf = $pDao->findByUserId($userInfo->getId());
     ?>
     <header>
 
@@ -61,10 +63,13 @@
             </a>
             <div class="buttons">
 
-                <div class="perfil-button notifAgenda" id="agendaButton"><img src="../../public/images/agenda-icon.png"></div>
+                <div class="perfil-button notifAgenda" id="agendaButton"><img src="../../public/images/agenda-icon.png">
+                </div>
                 <nav id="dropdownMenu" class="hidden">
                     <ul>
-                        <li><a href="agendaProfessor.php">Agenda de Professor</a></li>
+                        <?php if ($isUserProf): ?>
+                            <li><a href="agendaProfessor.php">Agenda de Professor</a></li>
+                        <?php endif; ?>
                         <li><a href="agendaAluno.php">Agenda de Aluno</a></li>
                     </ul>
                 </nav>
@@ -109,7 +114,7 @@
                                         <p class="email-prev"><?= substr($email->getMensagem(), 0, 25) . '...' ?></p>
                                     </div>
                                 </li>
-                        <?php
+                                <?php
                             endforeach;
                         endif; ?>
 
@@ -144,7 +149,7 @@
                                 <a href="enviarMensagem.php?idDestinatario=<?= $email->getRemetente()->getId() ?>">Responder</a>
                             </div>
                         </article>
-                <?php
+                        <?php
                     endforeach;
                 endif; ?>
 
@@ -194,7 +199,7 @@
                                         <p class="email-prev"><?= substr($email->getMensagem(), 0, 25) . '...' ?></p>
                                     </div>
                                 </li>
-                        <?php
+                                <?php
                             endforeach;
                         endif; ?>
 
@@ -228,7 +233,7 @@
 
 
                         </article>
-                <?php
+                        <?php
                     endforeach;
                 endif; ?>
 

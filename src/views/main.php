@@ -117,7 +117,7 @@
     }
 
 
-
+    $isUserProf = $pDao->findByUserId($userInfo->getId());
     ?>
 
     <header>
@@ -128,10 +128,13 @@
             </a>
             <div class="buttons">
 
-                <div class="perfil-button notifAgenda" id="agendaButton"><img src="../../public/images/agenda-icon.png"></div>
+                <div class="perfil-button notifAgenda" id="agendaButton"><img src="../../public/images/agenda-icon.png">
+                </div>
                 <nav id="dropdownMenu" class="hidden">
                     <ul>
-                        <li><a href="agendaProfessor.php">Agenda de Professor</a></li>
+                        <?php if ($isUserProf): ?>
+                            <li><a href="agendaProfessor.php">Agenda de Professor</a></li>
+                        <?php endif; ?>
                         <li><a href="agendaAluno.php">Agenda de Aluno</a></li>
                     </ul>
                 </nav>
@@ -149,7 +152,8 @@
                     </a>
                 <?php endif; ?>
                 <a href="editarPerfilAluno.php" class="perfil-button">Perfil</a>
-                <a class="perfil-button notif" href="../service/logout.php"><img src="../../public/images/login-icon.png" alt=""></a>
+                <a class="perfil-button notif" href="../service/logout.php"><img
+                        src="../../public/images/login-icon.png" alt=""></a>
             </div>
 
 
@@ -174,7 +178,7 @@
                     $usuario = $uDao->findById($p->getUserId());
                     $rating = $p->getRating() == 0 ? 1 : $p->getRating();
                     if ($usuario):
-                    ?>
+                        ?>
 
                         <div class="slider-item">
                             <form action="../service/redirecionaPerfilProf.php" method="GET">
@@ -211,7 +215,8 @@
 
         <div class="subtitulo">
             <h1>Aprenda com profissionais qualificados</h1>
-            <a href="listaMaterias.php" id="botao-link">O que deseja aprender ? <img src="../../public/images/pesquisaIcon.png" alt=""></a>
+            <a href="listaMaterias.php" id="botao-link">O que deseja aprender ? <img
+                    src="../../public/images/pesquisaIcon.png" alt=""></a>
         </div>
 
         <?php
@@ -236,7 +241,7 @@
                         $usuario = $uDao->findById($p->getUserId());
                         $rating = $p->getRating() == 0 ? 1 : $p->getRating();
                         if ($usuario):
-                        ?>
+                            ?>
                             <form action="../service/redirecionaPerfilProf.php" method="GET">
                                 <input type="hidden" name="idProf" value="<?= $usuario->getId(); ?>">
                                 <button type="submit"

@@ -22,6 +22,7 @@
     require_once("../models/auth/auth.php");
     require_once("../dao/ProfessorDaoMysql.php");
     require_once("../dao/UsuarioDaoMysql.php");
+    require_once("../dao/ProfessorDaoMysql.php");
     require_once("../models/user/User.php");
 
     $auth = new Auth();
@@ -32,7 +33,9 @@
         exit;
     }
 
+    $pDao = new ProfesorDaoMySql($pdo);
     $uDao = new UsuarioDaoMySql($pdo);
+    $isUserProf = $pDao->findByUserId($userInfo->getId());
     ?>
 
     <header>
@@ -43,10 +46,13 @@
             </a>
             <div class="buttons">
 
-                <div class="perfil-button notifAgenda" id="agendaButton"><img src="../../public/images/agenda-icon.png"></div>
+                <div class="perfil-button notifAgenda" id="agendaButton"><img src="../../public/images/agenda-icon.png">
+                </div>
                 <nav id="dropdownMenu" class="hidden">
                     <ul>
-                        <li><a href="agendaProfessor.php">Agenda de Professor</a></li>
+                        <?php if ($pDao->findByUserId($userInfo->getId())): ?>
+                            <li><a href="agendaProfessor.php">Agenda de Professor</a></li>
+                        <?php endif; ?>
                         <li><a href="agendaAluno.php">Agenda de Aluno</a></li>
                     </ul>
                 </nav>

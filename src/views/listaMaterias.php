@@ -44,12 +44,12 @@
         $listaProfessores[] = $uDao->findById($p->getUserId())->getNome();
     }
 
-
+    $isUserProf = $pDao->findByUserId($userInfo->getId());
     ?>
 
 
     <script>
-        // Passando a lista de professores para o JavaScript
+        
         var listaProfessores = <?php echo json_encode($listaProfessores); ?>;
     </script>
 
@@ -61,10 +61,13 @@
             </a>
             <div class="buttons">
 
-                <div class="perfil-button notifAgenda" id="agendaButton"><img src="../../public/images/agenda-icon.png"></div>
+                <div class="perfil-button notifAgenda" id="agendaButton"><img src="../../public/images/agenda-icon.png">
+                </div>
                 <nav id="dropdownMenu" class="hidden">
                     <ul>
-                        <li><a href="agendaProfessor.php">Agenda de Professor</a></li>
+                        <?php if ($isUserProf): ?>
+                            <li><a href="agendaProfessor.php">Agenda de Professor</a></li>
+                        <?php endif; ?>
                         <li><a href="agendaAluno.php">Agenda de Aluno</a></li>
                     </ul>
                 </nav>
@@ -97,7 +100,7 @@
             <div class="categorias">
                 <?php
                 foreach ($areas as $area):
-                ?>
+                    ?>
                     <a class="category"
                         href="./professoresPorMateria.php?area=<?= $area->getId() ?>"><?= $area->getArea() ?></a>
                 <?php endforeach; ?>
@@ -119,16 +122,16 @@
         // Se o campo de busca não estiver vazio
         if (input.length > 0) {
             // Filtra os professores com base no texto digitado
-            var resultados = listaProfessores.filter(function(professor) {
+            var resultados = listaProfessores.filter(function (professor) {
                 return professor.toLowerCase().includes(input);
             });
 
             // Exibe as sugestões
-            resultados.forEach(function(nome) {
+            resultados.forEach(function (nome) {
                 var div = document.createElement('div');
                 div.classList.add('sugestao');
                 div.innerText = nome;
-                div.onclick = function() {
+                div.onclick = function () {
                     document.getElementById('busca').value = nome; // Preenche o campo de busca com o nome selecionado
                     sugestoesDiv.innerHTML = ''; // Limpa as sugestões após a seleção
                 };
@@ -137,6 +140,17 @@
         }
     }
 </script>
-</script>
+
+<?php
+
+ 
+
+    if (!empty($_SESSION['avisoListaMateria']) && $_SESSION['avisoListaMateria']) {
+        echo "<script>alert('" . $_SESSION['avisoListaMateria'] . "')</script>";
+        $_SESSION['avisoListaMateria'] = '';
+    }
+
+    ?>
+
 
 </html>
