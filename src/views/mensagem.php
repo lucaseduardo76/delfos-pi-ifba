@@ -74,9 +74,17 @@
                     </ul>
                 </nav>
 
-                <a href="editarPerfilProf.php" class="perfil-button prof"><img src="../../public/images/school-icon.png"
-                        alt="">Perfil de
-                    professor</a>
+                <?php if (!$isUserProf): ?>
+                    <a class="perfil-button prof" href="./novoPerfilProf.php"><img src="../../public/images/school-icon.png"
+                            alt="">Seja um professor
+                    </a>
+                <?php endif; ?>
+
+                <?php if ($isUserProf): ?>
+                    <a class="perfil-button prof" href="./editarPerfilProf.php"><img
+                            src="../../public/images/school-icon.png" alt="">Perfil do professor
+                    </a>
+                <?php endif; ?>
                 <a href="editarPerfilAluno.php" class="perfil-button">Perfil</a>
                 <a class="perfil-button notif" href="../service/logout.php"><img
                         src="../../public/images/login-icon.png" alt=""></a>

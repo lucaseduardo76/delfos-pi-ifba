@@ -7,7 +7,15 @@ class Agenda{
     private $professorId;
     private $confirmada;
     private $dificuldadeAluno;
+    private $linkAula;
+    
+    public function getLinkAula() {
+        return $this->linkAula;
+    }
 
+    public function setLinkAula($linkAula) {
+        $this->linkAula = $linkAula;
+    }
     public function getDificuldadeAluno() {
         return $this->dificuldadeAluno;
     }

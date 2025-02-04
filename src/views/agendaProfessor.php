@@ -151,7 +151,7 @@
                                     <div class="bola <?= corBola($aula->getConfirmada()) ?>"></div>
                                 </td>
                                 <td>
-                                    <button href="" class="link-button" id="linkButton">Adicionar link</button>
+                                    <button href="" class="link-button" id="linkButton" onclick="abrirModalLink('<?= $aula->getId() ?>')">Adicionar link</button>
                                 </td>
                                 <td>
                                     <div class="acoes">
@@ -249,8 +249,9 @@
                     <button class="modal-close" id="closeModalLk">✕</button>
                 </div>
                 <div class="mod-body">
-                    <form>
+                    <form method="POST" action="../service/insereLink.php">
                         <h3>Insira o link da reunião: </h3>
+                        <input type="hidden" name="aulaId" value="" id="aulaIdModal">
                         <input type="link" name="linkAula" id="idLinkHidden" placeholder="Link aqui...">
                         <input type="submit" value="Enviar" id="enviar-submit">
                     </form>
@@ -361,9 +362,9 @@
             }, 450);
         });
 
-        document.getElementById("linkButton").addEventListener("click", () => {
+        const abrirModalLink = (idAula) => {
             document.getElementById("modalLink").style.display = "flex";
-
+            document.getElementById("aulaIdModal").value = idAula;
             const timer = setTimeout(() => {
                 document.getElementById("modalLk").style.opacity = "1";
             }, 10);

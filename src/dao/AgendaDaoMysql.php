@@ -25,6 +25,21 @@ class AgendaDaoMysql implements AgendaDaoImplementa
         $sql->execute();
         return $this->pdo->lastInsertId();
     }
+    public function insertLinkAula($id, $link)
+    {
+        $sql = $this->pdo->prepare("UPDATE agenda_aula SET link_aula = :link WHERE id = :id");
+        $sql->bindValue(":link", $link, PDO::PARAM_STR);
+        $sql->bindValue(":id", $id, PDO::PARAM_INT);
+        $sql->execute();
+
+        if ($sql->rowCount() > 0) {
+            return true;
+        }
+
+        return false;
+    }
+
+
 
     public function findAllByProfessor($id)
     {
@@ -44,6 +59,7 @@ class AgendaDaoMysql implements AgendaDaoImplementa
                 $agenda->setProfessorid($item['professor']);
                 $agenda->setConfirmada($item['confirmada']);
                 $agenda->setDificuldadeAluno($item['dificuldade_aluno']);
+                $agenda->setLinkAula($item['link_aula']);  // Aqui você adiciona o novo atributo
 
                 $array[] = $agenda;
             }
@@ -52,29 +68,30 @@ class AgendaDaoMysql implements AgendaDaoImplementa
         return false;
     }
 
+
     public function findById($id)
     {
-        
         $sql = $this->pdo->prepare("SELECT * FROM agenda_aula WHERE id = :id");
         $sql->bindValue(":id", $id, PDO::PARAM_INT);
         $sql->execute();
         if ($sql->rowCount() > 0) {
             $item = $sql->fetch(PDO::FETCH_ASSOC);
 
-                $agenda = new Agenda();
-                $agenda->setId($item['id']);
-                $agenda->setData($item['data']);
-                $agenda->setHora($item['hora']);
-                $agenda->setAlunoId($item['aluno']);
-                $agenda->setProfessorid($item['professor']);
-                $agenda->setConfirmada($item['confirmada']);
-                $agenda->setDificuldadeAluno($item['dificuldade_aluno']);
+            $agenda = new Agenda();
+            $agenda->setId($item['id']);
+            $agenda->setData($item['data']);
+            $agenda->setHora($item['hora']);
+            $agenda->setAlunoId($item['aluno']);
+            $agenda->setProfessorid($item['professor']);
+            $agenda->setConfirmada($item['confirmada']);
+            $agenda->setDificuldadeAluno($item['dificuldade_aluno']);
+            $agenda->setLinkAula($item['link_aula']);  // Aqui você adiciona o novo atributo
 
-            
             return $agenda;
         }
         return false;
     }
+
 
     public function findAllByAluno($id)
     {
@@ -94,6 +111,7 @@ class AgendaDaoMysql implements AgendaDaoImplementa
                 $agenda->setProfessorid($item['professor']);
                 $agenda->setConfirmada($item['confirmada']);
                 $agenda->setDificuldadeAluno($item['dificuldade_aluno']);
+                $agenda->setLinkAula($item['link_aula']);  // Aqui você adiciona o novo atributo
 
                 $array[] = $agenda;
             }
@@ -101,6 +119,8 @@ class AgendaDaoMysql implements AgendaDaoImplementa
         }
         return false;
     }
+
+
 
     public function delete(Agenda $a)
     {

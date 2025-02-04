@@ -140,13 +140,13 @@
                 </nav>
 
                 <a href="mensagem.php" class="perfil-button notif"><img src="../../public/images/email.svg" alt=""></a>
-                <?php if (!$professor): ?>
+                <?php if (!$isUserProf): ?>
                     <a class="perfil-button prof" href="./novoPerfilProf.php"><img src="../../public/images/school-icon.png"
                             alt="">Seja um professor
                     </a>
                 <?php endif; ?>
 
-                <?php if ($professor): ?>
+                <?php if ($isUserProf): ?>
                     <a class="perfil-button prof" href="./editarPerfilProf.php"><img
                             src="../../public/images/school-icon.png" alt="">Perfil do professor
                     </a>
