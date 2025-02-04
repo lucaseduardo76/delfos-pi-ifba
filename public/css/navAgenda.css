@@ -1,0 +1,43 @@
+.perfil-button.notifAgenda {
+    width: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.perfil-button.notifAgenda {
+    position: relative;
+}
+
+#dropdownMenu {
+    position: absolute;
+    top: 60px; /* Faz o menu aparecer logo abaixo do botão */
+    left: 58%;
+    transform: translateX(-50%); /* Centraliza o menu em relação ao botão */
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    display: none; /* Oculta o menu por padrão */
+    width: 180px;
+}
+
+#dropdownMenu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#dropdownMenu li {
+    padding: 10px;
+}
+
+#dropdownMenu li a {
+    text-decoration: none;
+    color: black;
+}
+
+/* Classe para exibir o menu */
+.show {
+    display: block !important;
+}

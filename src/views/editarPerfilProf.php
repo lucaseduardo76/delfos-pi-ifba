@@ -10,6 +10,8 @@
         href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="../../public/css/editarPerfilProf.css">
+    <link rel="stylesheet" href="../../public/css/navAgenda.css">
+    <script src="../../public/js/navAgenda.js"></script>
     <title>Document</title>
 </head>
 
@@ -80,8 +82,16 @@
                 <img src="../../public/images/Logo Delfos branco.svg">
             </a>
             <div class="buttons">
-                
-            <a href="mensagem.php" class="perfil-button notif"><img src="../../public/images/email.svg" alt=""></a>
+
+                <div class="perfil-button notifAgenda" id="agendaButton"><img src="../../public/images/agenda-icon.png"></div>
+                <nav id="dropdownMenu" class="hidden">
+                    <ul>
+                        <li><a href="agendaProfessor.php">Agenda de Professor</a></li>
+                        <li><a href="agendaAluno.php">Agenda de Aluno</a></li>
+                    </ul>
+                </nav>
+
+                <a href="mensagem.php" class="perfil-button notif"><img src="../../public/images/email.svg" alt=""></a>
                 <div class="perfil-button prof"><img src="../../public/images/school-icon.png" alt="">Perfil de
                     professor</div>
                 <a href="editarPerfilAluno.php" class="perfil-button">Perfil</a>
@@ -145,7 +155,7 @@
     <script>
         const input = document.getElementById('preco');
 
-        input.addEventListener('input', function (event) {
+        input.addEventListener('input', function(event) {
             let value = event.target.value.replace(/\D/g, ''); // Remove tudo que não for número
             value = (value / 100).toFixed(2).replace('.', ','); // Formata como valor monetário
             event.target.value = 'R$ ' + value;

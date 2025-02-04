@@ -10,6 +10,8 @@
         href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="../../public/css/listaMaterias.css">
+    <link rel="stylesheet" href="../../public/css/navAgenda.css">
+    <script src="../../public/js/navAgenda.js"></script>
     <title>Document</title>
 </head>
 
@@ -19,8 +21,8 @@
 
     require_once("../config/config.php");
     require_once("../models/auth/auth.php");
-    require_once("../dao/AreaDao.php");    
-    require_once("../dao/ProfessorDaoMysql.php");    
+    require_once("../dao/AreaDao.php");
+    require_once("../dao/ProfessorDaoMysql.php");
     require_once("../dao/UsuarioDaoMysql.php");
     $auth = new Auth();
     $userInfo = $auth->checkToken($pdo);
@@ -35,15 +37,15 @@
     $pDao = new ProfesorDaoMySql($pdo);
     $uDao = new UsuarioDaoMySql($pdo);
     $areas = $aDao->findAll();
-        
+
     // Exemplo de lista de professores
     $listaProfessores = [];
-    foreach($pDao->findAll() as $p) {
+    foreach ($pDao->findAll() as $p) {
         $listaProfessores[] = $uDao->findById($p->getUserId())->getNome();
     }
 
-  
-?>
+
+    ?>
 
 
     <script>
@@ -58,6 +60,14 @@
                 <img src="../../public/images/Logo Delfos branco.svg">
             </a>
             <div class="buttons">
+
+                <div class="perfil-button notifAgenda" id="agendaButton"><img src="../../public/images/agenda-icon.png"></div>
+                <nav id="dropdownMenu" class="hidden">
+                    <ul>
+                        <li><a href="agendaProfessor.php">Agenda de Professor</a></li>
+                        <li><a href="agendaAluno.php">Agenda de Aluno</a></li>
+                    </ul>
+                </nav>
 
                 <a href="mensagem.php" class="perfil-button notif"><img src="../../public/images/email.svg" alt=""></a>
                 <a class="perfil-button prof" href="./editarPerfilProf.php"><img
@@ -87,7 +97,7 @@
             <div class="categorias">
                 <?php
                 foreach ($areas as $area):
-                    ?>
+                ?>
                     <a class="category"
                         href="./professoresPorMateria.php?area=<?= $area->getId() ?>"><?= $area->getArea() ?></a>
                 <?php endforeach; ?>
@@ -109,16 +119,16 @@
         // Se o campo de busca não estiver vazio
         if (input.length > 0) {
             // Filtra os professores com base no texto digitado
-            var resultados = listaProfessores.filter(function (professor) {
+            var resultados = listaProfessores.filter(function(professor) {
                 return professor.toLowerCase().includes(input);
             });
 
             // Exibe as sugestões
-            resultados.forEach(function (nome) {
+            resultados.forEach(function(nome) {
                 var div = document.createElement('div');
                 div.classList.add('sugestao');
                 div.innerText = nome;
-                div.onclick = function () {
+                div.onclick = function() {
                     document.getElementById('busca').value = nome; // Preenche o campo de busca com o nome selecionado
                     sugestoesDiv.innerHTML = ''; // Limpa as sugestões após a seleção
                 };
@@ -126,8 +136,6 @@
             });
         }
     }
-
-    
 </script>
 </script>
 

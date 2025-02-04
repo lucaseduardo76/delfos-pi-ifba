@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__ . "../../models/mensagem/Mensagem.php";
-require_once __DIR__ . "./UsuarioDaoMySql.php";
+require_once __DIR__ . "/../dao/UsuarioDaoMySql.php";
 
 
 class MensagemDaoMySql

@@ -10,8 +10,9 @@
         href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="../../public/css/agenda.css">
-
     <link rel="stylesheet" href="../../public/css/style.css">
+    <link rel="stylesheet" href="../../public/css/navAgenda.css">
+    <script src="../../public/js/navAgenda.js"></script>
     <title>Document</title>
 </head>
 
@@ -62,11 +63,21 @@
     <header>
 
         <div class="header">
+            <a href="main.php" class="logo">
+                <img src="../../public/images/Logo Delfos branco.svg">
+            </a>
 
-            <a href="mensagem.php" class="perfil-button notif"><img src="../../public/images/email.svg" alt=""></a>
             <div class="buttons">
+
+                <div class="perfil-button notifAgenda" id="agendaButton"><img src="../../public/images/agenda-icon.png"></div>
+                <nav id="dropdownMenu" class="hidden">
+                    <ul>
+                        <li><a href="agendaProfessor.php">Agenda de Professor</a></li>
+                        <li><a href="agendaAluno.php">Agenda de Aluno</a></li>
+                    </ul>
+                </nav>
                 <a href="mensagem.php">
-                    <div class="perfil-button notif"><img src="../../public/images/sino-icon.png" alt=""></div>
+                    <div class="perfil-button notif"><img src="../../public/images/email.svg" alt=""></div>
                 </a>
                 <a class="perfil-button prof" href="./editarPerfilProf.php"><img
                         src="../../public/images/school-icon.png" alt="">Perfil do professor
@@ -94,6 +105,7 @@
                         <th>Horário</th>
                         <th>Semana</th>
                         <th>Confirmada</th>
+                        <th>Ir para aula</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
@@ -128,7 +140,7 @@
 
 
 
-                            ?>
+                    ?>
                             <tr>
                                 <td><?= $dia ?></td>
                                 <td><?= $mes ?></td>
@@ -137,6 +149,9 @@
                                 <td>Seg</td>
                                 <td style="">
                                     <div class="bola <?= corBola($aula->getConfirmada()) ?>"></div>
+                                </td>
+                                <td>
+                                    <button href="" class="link-button" id="linkButton">Adicionar link</button>
                                 </td>
                                 <td>
                                     <div class="acoes">
@@ -228,6 +243,21 @@
             </div>
         </div>
 
+        <div class="modal-overlay" id="modalLink">
+            <div class="modal" id="modalLk">
+                <div class="mod-header">
+                    <button class="modal-close" id="closeModalLk">✕</button>
+                </div>
+                <div class="mod-body">
+                    <form>
+                        <h3>Insira o link da reunião: </h3>
+                        <input type="link" name="linkAula" id="idLinkHidden" placeholder="Link aqui...">
+                        <input type="submit" value="Enviar" id="enviar-submit">
+                    </form>
+                </div>
+            </div>
+        </div>
+
 
     </main>
     <?php
@@ -240,7 +270,6 @@
     ?>
 
     <script>
-
         document.getElementById("closeModalRg").addEventListener("click", () => {
 
 
@@ -307,7 +336,7 @@
         }
 
 
-        document.addEventListener("keydown", function (event) {
+        document.addEventListener("keydown", function(event) {
             if (event.key === "Escape") {
                 document.getElementById("modal").style.opacity = "0";
 
@@ -324,7 +353,21 @@
             }
         });
 
+        document.getElementById("closeModalLk").addEventListener("click", () => {
+            document.getElementById("modalLk").style.opacity = "0";
 
+            const timer = setTimeout(() => {
+                document.getElementById("modalLink").style.display = "none";
+            }, 450);
+        });
+
+        document.getElementById("linkButton").addEventListener("click", () => {
+            document.getElementById("modalLink").style.display = "flex";
+
+            const timer = setTimeout(() => {
+                document.getElementById("modalLk").style.opacity = "1";
+            }, 10);
+        });
     </script>
 
 </body>

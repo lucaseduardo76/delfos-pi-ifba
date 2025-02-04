@@ -11,6 +11,7 @@
         href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="../../public/css/aluno.css">
+    <link rel="stylesheet" href="../../public/css/navAgenda.css">
 </head>
 
 <body>
@@ -126,6 +127,15 @@
                 <img src="../../public/images/Logo Delfos branco.svg">
             </a>
             <div class="buttons">
+
+                <div class="perfil-button notifAgenda" id="agendaButton"><img src="../../public/images/agenda-icon.png"></div>
+                <nav id="dropdownMenu" class="hidden">
+                    <ul>
+                        <li><a href="agendaProfessor.php">Agenda de Professor</a></li>
+                        <li><a href="agendaAluno.php">Agenda de Aluno</a></li>
+                    </ul>
+                </nav>
+
                 <a href="mensagem.php" class="perfil-button notif"><img src="../../public/images/email.svg" alt=""></a>
                 <?php if (!$professor): ?>
                     <a class="perfil-button prof" href="./novoPerfilProf.php"><img src="../../public/images/school-icon.png"
@@ -164,7 +174,7 @@
                     $usuario = $uDao->findById($p->getUserId());
                     $rating = $p->getRating() == 0 ? 1 : $p->getRating();
                     if ($usuario):
-                        ?>
+                    ?>
 
                         <div class="slider-item">
                             <form action="../service/redirecionaPerfilProf.php" method="GET">
@@ -226,7 +236,7 @@
                         $usuario = $uDao->findById($p->getUserId());
                         $rating = $p->getRating() == 0 ? 1 : $p->getRating();
                         if ($usuario):
-                            ?>
+                        ?>
                             <form action="../service/redirecionaPerfilProf.php" method="GET">
                                 <input type="hidden" name="idProf" value="<?= $usuario->getId(); ?>">
                                 <button type="submit"
@@ -263,6 +273,8 @@
     </main>
 
     <script src="../../public/js/sliders.js"></script>
+    <script src="../../public/js/navAgenda.js"></script>
+
 </body>
 
 </html>

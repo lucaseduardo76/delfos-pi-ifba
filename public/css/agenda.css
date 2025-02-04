@@ -173,6 +173,15 @@ main {
     cursor: pointer;
 }
 
+.link-button {
+    width: 100%;
+    padding: 5px;
+    border: none;
+    border-radius: 10px;
+    background-color: #8cdd13;
+    cursor: pointer;
+}
+
 .g{
     background-color: green;
 }

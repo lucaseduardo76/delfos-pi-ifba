@@ -10,14 +10,15 @@
         href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="../../public/css/mensagem.css">
+    <link rel="stylesheet" href="../../public/css/navAgenda.css">
+    <script src="../../public/js/navAgenda.js"></script>
     <title>Aluno</title>
 </head>
 
 <body>
 
     <script>
-
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function() {
             document.getElementById("sent").addEventListener("click", () => {
                 document.getElementById("entrada").style.display = "none";
                 document.getElementById("enviada").style.display = "flex";
@@ -28,8 +29,6 @@
                 document.getElementById("entrada").style.display = "flex";
             })
         });
-
-
     </script>
 
     <?php
@@ -61,6 +60,15 @@
                 <img src="../../public/images/Logo Delfos branco.svg">
             </a>
             <div class="buttons">
+
+                <div class="perfil-button notifAgenda" id="agendaButton"><img src="../../public/images/agenda-icon.png"></div>
+                <nav id="dropdownMenu" class="hidden">
+                    <ul>
+                        <li><a href="agendaProfessor.php">Agenda de Professor</a></li>
+                        <li><a href="agendaAluno.php">Agenda de Aluno</a></li>
+                    </ul>
+                </nav>
+
                 <a href="editarPerfilProf.php" class="perfil-button prof"><img src="../../public/images/school-icon.png"
                         alt="">Perfil de
                     professor</a>
@@ -101,7 +109,7 @@
                                         <p class="email-prev"><?= substr($email->getMensagem(), 0, 25) . '...' ?></p>
                                     </div>
                                 </li>
-                                <?php
+                        <?php
                             endforeach;
                         endif; ?>
 
@@ -136,7 +144,7 @@
                                 <a href="enviarMensagem.php?idDestinatario=<?= $email->getRemetente()->getId() ?>">Responder</a>
                             </div>
                         </article>
-                        <?php
+                <?php
                     endforeach;
                 endif; ?>
 
@@ -186,7 +194,7 @@
                                         <p class="email-prev"><?= substr($email->getMensagem(), 0, 25) . '...' ?></p>
                                     </div>
                                 </li>
-                                <?php
+                        <?php
                             endforeach;
                         endif; ?>
 
@@ -220,7 +228,7 @@
 
 
                         </article>
-                        <?php
+                <?php
                     endforeach;
                 endif; ?>
 
@@ -267,7 +275,7 @@
         $_SESSION['avisoDeleteEmail'] = '';
     }
 
-   
+
 
     ?>
 </body>
