@@ -158,7 +158,15 @@
                                     <div class="bola <?= corBola($aula->getConfirmada()) ?>"></div>
                                 </td>
                                 <td>
-                                    <a href="" class="link-button">Abrir reunião</a>
+                                    <?php if ($aula->getConfirmada() == 2 && $aula->getLinkAula() != null ):?>
+                                        <?php if($aula->isHorarioPermitido()):?>
+                                        <a href="<?= $aula->getLinkAula() ?>" target="_blank" class="link-button">Abrir reunião</a>
+                                        <?php else: ?>
+                                            <a href="" class="link-button">fora do horario</a>
+                                            <?php endif; ?>
+                                    <?php else: ?>
+                                        <a href="" class="link-button">Sem link</a>
+                                    <?php endif; ?>
                                 </td>
                                 <td>
                                     <div class="acoes">
