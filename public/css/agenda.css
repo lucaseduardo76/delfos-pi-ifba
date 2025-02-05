@@ -197,6 +197,10 @@ main {
     height: inherit;
 }
 
+.exemplo {
+    gap: 10px;
+}
+
 .g{
     background-color: green;
 }

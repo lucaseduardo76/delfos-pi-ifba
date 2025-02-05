@@ -154,7 +154,7 @@
                                 <td style="">
                                     <div class="bola <?= corBola($aula->getConfirmada()) ?>"></div>
                                 </td>
-                                <td>
+                                <td class="exemplo">
                                     <?php if ($aula->getConfirmada() == 2):
                                         if ($aula->getLinkAula() != null && $aula->isHorarioPermitido()):
                                             ?>
