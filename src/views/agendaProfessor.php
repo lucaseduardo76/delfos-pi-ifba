@@ -179,6 +179,8 @@
                                         <a
                                             href="../service/deleteAula.php?aula=<?= $aula->getId() ?>&idProfessor=<?= $aula->getProfessorId() ?>"><img
                                                 src="../../public/images/delete-icon.png" alt="Excluir" class="icone"></a>
+
+                                        
                                     </div>
                                 </td>
                             </tr>

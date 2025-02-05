@@ -146,7 +146,7 @@
                                         });
                                     </script>';
                             list($ano, $mes, $dia) = explode('-', $aula->getData());
-                            ?>
+                    ?>
                             <tr>
                                 <td><?= $dia ?></td>
                                 <td><?= $mes ?></td>
@@ -158,12 +158,12 @@
                                     <div class="bola <?= corBola($aula->getConfirmada()) ?>"></div>
                                 </td>
                                 <td>
-                                    <?php if ($aula->getConfirmada() == 2 && $aula->getLinkAula() != null ):?>
-                                        <?php if($aula->isHorarioPermitido()):?>
-                                        <a href="<?= $aula->getLinkAula() ?>" target="_blank" class="link-button">Abrir reunião</a>
+                                    <?php if ($aula->getConfirmada() == 2 && $aula->getLinkAula() != null): ?>
+                                        <?php if ($aula->isHorarioPermitido()): ?>
+                                            <a href="<?= $aula->getLinkAula() ?>" target="_blank" class="link-button">Abrir reunião</a>
                                         <?php else: ?>
                                             <a href="" class="link-button">fora do horario</a>
-                                            <?php endif; ?>
+                                        <?php endif; ?>
                                     <?php else: ?>
                                         <a href="" class="link-button">Sem link</a>
                                     <?php endif; ?>
@@ -184,6 +184,7 @@
                                                 src="../../public/images/delete-icon.png" alt="Excluir" class="icone"></a>
 
 
+                                        <div class="check" id="check"><img src="../../public/images/check-icon.png"></div>
 
                                     </div>
 
@@ -255,6 +256,43 @@
             </div>
         </div>
 
+        <div class="modal-overlay" id="modalCheck">
+            <div class="modal" id="modalCh">
+                <div class="mod-header">
+                    <button class="modal-close" id="closeModalCh">✕</button>
+                </div>
+                <div class="mod-body">
+                    <h3>A aula foi encerrada!</h3>
+
+                    <form class="mod-rating">
+
+                        <label>
+                            <h4>Avalie a aula:</h4>
+
+                            <div class="star-rating">
+                                <span class="star" data-value="1">&#9733;</span>
+                                <span class="star" data-value="2">&#9733;</span>
+                                <span class="star" data-value="3">&#9733;</span>
+                                <span class="star" data-value="4">&#9733;</span>
+                                <span class="star" data-value="5">&#9733;</span>
+                            </div>
+
+                            <!-- Input escondido para armazenar a avaliação -->
+                            <input type="hidden" name="avaliacao" id="avaliacaoInput" value="">
+
+                        </label>
+
+                        <label>
+                            <h4>Observação (Opc.):</h4>
+                            <textarea rows="7"></textarea>
+                        </label>
+
+                        <input type="submit" value="Avaliar" id="checkConfirm">
+                    </form>
+                </div>
+            </div>
+        </div>
+
 
     </main>
     <?php
@@ -266,7 +304,7 @@
 
     ?>
 
-
+    <script src="../../public/js/avaliacao.js"></script>
 
 </body>
 
