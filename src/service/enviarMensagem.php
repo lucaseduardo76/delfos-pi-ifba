@@ -1,29 +1,4 @@
 <?php
-/*  
-    <form method="POST" action="../service/enviarMensagem.php">
-        <input type="hidden" name="idDestinatario" value="<?= $destinatario->getId() ?>">
-
-        <label class="campo">
-            <h2>Assunto da mensagem:</h2>
-            <input type="text" name="titulo" placeholder="Título..." required>
-        </label>
-
-        <label class="campo">
-            <h2>Destinatário:</h2>
-            <input type="text" placeholder="Nome..."  value="<?= $destinatario->getNome()?>" disabled required>
-        </label>
-
-        <label class="campo">
-            <h2>Corpo da mensagem:</h2>
-            <textarea rows="15" name="mensagem" required></textarea>
-        </label>
-
-        <div class="campo">
-            <input type="submit" value="Enviar" class="btn-enviar" >
-        </div>
-
-    </form>
-*/
 
 require_once __DIR__ . '/../models/user/User.php';
 require_once __DIR__ . '/../models/mensagem/Mensagem.php';
