@@ -54,12 +54,9 @@
                     <h2>Redefinir Senha</h2>
                     <input type="password" placeholder="Senha antiga...">
                     <input type="password" placeholder="Nova senha...">
+                    <input type="submit" value="Trocar senha">
                 </div>
-
-                <div class="campo">
-                    <h2>E-mail</h2>
-                    <input type="email" placeholder="Seu e-mail...">
-                </div>
+                        
             </form>
         </div>
 

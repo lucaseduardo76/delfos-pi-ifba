@@ -88,40 +88,62 @@
                     <h2>Perfil</h2>
                 </div>
 
-                <a href="agenda.php" class="button-prt">Minha agenda</a>
+                <a href="redefinirSenha.php" class="button-prt">Segurança</a>
 
             </div>
 
             <div class="right-side">
-                <h2>Últimos professores vistos:</h2>
-                <div class="prof-photos">
+                <form class="campo-alteracoes">
 
-                    <div class="photo">
-                        <img src="../../public/images/inri-cristo.jpg" alt="">
-                        <div class="info">
-                            <p>Inri Cristo</p>
-                            <p>Assunto: Matemática</p>
-                        </div>
-                    </div>
-
-                    <div class="photo">
-                        <img src="../../public/images/inri-cristo.jpg" alt="">
-                        <div class="info">
-                            <p>Inri Cristo</p>
-                            <p>Assunto: Matemática</p>
-                        </div>
-                    </div>
-
-                </div>
-
-                <form>
                     <label>
-                        <h2>Sobre você:</h2>
-                        <textarea rows="5" , placeholder="Fale sobre você..."></textarea>
+                        <h3>Nome Completo:</h3>
+                        <input type="text">
                     </label>
+
+                    <label>
+                        <h3>CPF:</h3>
+                        <input type="text">
+                    </label>
+
+                    <label>
+                        <h3>Email:</h3>
+                        <input type="email">
+                    </label>
+
+                    <label>
+                        <h3>Telefone:</h3>
+                        <input type="text">
+                        </br>
+                    </label>
+
+                    <input type="submit" value="Salvar alterações">
                 </form>
+
             </div>
 
+        </div>
+
+        <div class="ult-vistos">
+            <h2>Últimos professores vistos:</h2>
+            <div class="prof-photos">
+
+                <div class="photo">
+                    <img src="../../public/images/inri-cristo.jpg" alt="">
+                    <div class="info">
+                        <p>Inri Cristo</p>
+                        <p>Assunto: Matemática</p>
+                    </div>
+                </div>
+
+                <div class="photo">
+                    <img src="../../public/images/inri-cristo.jpg" alt="">
+                    <div class="info">
+                        <p>Inri Cristo</p>
+                        <p>Assunto: Matemática</p>
+                    </div>
+                </div>
+
+            </div>
         </div>
 
     </main>
