@@ -53,17 +53,21 @@ if ($nome && $email && $telefone) {
         }
     }
 
+    $usuario->setNome($nome);
+    $usuario->setTelefone(limparTelefone($telefone));
+    $uDao->update($usuario);
+
     if (!$uDao->findByEmail($email)) {
         $usuario->setEmail($email);
+        
+    $uDao->update($usuario);
     } else {
         $_SESSION["aviso"] = "Email já está em uso.";
         header('Location: ../views/editarPerfilAluno.php');
         exit;
     }
 
-    $usuario->setNome($nome);
-    $usuario->setTelefone(limparTelefone($telefone));
-    $uDao->update($usuario);
+    
     $_SESSION["aviso"] = "Informação alterada com sucesso!";
 } else {
 
