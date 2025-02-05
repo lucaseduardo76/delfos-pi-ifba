@@ -12,6 +12,27 @@
     <link rel="stylesheet" href="../../public/css/editarPerfilAluno.css">
     <link rel="stylesheet" href="../../public/css/navAgenda.css">
     <script src="../../public/js/navAgenda.js"></script>
+    <style>
+        .file-input {
+            display: none;
+        }
+
+        .upload-btn {
+            padding: 10px 20px;
+            background-color: #FF4227;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .upload-btn:hover {
+            background-color: #FF988a;
+        }
+    </style>
+
     <title>Document</title>
 </head>
 
@@ -69,7 +90,7 @@
                             src="../../public/images/school-icon.png" alt="">Perfil do professor
                     </a>
                 <?php endif; ?>
-                <a href="editarPerfilAluno.php" class="perfil-button">Perfil</a>
+
                 <a class="perfil-button notif" href="../service/logout.php"><img
                         src="../../public/images/login-icon.png" alt=""></a>
             </div>
@@ -80,74 +101,98 @@
 
     <main>
 
-        <div class="container">
+        <div>
+            <form class="container" action="../service/editarAluno.php" method="post" enctype="multipart/form-data">
+                <div class="left-side">
+                    <div class="photo-area">
+                        <img src="<?= $userInfo->getLinkFoto() ?>" alt="">
+                        <h2>Perfil</h2>
+                        <label for="file-upload" class="upload-btn">Escolher Foto</label>
+                        <input type="file" name="file" id="file-upload" class="file-input" accept="image/png, image/jpeg">
 
-            <div class="left-side">
-                <div class="photo-area">
-                    <img src="<?= $userInfo->getLinkFoto() ?>" alt="">
-                    <h2>Perfil</h2>
+                    </div>
+
+                    <a href="redefinirSenha.php" class="button-prt">Segurança</a>
+
                 </div>
 
-                <a href="redefinirSenha.php" class="button-prt">Segurança</a>
+                <div class="right-side">
+                    <div class="campo-alteracoes">
 
-            </div>
+                        <label>
+                            <h3>Nome Completo:</h3>
+                            <input type="text" name="nome" value="<?= $userInfo->getNome() ?>">
+                        </label>
 
-            <div class="right-side">
-                <form class="campo-alteracoes">
+                        <label>
+                            <h3>Email:</h3>
+                            <input type="email" name="email" value="<?= $userInfo->getEmail() ?>">
+                        </label>
 
-                    <label>
-                        <h3>Nome Completo:</h3>
-                        <input type="text">
-                    </label>
+                        <label>
+                            <h3>Telefone:</h3>
+                            <input type="text" name="telefone" id="telefone" value="<?= $userInfo->getTelefone() ?>">
+                            </br>
+                        </label>
 
-                    <label>
-                        <h3>CPF:</h3>
-                        <input type="text">
-                    </label>
+                        <input type="submit" value="Salvar alterações">
+                    </div>
 
-                    <label>
-                        <h3>Email:</h3>
-                        <input type="email">
-                    </label>
-
-                    <label>
-                        <h3>Telefone:</h3>
-                        <input type="text">
-                        </br>
-                    </label>
-
-                    <input type="submit" value="Salvar alterações">
-                </form>
-
-            </div>
-
+                </div>
+            </form>
         </div>
 
-        <div class="ult-vistos">
-            <h2>Últimos professores vistos:</h2>
-            <div class="prof-photos">
-
-                <div class="photo">
-                    <img src="../../public/images/inri-cristo.jpg" alt="">
-                    <div class="info">
-                        <p>Inri Cristo</p>
-                        <p>Assunto: Matemática</p>
-                    </div>
-                </div>
-
-                <div class="photo">
-                    <img src="../../public/images/inri-cristo.jpg" alt="">
-                    <div class="info">
-                        <p>Inri Cristo</p>
-                        <p>Assunto: Matemática</p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
+       
 
     </main>
+    <script>
+        document.getElementById("file-upload").addEventListener("change", function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.querySelector(".photo-area img").src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
 
+        function formatarTelefone(value) {
+            value = value.replace(/\D/g, ""); // Remove tudo que não for número
+
+            if (value.length >= 11) {
+                // Formato (XX) XXXXX-XXXX para números brasileiros
+                return value.replace(/^(\d{2})(\d{5})(\d{4})/, "($1) $2-$3");
+            } else if (value.length === 10) {
+                // Formato (XX) XXXX-XXXX (para números fixos brasileiros)
+                return value.replace(/^(\d{2})(\d{4})(\d{4})/, "($1) $2-$3");
+            } else {
+                return value; // Mantém outros formatos internacionais sem interferência
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const telefoneInput = document.getElementById("telefone");
+
+            if (telefoneInput) {
+                // Formatar o valor inicial se já houver um telefone preenchido
+                telefoneInput.value = formatarTelefone(telefoneInput.value);
+
+                telefoneInput.addEventListener("input", function(event) {
+                    event.target.value = formatarTelefone(event.target.value);
+                });
+            }
+        });
+    </script>
+
+    <?php
+
+    if (!empty($_SESSION['aviso']) && $_SESSION['aviso']) {
+        echo "<script>alert('" . $_SESSION['aviso'] . "')</script>";
+        $_SESSION['aviso'] = '';
+    }
+
+    ?>
 </body>
 
 </html>
