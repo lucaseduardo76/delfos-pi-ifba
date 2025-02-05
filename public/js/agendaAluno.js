@@ -8,6 +8,8 @@ function abrirmodal(id) {
         } else if (n == 1) {
             return "Agendamento Pendente de confirmação";
         } else if (n == 0) {
+            return "Aula finalizada";
+        }else if (n == -1) {
             return "Agendamento negado";
         }
     }

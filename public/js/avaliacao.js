@@ -1,7 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
     const stars = document.querySelectorAll(".star");
     const inputAvaliacao = document.getElementById("avaliacaoInput");
-    let selectedRating = 0; // Armazena a avaliação do usuário
+    let selectedRating = 5; // Armazena a avaliação do usuário
+    
+    
 
     stars.forEach((star, index) => {
         star.addEventListener("mouseover", function () {
@@ -23,6 +25,8 @@ document.addEventListener("DOMContentLoaded", function () {
             star.classList.toggle("active", index < value);
         });
     }
+
+    highlightStars(selectedRating);
 });
 
 document.getElementById("closeModalCh").addEventListener("click", () => {
@@ -33,13 +37,13 @@ document.getElementById("closeModalCh").addEventListener("click", () => {
     }, 450);
 });
 
-document.getElementById("check").addEventListener("click", () => {
+const checkAula = (id) => {
     document.getElementById("modalCheck").style.display = "flex";
-
+    document.getElementById("idAulaConluida").value = id;
     const timer = setTimeout(() => {
         document.getElementById("modalCheck").style.opacity = "1";
     }, 10);
-});
+};
 
 
 document.getElementById("checkConfirm").addEventListener("click", () => {

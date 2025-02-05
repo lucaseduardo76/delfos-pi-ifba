@@ -54,6 +54,8 @@
         } else if ($confirma == 1) {
             return 'o';
         } else if ($confirma == 0) {
+            return 'b';
+        } else if ($confirma == -1) {
             return 'r';
         }
     }

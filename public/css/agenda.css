@@ -207,6 +207,10 @@ main {
     
     background-color: red;
 }
+.b{
+    
+    background-color: #0ff;
+}
 
 #botaoConf {
     display: flex;

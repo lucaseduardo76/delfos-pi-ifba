@@ -51,6 +51,8 @@
         } else if ($confirma == 1) {
             return 'o';
         } else if ($confirma == 0) {
+            return 'b';
+        }  else if ($confirma == -1) {
             return 'r';
         }
     }
@@ -150,7 +152,7 @@
                             <tr>
                                 <td><?= $dia ?></td>
                                 <td><?= $mes ?></td>
-                                <td><?= $uDao->findById($pDao->findById($aula->getProfessorId())->getUserId())->getNome() ?>
+                                <td><a href="../service/redirecionaPerfilProf.php?idProf=<?= $uDao->findById($pDao->findById($aula->getProfessorId())->getUserId())->getId() ?>"><?= $uDao->findById($pDao->findById($aula->getProfessorId())->getUserId())->getNome() ?></a>
                                 </td>
                                 <td><?= $aula->getHora(); ?></td>
                                 <td><?= retornaDiaPelaData($aula->getData()) ?></td>
@@ -183,8 +185,9 @@
                                             href="../service/deleteAula.php?aula=<?= $aula->getId() ?>&idAluno=<?= $aula->getAlunoId() ?>"><img
                                                 src="../../public/images/delete-icon.png" alt="Excluir" class="icone"></a>
 
-
-                                        <div class="check" id="check"><img src="../../public/images/check-icon.png"></div>
+                                        <?php if($aula->getConfirmada() == 2 && $aula->isHorarioPermitidoToFinalizar()): ?>
+                                        <div onclick="checkAula('<?= $aula->getId() ?>')" class="check" id="check"><img src="../../public/images/check-icon.png"></div>
+                                        <?php endif; ?>
 
                                     </div>
 
@@ -264,7 +267,7 @@
                 <div class="mod-body">
                     <h3>A aula foi encerrada!</h3>
 
-                    <form class="mod-rating">
+                    <form class="mod-rating" action="../service/avaliaProfessor.php" method="post">
 
                         <label>
                             <h4>Avalie a aula:</h4>
@@ -278,8 +281,8 @@
                             </div>
 
                             <!-- Input escondido para armazenar a avaliação -->
-                            <input type="hidden" name="avaliacao" id="avaliacaoInput" value="">
-
+                            <input type="hidden" name="avaliacao" id="avaliacaoInput" value="5">
+                            <input type="hidden" name="idAula" id="idAulaConluida">
                         </label>
 
                         <label>

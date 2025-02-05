@@ -27,6 +27,18 @@ class Agenda
         }
         return true;
     }
+
+    public function isHorarioPermitidoToFinalizar()
+    {
+        $tz = new DateTimeZone('America/Sao_Paulo');
+        $scheduled = new DateTime($this->data . ' ' . $this->hora, $tz);
+        $now = new DateTime('now', $tz);
+        
+        if ($now <  $scheduled) {
+            return false;
+        }
+        return true;
+    }
     
 
     public function getLinkAula()
