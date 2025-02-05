@@ -164,7 +164,7 @@
                                         <?php if ($aula->isHorarioPermitido()): ?>
                                             <a href="<?= $aula->getLinkAula() ?>" target="_blank" class="link-button">Abrir reunião</a>
                                         <?php else: ?>
-                                            <a href="" class="link-button">fora do horario</a>
+                                            <a href="" class="link-button">Fora do horário</a>
                                         <?php endif; ?>
                                     <?php else: ?>
                                         <a href="" class="link-button">Sem link</a>
@@ -176,7 +176,7 @@
                                             onclick="abrirmodal(<?= $aula->getId() ?>)">
 
                                         <a
-                                            href="./enviarMensagem.php?idDestinatario=<?= $pDao->findById($aula->getProfessorId())->getUserId() ?>"><img
+                                            class="icone" href="./enviarMensagem.php?idDestinatario=<?= $pDao->findById($aula->getProfessorId())->getUserId() ?>"><img
                                                 class="carta" src="../../public/images/email.svg" alt="Excluir"
                                                 class="icone"></a>
 

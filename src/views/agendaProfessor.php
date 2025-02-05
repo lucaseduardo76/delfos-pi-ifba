@@ -160,11 +160,11 @@
                                             ?>
                                             <a href="<?=$aula->getLinkAula()?>" target="_blank" class="link-button" id="linkButton" style="margin-bottom: 10px; background-color: #FA8374;">Ir para Aula</a>
                                             <button href="" class="link-button" id="linkButton"
-                                                onclick="abrirModalLink('<?= $aula->getId() ?>')">Adicionar
+                                                onclick="abrirModalLink('<?= $aula->getId() ?>')">Alterar
                                                 link</button>
                                         <?php else: ?>
                                             <button href="" class="link-button" id="linkButton"
-                                                onclick="abrirModalLink('<?= $aula->getId() ?>')">Adicionar link</button>
+                                                onclick="abrirModalLink('<?= $aula->getId() ?>')">Alterar link</button>
                                         <?php endif; ?>
                                     <?php else: ?>
                                         <button href="" class="link-button" id="linkButton" disabled>Adicionar link</button>
@@ -175,7 +175,7 @@
                                         <img src="../../public/images/eye-icon.png" alt="Visualizar" class="icone"
                                             onclick="abrirmodal(<?= $aula->getId() ?>)">
 
-                                        <a href="./enviarMensagem.php?idDestinatario=<?= $aula->getAlunoId() ?>"><img
+                                        <a class="icone" href="./enviarMensagem.php?idDestinatario=<?= $aula->getAlunoId() ?>"><img
                                                 class="carta" src="../../public/images/email.svg" alt="Excluir"
                                                 class="icone"></a>
                                         <a

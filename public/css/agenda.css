@@ -71,7 +71,8 @@ header {
     align-items: center;
 }
 
-.perfil-button.notif img {
+.perfil-button.notif img,
+.perfil-button.notifAgenda img {
     margin: 0;
 }
 
@@ -160,7 +161,8 @@ main {
 }
 
 /* Ícone de ação ao passar o mouse */
-.icone:hover {
+.icone:hover,
+#check:hover {
     opacity: 0.7;
     transform: scale(1.1);
 }
@@ -174,13 +176,14 @@ main {
 }
 
 .link-button {
-    width: auto;
+    width: 100%;
     padding: 5px;
     border: none;
     border-radius: 10px;
     background-color: #8cdd13;
     cursor: pointer;
     margin-bottom: 10px;
+    white-space: nowrap;
 }
 
 .check {

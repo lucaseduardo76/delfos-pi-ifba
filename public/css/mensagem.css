@@ -69,7 +69,8 @@ header {
     align-items: center;
 }
 
-.perfil-button.notif img {
+.perfil-button.notif img,
+.perfil-button.notifAgenda img {
     margin: 0;
 }
 

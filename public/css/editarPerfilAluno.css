@@ -73,7 +73,8 @@ header {
     margin: 0;
 }
 
-.perfil-button.notif img {
+.perfil-button.notif img,
+.perfil-button.notifAgenda img {
     margin: 0;
 }
 
@@ -201,7 +202,7 @@ label h2 {
 }
 
 .campo-alteracoes input {
-    width: 270px;
+    width: 350px;
     background-color: #FFE7D1;
     border: none;
     padding: 20px;
