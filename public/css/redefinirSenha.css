@@ -80,7 +80,8 @@ header {
     align-items: center;
 }
 
-.perfil-button.notif img {
+.perfil-button.notif img,
+.perfil-button.notifAgenda img {
     margin: 0;
 }
 
@@ -111,6 +112,18 @@ main {
     padding: 20px;
     margin-bottom: 20px;
     border-radius: 10px;
+}
+
+.campo input[type="submit"] {
+    width: auto;
+    padding: 15px;
+    font-size: 16px;
+    font-weight: bold;
+    border: 1px solid #BF6400;
+    color: #BF6400;
+    background-color: white;
+    cursor: pointer;
+    margin-top: 10px;
 }
 
 .campo input::placeholder {

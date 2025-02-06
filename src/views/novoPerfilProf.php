@@ -10,6 +10,33 @@
         href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="../../public/css/editarPerfilProf.css">
+
+    <link rel="stylesheet" href="../../public/css/navAgenda.css">
+    <script src="../../public/js/navAgenda.js"></script>
+    <style>
+        .file-input {
+            display: none;
+            margin-top: 10px;
+        }
+
+        .upload-btn {
+            padding: 10px 20px;
+            background-color: #FF4227;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .upload-btn:hover {
+            background-color: #FF988a;
+        }
+        #preview-img{
+            margin-top: 30px;
+        }
+    </style>
     <title>Document</title>
 </head>
 
@@ -61,25 +88,38 @@
         $uDao->update($usuario);
     }
 
+    $isUserProf = $pDao->findByUserId($userInfo->getId());
+
     ?>
 
 
     <header>
 
         <div class="header">
+
             <a href="main.php" class="logo">
                 <img src="../../public/images/Logo Delfos branco.svg">
             </a>
             <div class="buttons">
-                
-            <a href="mensagem.php" class="perfil-button notif"><img src="../../public/images/email.svg" alt=""></a>
-                <a class="perfil-button prof" href="./editarPerfilProf.php"><img
-                        src="../../public/images/school-icon.png" alt="">Perfil do professor
-                </a>
+
+                <div class="perfil-button notifAgenda" id="agendaButton"><img src="../../public/images/agenda-icon.png">
+                </div>
+                <nav id="dropdownMenu" class="hidden">
+                    <ul>
+                        <?php if ($isUserProf): ?>
+                            <li><a href="agendaProfessor.php">Agenda de Professor</a></li>
+                        <?php endif; ?>
+                        <li><a href="agendaAluno.php">Agenda de Aluno</a></li>
+                    </ul>
+                </nav>
+
+                <a href="mensagem.php" class="perfil-button notif"><img src="../../public/images/email.svg" alt=""></a>
+
                 <a href="editarPerfilAluno.php">
                     <div class="perfil-button">Perfil</div>
                 </a>
-                <a class="perfil-button notif" href="../service/logout.php"><img src="../../public/images/login-icon.png" alt=""></a>
+                <a class="perfil-button notif" href="../service/logout.php"><img
+                        src="../../public/images/login-icon.png" alt=""></a>
             </div>
 
         </div>
@@ -91,9 +131,11 @@
             <div class="container">
                 <div class="left-side">
                     <div class="perfil-foto">
-                        <img src="<?= $caminhoFoto ?>" alt="">
+                        <img id="preview-img" src="<?= $userInfo->getLinkFoto() ?>" alt="">
                         <h2>Perfil</h2>
-                        <input type="file" name="file" accept="image/png, image/jpeg">
+                        <label for="file-upload" class="upload-btn">Escolher Foto</label>
+                        <input type="file" id="file-upload" name="file" class="file-input" accept="image/png, image/jpeg">
+
                     </div>
 
                 </div>
@@ -139,6 +181,17 @@
             let value = event.target.value.replace(/\D/g, ''); // Remove tudo que não for número
             value = (value / 100).toFixed(2).replace('.', ','); // Formata como valor monetário
             event.target.value = 'R$ ' + value;
+        });
+
+        document.getElementById("file-upload").addEventListener("change", function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById("preview-img").src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
         });
     </script>
 

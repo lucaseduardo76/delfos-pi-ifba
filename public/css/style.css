@@ -217,6 +217,11 @@ main {
     padding: 10px;
 }
 
+#enviar-submit {
+    margin-top: 20px;
+    cursor: pointer;
+}
+
 .modal-confirm {
     background: #E3C6BF;
     color: #333;

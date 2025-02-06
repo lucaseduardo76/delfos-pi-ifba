@@ -10,8 +10,9 @@
         href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="../../public/css/agenda.css">
-
     <link rel="stylesheet" href="../../public/css/style.css">
+    <link rel="stylesheet" href="../../public/css/navAgenda.css">
+    <script src="../../public/js/navAgenda.js"></script>
     <title>Document</title>
 </head>
 
@@ -53,20 +54,34 @@
         } else if ($confirma == 1) {
             return 'o';
         } else if ($confirma == 0) {
+            return 'b';
+        } else if ($confirma == -1) {
             return 'r';
         }
     }
+
+
 
     ?>
 
     <header>
 
         <div class="header">
+            <a href="main.php" class="logo">
+                <img src="../../public/images/Logo Delfos branco.svg">
+            </a>
 
-            <a href="mensagem.php" class="perfil-button notif"><img src="../../public/images/email.svg" alt=""></a>
             <div class="buttons">
+
+                <div class="perfil-button notifAgenda" id="agendaButton"><img src="../../public/images/agenda-icon.png">
+                </div>
+                <nav id="dropdownMenu" class="hidden">
+                    <ul>
+                        <li><a href="agendaAluno.php">Agenda de Aluno</a></li>
+                    </ul>
+                </nav>
                 <a href="mensagem.php">
-                    <div class="perfil-button notif"><img src="../../public/images/sino-icon.png" alt=""></div>
+                    <div class="perfil-button notif"><img src="../../public/images/email.svg" alt=""></div>
                 </a>
                 <a class="perfil-button prof" href="./editarPerfilProf.php"><img
                         src="../../public/images/school-icon.png" alt="">Perfil do professor
@@ -94,6 +109,7 @@
                         <th>Horário</th>
                         <th>Semana</th>
                         <th>Confirmada</th>
+                        <th>Link Aula</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
@@ -128,7 +144,7 @@
 
 
 
-                            ?>
+                    ?>
                             <tr>
                                 <td><?= $dia ?></td>
                                 <td><?= $mes ?></td>
@@ -139,16 +155,37 @@
                                     <div class="bola <?= corBola($aula->getConfirmada()) ?>"></div>
                                 </td>
                                 <td>
+                                    <?php if ($aula->getConfirmada() == 2):
+                                        if ($aula->getLinkAula() != null && $aula->isHorarioPermitido()):
+                                    ?>
+                                            <a href="<?= $aula->getLinkAula() ?>" target="_blank" class="link-button" id="linkButton" style="margin-bottom: 10px; background-color: #FA8374;">Ir para Aula</a>
+                                            <button href="" class="link-button" id="linkButton"
+                                                onclick="abrirModalLink('<?= $aula->getId() ?>')">Alterar
+                                                link</button>
+                                        <?php elseif ($aula->getLinkAula() != null): ?>
+                                            <button href="" class="link-button" id="linkButton"
+                                                onclick="abrirModalLink('<?= $aula->getId() ?>')">Alterar link</button>
+                                        <?php else:  ?>
+                                            <button href="" class="link-button" id="linkButton"
+                                                onclick="abrirModalLink('<?= $aula->getId() ?>')">Adicionar link</button>
+                                        <?php endif; ?>
+                                    <?php else: ?>
+                                        <button href="" class="link-button" id="linkButton" disabled>Adicionar link</button>
+                                    <?php endif; ?>
+                                </td>
+                                <td>
                                     <div class="acoes">
                                         <img src="../../public/images/eye-icon.png" alt="Visualizar" class="icone"
                                             onclick="abrirmodal(<?= $aula->getId() ?>)">
 
-                                        <a href="./enviarMensagem.php?idDestinatario=<?= $aula->getAlunoId() ?>"><img
+                                        <a class="icone" href="./enviarMensagem.php?idDestinatario=<?= $aula->getAlunoId() ?>"><img
                                                 class="carta" src="../../public/images/email.svg" alt="Excluir"
                                                 class="icone"></a>
                                         <a
                                             href="../service/deleteAula.php?aula=<?= $aula->getId() ?>&idProfessor=<?= $aula->getProfessorId() ?>"><img
                                                 src="../../public/images/delete-icon.png" alt="Excluir" class="icone"></a>
+
+
                                     </div>
                                 </td>
                             </tr>
@@ -228,6 +265,22 @@
             </div>
         </div>
 
+        <div class="modal-overlay" id="modalLink">
+            <div class="modal" id="modalLk">
+                <div class="mod-header">
+                    <button class="modal-close" id="closeModalLk">✕</button>
+                </div>
+                <div class="mod-body">
+                    <form method="POST" action="../service/insereLink.php">
+                        <h3>Insira o link da reunião: (Zoom ou Meet)</h3>
+                        <input type="hidden" name="aulaId" value="" id="aulaIdModal">
+                        <input type="link" name="linkAula" id="idLinkHidden" placeholder="Link aqui...">
+                        <input type="submit" value="Enviar" id="enviar-submit">
+                    </form>
+                </div>
+            </div>
+        </div>
+
 
     </main>
     <?php
@@ -240,7 +293,6 @@
     ?>
 
     <script>
-
         document.getElementById("closeModalRg").addEventListener("click", () => {
 
 
@@ -307,7 +359,7 @@
         }
 
 
-        document.addEventListener("keydown", function (event) {
+        document.addEventListener("keydown", function(event) {
             if (event.key === "Escape") {
                 document.getElementById("modal").style.opacity = "0";
 
@@ -324,9 +376,36 @@
             }
         });
 
+        document.getElementById("closeModalLk").addEventListener("click", () => {
+            document.getElementById("modalLk").style.opacity = "0";
 
+            const timer = setTimeout(() => {
+                document.getElementById("modalLink").style.display = "none";
+            }, 450);
+        });
+
+        const abrirModalLink = (idAula) => {
+
+
+            document.getElementById("modalLink").style.display = "flex";
+            document.getElementById("aulaIdModal").value = idAula;
+
+
+            const timer = setTimeout(() => {
+                document.getElementById("modalLk").style.opacity = "1";
+            }, 10);
+        };
     </script>
 
+    <?php
+
+
+    if (!empty($_SESSION['avisoLinkAula']) && $_SESSION['avisoLinkAula']) {
+        echo "<script>alert('" . $_SESSION['avisoLinkAula'] . "')</script>";
+        $_SESSION['avisoLinkAula'] = '';
+    }
+
+    ?>
 </body>
 
 </html>

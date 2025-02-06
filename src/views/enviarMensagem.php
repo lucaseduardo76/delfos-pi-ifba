@@ -10,6 +10,8 @@
         href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="../../public/css/enviarMensagem.css">
+    <link rel="stylesheet" href="../../public/css/navAgenda.css">
+    <script src="../../public/js/navAgenda.js"></script>
     <title>Document</title>
 </head>
 
@@ -32,12 +34,19 @@
     }
 
     $uDao = new UsuarioDaoMySql($pdo);
+    $pDao = new ProfesorDaoMySql($pdo);
 
     $destinatarioId = filter_input(INPUT_GET, "idDestinatario");
     $destinatario;
 
     if ($destinatarioId) {
         $destinatario = $uDao->findById($destinatarioId);
+
+        if (!$destinatario) {
+            $_SESSION['avisoMensagem'] = 'Id de destinatário inválido';
+            header('Location: ../views/telaLogin.php');
+            exit;
+        }
     } else {
         $_SESSION['avisoMensagem'] = 'Id de destinatário inválido';
         header('Location: ../views/telaLogin.php');
@@ -51,7 +60,7 @@
     }
 
 
-
+    $isUserProf = $pDao->findByUserId($userInfo->getId());
     ?>
 
     <header>
@@ -61,12 +70,32 @@
                 <img src="../../public/images/Logo Delfos branco.svg">
             </a>
             <div class="buttons">
+
+                <div class="perfil-button notifAgenda" id="agendaButton"><img src="../../public/images/agenda-icon.png">
+                </div>
+                <nav id="dropdownMenu" class="hidden">
+                    <ul>
+                        <?php if ($isUserProf): ?>
+                            <li><a href="agendaProfessor.php">Agenda de Professor</a></li>
+                        <?php endif; ?>
+                        <li><a href="agendaAluno.php">Agenda de Aluno</a></li>
+                    </ul>
+                </nav>
+
                 <a href="mensagem.php">
                     <div class="perfil-button notif"><img src="../../public/images/sino-icon.png" alt=""></div>
                 </a>
-                <a class="perfil-button prof" href="./editarPerfilProf.php"><img
-                        src="../../public/images/school-icon.png" alt="">Perfil do professor
-                </a>
+                <?php if (!$isUserProf): ?>
+                    <a class="perfil-button prof" href="./novoPerfilProf.php"><img src="../../public/images/school-icon.png"
+                            alt="">Seja um professor
+                    </a>
+                <?php endif; ?>
+
+                <?php if ($isUserProf): ?>
+                    <a class="perfil-button prof" href="./editarPerfilProf.php"><img
+                            src="../../public/images/school-icon.png" alt="">Perfil do professor
+                    </a>
+                <?php endif; ?>
                 <a href="editarPerfilAluno.php">
                     <div class="perfil-button">Perfil</div>
                 </a>

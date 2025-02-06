@@ -10,7 +10,8 @@
         href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="../../public/css/professorPorMateria.css">
-
+    <link rel="stylesheet" href="../../public/css/navAgenda.css">
+    <script src="../../public/js/navAgenda.js"></script>
     <title>Document</title>
 </head>
 
@@ -38,7 +39,11 @@
 
     $nome = filter_input(INPUT_GET, "nome");
 
-
+    if ($nome == "" || !$nome) {
+        $_SESSION["avisoListaMateria"] = "Pesquisa inválida";
+        header("Location: ./listaMaterias.php");
+        exit;
+    }
 
 
     function ordenarProfessoresPorRating(array $professores): array
@@ -62,7 +67,7 @@
         return $caminhoFoto;
     }
 
-
+    $isUserProf = $pDao->findByUserId($userInfo->getId());
     ?>
 
     <header>
@@ -73,10 +78,28 @@
             </a>
             <div class="buttons">
 
+                <div class="perfil-button notifAgenda" id="agendaButton"><img src="../../public/images/agenda-icon.png"></div>
+                <nav id="dropdownMenu" class="hidden">
+                    <ul>
+                        <?php if($isUserProf): ?>
+                        <li><a href="agendaProfessor.php">Agenda de Professor</a></li>
+                        <?php endif; ?>
+                        <li><a href="agendaAluno.php">Agenda de Aluno</a></li>
+                    </ul>
+                </nav>
+
                 <a href="mensagem.php" class="perfil-button notif"><img src="../../public/images/email.svg" alt=""></a>
-                <a class="perfil-button prof" href="./editarPerfilProf.php"><img
-                        src="../../public/images/school-icon.png" alt="">Perfil do professor
-                </a>
+                <?php if (!$isUserProf): ?>
+                    <a class="perfil-button prof" href="./novoPerfilProf.php"><img src="../../public/images/school-icon.png"
+                            alt="">Seja um professor
+                    </a>
+                <?php endif; ?>
+
+                <?php if ($isUserProf): ?>
+                    <a class="perfil-button prof" href="./editarPerfilProf.php"><img
+                            src="../../public/images/school-icon.png" alt="">Perfil do professor
+                    </a>
+                <?php endif; ?>
                 <a href="editarPerfilAluno.php">
                     <div class="perfil-button">Perfil</div>
                 </a>
@@ -99,10 +122,11 @@
         if ($professores):
             foreach ($professores as $p):
 
+
                 $usuario = $uDao->findById($p->getUserId());
                 $rating = $p->getRating() == 0 ? 1 : $p->getRating();
                 if ($usuario):
-                    ?>
+        ?>
 
                     <div class="slider-item">
                         <form action="../service/redirecionaPerfilProf.php" method="GET">
@@ -119,7 +143,7 @@
                             </button>
                         </form>
                     </div>
-                    <?php
+            <?php
                 endif;
             endforeach;
         else:

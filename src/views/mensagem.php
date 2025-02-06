@@ -10,26 +10,25 @@
         href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="../../public/css/mensagem.css">
+    <link rel="stylesheet" href="../../public/css/navAgenda.css">
+    <script src="../../public/js/navAgenda.js"></script>
     <title>Aluno</title>
 </head>
 
 <body>
 
     <script>
-
         document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("sent").addEventListener("click", () => {
                 document.getElementById("entrada").style.display = "none";
-                document.getElementById("enviada").style.display = "flex";
+                document.getElementById("enviada").style.display = "block";
             })
 
             document.getElementById("inbox").addEventListener("click", () => {
                 document.getElementById("enviada").style.display = "none";
-                document.getElementById("entrada").style.display = "flex";
+                document.getElementById("entrada").style.display = "block";
             })
         });
-
-
     </script>
 
     <?php
@@ -37,6 +36,7 @@
     require_once("../models/auth/auth.php");
     require_once("../dao/UsuarioDaoMysql.php");
     require_once("../dao/MensagemDaoMysql.php");
+    require_once("../dao/ProfessorDaoMySql.php");
     require_once("../models/user/User.php");
 
     $auth = new Auth();
@@ -49,10 +49,11 @@
 
     $uDao = new UsuarioDaoMySql($pdo);
     $mDao = new MensagemDaoMySql($pdo);
+    $pDao = new ProfesorDaoMySql($pdo);
     $emailsRecebido = $mDao->findByDestinatario($userInfo->getId());
 
     $emailsEnviado = $mDao->findByRemetente($userInfo->getId());
-
+    $isUserProf = $pDao->findByUserId($userInfo->getId());
     ?>
     <header>
 
@@ -61,9 +62,29 @@
                 <img src="../../public/images/Logo Delfos branco.svg">
             </a>
             <div class="buttons">
-                <a href="editarPerfilProf.php" class="perfil-button prof"><img src="../../public/images/school-icon.png"
-                        alt="">Perfil de
-                    professor</a>
+
+                <div class="perfil-button notifAgenda" id="agendaButton"><img src="../../public/images/agenda-icon.png">
+                </div>
+                <nav id="dropdownMenu" class="hidden">
+                    <ul>
+                        <?php if ($isUserProf): ?>
+                            <li><a href="agendaProfessor.php">Agenda de Professor</a></li>
+                        <?php endif; ?>
+                        <li><a href="agendaAluno.php">Agenda de Aluno</a></li>
+                    </ul>
+                </nav>
+
+                <?php if (!$isUserProf): ?>
+                    <a class="perfil-button prof" href="./novoPerfilProf.php"><img src="../../public/images/school-icon.png"
+                            alt="">Seja um professor
+                    </a>
+                <?php endif; ?>
+
+                <?php if ($isUserProf): ?>
+                    <a class="perfil-button prof" href="./editarPerfilProf.php"><img
+                            src="../../public/images/school-icon.png" alt="">Perfil do professor
+                    </a>
+                <?php endif; ?>
                 <a href="editarPerfilAluno.php" class="perfil-button">Perfil</a>
                 <a class="perfil-button notif" href="../service/logout.php"><img
                         src="../../public/images/login-icon.png" alt=""></a>
@@ -267,7 +288,7 @@
         $_SESSION['avisoDeleteEmail'] = '';
     }
 
-   
+
 
     ?>
 </body>

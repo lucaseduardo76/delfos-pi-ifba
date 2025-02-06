@@ -10,6 +10,8 @@
         href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="../../public/css/listaMaterias.css">
+    <link rel="stylesheet" href="../../public/css/navAgenda.css">
+    <script src="../../public/js/navAgenda.js"></script>
     <title>Document</title>
 </head>
 
@@ -19,8 +21,8 @@
 
     require_once("../config/config.php");
     require_once("../models/auth/auth.php");
-    require_once("../dao/AreaDao.php");    
-    require_once("../dao/ProfessorDaoMysql.php");    
+    require_once("../dao/AreaDao.php");
+    require_once("../dao/ProfessorDaoMysql.php");
     require_once("../dao/UsuarioDaoMysql.php");
     $auth = new Auth();
     $userInfo = $auth->checkToken($pdo);
@@ -35,19 +37,19 @@
     $pDao = new ProfesorDaoMySql($pdo);
     $uDao = new UsuarioDaoMySql($pdo);
     $areas = $aDao->findAll();
-        
+
     // Exemplo de lista de professores
     $listaProfessores = [];
-    foreach($pDao->findAll() as $p) {
+    foreach ($pDao->findAll() as $p) {
         $listaProfessores[] = $uDao->findById($p->getUserId())->getNome();
     }
 
-  
-?>
+    $isUserProf = $pDao->findByUserId($userInfo->getId());
+    ?>
 
 
     <script>
-        // Passando a lista de professores para o JavaScript
+        
         var listaProfessores = <?php echo json_encode($listaProfessores); ?>;
     </script>
 
@@ -59,10 +61,29 @@
             </a>
             <div class="buttons">
 
+                <div class="perfil-button notifAgenda" id="agendaButton"><img src="../../public/images/agenda-icon.png">
+                </div>
+                <nav id="dropdownMenu" class="hidden">
+                    <ul>
+                        <?php if ($isUserProf): ?>
+                            <li><a href="agendaProfessor.php">Agenda de Professor</a></li>
+                        <?php endif; ?>
+                        <li><a href="agendaAluno.php">Agenda de Aluno</a></li>
+                    </ul>
+                </nav>
+
                 <a href="mensagem.php" class="perfil-button notif"><img src="../../public/images/email.svg" alt=""></a>
-                <a class="perfil-button prof" href="./editarPerfilProf.php"><img
-                        src="../../public/images/school-icon.png" alt="">Perfil do professor
-                </a>
+                <?php if (!$isUserProf): ?>
+                    <a class="perfil-button prof" href="./novoPerfilProf.php"><img src="../../public/images/school-icon.png"
+                            alt="">Seja um professor
+                    </a>
+                <?php endif; ?>
+
+                <?php if ($isUserProf): ?>
+                    <a class="perfil-button prof" href="./editarPerfilProf.php"><img
+                            src="../../public/images/school-icon.png" alt="">Perfil do professor
+                    </a>
+                <?php endif; ?>
                 <a href="editarPerfilAluno.php">
                     <div class="perfil-button">Perfil</div>
                 </a>
@@ -126,9 +147,18 @@
             });
         }
     }
+</script>
 
-    
-</script>
-</script>
+<?php
+
+ 
+
+    if (!empty($_SESSION['avisoListaMateria']) && $_SESSION['avisoListaMateria']) {
+        echo "<script>alert('" . $_SESSION['avisoListaMateria'] . "')</script>";
+        $_SESSION['avisoListaMateria'] = '';
+    }
+
+    ?>
+
 
 </html>

@@ -64,6 +64,10 @@ header {
     width: 12rem;
 }
 
+.perfil-button.notifAgenda img {
+    margin: 0;
+}
+
 .perfil-button img {
     width: 20px;
     height: 20px;

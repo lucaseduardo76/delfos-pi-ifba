@@ -10,6 +10,8 @@
         href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="../../public/css/perfilProf.css">
+    <link rel="stylesheet" href="../../public/css/navAgenda.css">
+    <script src="../../public/js/navAgenda.js"></script>
     <title>Document</title>
 </head>
 
@@ -55,6 +57,7 @@
         exit;
     }
 
+    $isUserProf = $pDao->findByUserId($userInfo->getId());
 
     ?>
 
@@ -67,10 +70,29 @@
             </a>
             <div class="buttons">
 
+                <div class="perfil-button notifAgenda" id="agendaButton"><img src="../../public/images/agenda-icon.png">
+                </div>
+                <nav id="dropdownMenu" class="hidden">
+                    <ul>
+                        <?php if ($isUserProf): ?>
+                            <li><a href="agendaProfessor.php">Agenda de Professor</a></li>
+                        <?php endif; ?>
+                        <li><a href="agendaAluno.php">Agenda de Aluno</a></li>
+                    </ul>
+                </nav>
+
                 <a href="mensagem.php" class="perfil-button notif"><img src="../../public/images/email.svg" alt=""></a>
-                <a href="editarPerfilProf.php" class="perfil-button prof"><img src="../../public/images/school-icon.png"
-                        alt="">Perfil de
-                    professor</a>
+                <?php if (!$isUserProf): ?>
+                    <a class="perfil-button prof" href="./novoPerfilProf.php"><img src="../../public/images/school-icon.png"
+                            alt="">Seja um professor
+                    </a>
+                <?php endif; ?>
+
+                <?php if ($isUserProf): ?>
+                    <a class="perfil-button prof" href="./editarPerfilProf.php"><img
+                            src="../../public/images/school-icon.png" alt="">Perfil do professor
+                    </a>
+                <?php endif; ?>
                 <a href="editarPerfilAluno.php" class="perfil-button">Perfil</a>
                 <a class="perfil-button notif" href="../service/logout.php"><img
                         src="../../public/images/login-icon.png" alt=""></a>

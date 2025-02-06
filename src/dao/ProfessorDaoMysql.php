@@ -143,6 +143,7 @@ class ProfesorDaoMySql implements ProfessorDao
             $professor->setDescricao($item['descricao']);
             $professor->setUserId($item['user_id']);
             $professor->setAlunosId($this->getAlunosIdByProfessor($item['id']));
+            $professor->setRating($item['rating']);
 
             return $professor;
         }

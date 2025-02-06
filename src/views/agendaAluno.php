@@ -10,11 +10,11 @@
         href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="../../public/css/agenda.css">
-
     <link rel="stylesheet" href="../../public/css/style.css">
-    <title>Document</title>
-
+    <link rel="stylesheet" href="../../public/css/navAgenda.css">
+    <script src="../../public/js/navAgenda.js"></script>
     <script src="../../public/js/agendaAluno.js"></script>
+    <title>Document</title>
 </head>
 
 <body>
@@ -51,9 +51,13 @@
         } else if ($confirma == 1) {
             return 'o';
         } else if ($confirma == 0) {
+            return 'b';
+        }  else if ($confirma == -1) {
             return 'r';
         }
     }
+
+    $isUserProf = $pDao->findByUserId($userInfo->getId());
 
     ?>
 
@@ -64,11 +68,29 @@
                 <img src="../../public/images/Logo Delfos branco.svg">
             </a>
             <div class="buttons">
+                <?php if ($isUserProf): ?>
+                    <div class="perfil-button notifAgenda" id="agendaButton"><img src="../../public/images/agenda-icon.png">
+                    </div>
+                    <nav id="dropdownMenu" class="hidden">
+                        <ul>
 
+                            <li><a href="agendaProfessor.php">Agenda de Professor</a></li>
+
+                        </ul>
+                    </nav>
+                <?php endif; ?>
                 <a href="mensagem.php" class="perfil-button notif"><img src="../../public/images/email.svg" alt=""></a>
-                <a class="perfil-button prof" href="./editarPerfilProf.php"><img
-                        src="../../public/images/school-icon.png" alt="">Perfil do professor
-                </a>
+                <?php if (!$isUserProf): ?>
+                    <a class="perfil-button prof" href="./novoPerfilProf.php"><img src="../../public/images/school-icon.png"
+                            alt="">Seja um professor
+                    </a>
+                <?php endif; ?>
+
+                <?php if ($isUserProf): ?>
+                    <a class="perfil-button prof" href="./editarPerfilProf.php"><img
+                            src="../../public/images/school-icon.png" alt="">Perfil do professor
+                    </a>
+                <?php endif; ?>
                 <a href="editarPerfilAluno.php">
                     <div class="perfil-button">Perfil</div>
                 </a>
@@ -92,6 +114,7 @@
                         <th>Horário</th>
                         <th>Semana</th>
                         <th>Confirmada</th>
+                        <th>Ir para aula</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
@@ -125,11 +148,11 @@
                                         });
                                     </script>';
                             list($ano, $mes, $dia) = explode('-', $aula->getData());
-                            ?>
+                    ?>
                             <tr>
                                 <td><?= $dia ?></td>
                                 <td><?= $mes ?></td>
-                                <td><?= $uDao->findById($pDao->findById($aula->getProfessorId())->getUserId())->getNome() ?>
+                                <td><a href="../service/redirecionaPerfilProf.php?idProf=<?= $uDao->findById($pDao->findById($aula->getProfessorId())->getUserId())->getId() ?>"><?= $uDao->findById($pDao->findById($aula->getProfessorId())->getUserId())->getNome() ?></a>
                                 </td>
                                 <td><?= $aula->getHora(); ?></td>
                                 <td><?= retornaDiaPelaData($aula->getData()) ?></td>
@@ -137,12 +160,23 @@
                                     <div class="bola <?= corBola($aula->getConfirmada()) ?>"></div>
                                 </td>
                                 <td>
+                                    <?php if ($aula->getConfirmada() == 2 && $aula->getLinkAula() != null): ?>
+                                        <?php if ($aula->isHorarioPermitido()): ?>
+                                            <a href="<?= $aula->getLinkAula() ?>" target="_blank" class="link-button">Abrir reunião</a>
+                                        <?php else: ?>
+                                            <a href="" class="link-button">Fora do horário</a>
+                                        <?php endif; ?>
+                                    <?php else: ?>
+                                        <a href="" class="link-button">Sem link</a>
+                                    <?php endif; ?>
+                                </td>
+                                <td>
                                     <div class="acoes">
                                         <img src="../../public/images/eye-icon.png" alt="Visualizar" class="icone"
                                             onclick="abrirmodal(<?= $aula->getId() ?>)">
 
                                         <a
-                                            href="./enviarMensagem.php?idDestinatario=<?= $pDao->findById($aula->getProfessorId())->getUserId() ?>"><img
+                                            class="icone" href="./enviarMensagem.php?idDestinatario=<?= $pDao->findById($aula->getProfessorId())->getUserId() ?>"><img
                                                 class="carta" src="../../public/images/email.svg" alt="Excluir"
                                                 class="icone"></a>
 
@@ -151,7 +185,9 @@
                                             href="../service/deleteAula.php?aula=<?= $aula->getId() ?>&idAluno=<?= $aula->getAlunoId() ?>"><img
                                                 src="../../public/images/delete-icon.png" alt="Excluir" class="icone"></a>
 
-
+                                        <?php if($aula->getConfirmada() == 2 && $aula->isHorarioPermitidoToFinalizar()): ?>
+                                        <div onclick="checkAula('<?= $aula->getId() ?>')" class="check" id="check"><img src="../../public/images/check-icon.png"></div>
+                                        <?php endif; ?>
 
                                     </div>
 
@@ -223,6 +259,43 @@
             </div>
         </div>
 
+        <div class="modal-overlay" id="modalCheck">
+            <div class="modal" id="modalCh">
+                <div class="mod-header">
+                    <button class="modal-close" id="closeModalCh">✕</button>
+                </div>
+                <div class="mod-body">
+                    <h3>A aula foi encerrada!</h3>
+
+                    <form class="mod-rating" action="../service/avaliaProfessor.php" method="post">
+
+                        <label>
+                            <h4>Avalie a aula:</h4>
+
+                            <div class="star-rating">
+                                <span class="star" data-value="1">&#9733;</span>
+                                <span class="star" data-value="2">&#9733;</span>
+                                <span class="star" data-value="3">&#9733;</span>
+                                <span class="star" data-value="4">&#9733;</span>
+                                <span class="star" data-value="5">&#9733;</span>
+                            </div>
+
+                            <!-- Input escondido para armazenar a avaliação -->
+                            <input type="hidden" name="avaliacao" id="avaliacaoInput" value="5">
+                            <input type="hidden" name="idAula" id="idAulaConluida">
+                        </label>
+
+                        <label>
+                            <h4>Observação (Opc.):</h4>
+                            <textarea rows="7"></textarea>
+                        </label>
+
+                        <input type="submit" value="Avaliar" id="checkConfirm">
+                    </form>
+                </div>
+            </div>
+        </div>
+
 
     </main>
     <?php
@@ -234,7 +307,7 @@
 
     ?>
 
-
+    <script src="../../public/js/avaliacao.js"></script>
 
 </body>
 
