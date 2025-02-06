@@ -1,4 +1,4 @@
-# Projeto Integrador - Conexão Aluno & Professor
+# Projeto Integrador - Delfos
 
 Este projeto foi desenvolvido como parte do **Projeto Integrador** no curso de **Análise e Desenvolvimento de Sistemas** do **Instituto Federal da Bahia - Campus Eunápolis**.
 
