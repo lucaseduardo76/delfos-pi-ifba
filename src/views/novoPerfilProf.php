@@ -13,6 +13,30 @@
 
     <link rel="stylesheet" href="../../public/css/navAgenda.css">
     <script src="../../public/js/navAgenda.js"></script>
+    <style>
+        .file-input {
+            display: none;
+            margin-top: 10px;
+        }
+
+        .upload-btn {
+            padding: 10px 20px;
+            background-color: #FF4227;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .upload-btn:hover {
+            background-color: #FF988a;
+        }
+        #preview-img{
+            margin-top: 30px;
+        }
+    </style>
     <title>Document</title>
 </head>
 
@@ -90,7 +114,7 @@
                 </nav>
 
                 <a href="mensagem.php" class="perfil-button notif"><img src="../../public/images/email.svg" alt=""></a>
-                
+
                 <a href="editarPerfilAluno.php">
                     <div class="perfil-button">Perfil</div>
                 </a>
@@ -107,9 +131,11 @@
             <div class="container">
                 <div class="left-side">
                     <div class="perfil-foto">
-                        <img src="<?= $caminhoFoto ?>" alt="">
+                        <img id="preview-img" src="<?= $userInfo->getLinkFoto() ?>" alt="">
                         <h2>Perfil</h2>
-                        <input type="file" name="file" accept="image/png, image/jpeg">
+                        <label for="file-upload" class="upload-btn">Escolher Foto</label>
+                        <input type="file" id="file-upload" name="file" class="file-input" accept="image/png, image/jpeg">
+
                     </div>
 
                 </div>
@@ -151,10 +177,21 @@
     <script>
         const input = document.getElementById('preco');
 
-        input.addEventListener('input', function (event) {
+        input.addEventListener('input', function(event) {
             let value = event.target.value.replace(/\D/g, ''); // Remove tudo que não for número
             value = (value / 100).toFixed(2).replace('.', ','); // Formata como valor monetário
             event.target.value = 'R$ ' + value;
+        });
+
+        document.getElementById("file-upload").addEventListener("change", function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById("preview-img").src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
         });
     </script>
 
