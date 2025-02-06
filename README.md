@@ -40,10 +40,6 @@ O projeto foi desenvolvido utilizando as seguintes tecnologias:
 3. Inicie um servidor local, como Apache (XAMPP, WAMP ou outro).
 4. Acesse o sistema via navegador.
 
-## 📌 Contribuição
-
-Se deseja contribuir com o projeto, sinta-se à vontade para abrir uma issue ou enviar um pull request.
-
 ## 📄 Licença
 
 Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
