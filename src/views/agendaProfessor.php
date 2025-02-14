@@ -60,7 +60,7 @@
         }
     }
 
-    
+
 
     ?>
 
@@ -144,7 +144,7 @@
 
 
 
-                            ?>
+                    ?>
                             <tr>
                                 <td><?= $dia ?></td>
                                 <td><?= $mes ?></td>
@@ -157,14 +157,17 @@
                                 <td class="exemplo">
                                     <?php if ($aula->getConfirmada() == 2):
                                         if ($aula->getLinkAula() != null && $aula->isHorarioPermitido()):
-                                            ?>
-                                            <a href="<?=$aula->getLinkAula()?>" target="_blank" class="link-button" id="linkButton" style="margin-bottom: 10px; background-color: #FA8374;">Ir para Aula</a>
+                                    ?>
+                                            <a href="<?= $aula->getLinkAula() ?>" target="_blank" class="link-button" id="linkButton" style="margin-bottom: 10px; background-color: #FA8374;">Ir para Aula</a>
                                             <button href="" class="link-button" id="linkButton"
                                                 onclick="abrirModalLink('<?= $aula->getId() ?>')">Alterar
                                                 link</button>
-                                        <?php else: ?>
+                                        <?php elseif ($aula->getLinkAula() != null): ?>
                                             <button href="" class="link-button" id="linkButton"
                                                 onclick="abrirModalLink('<?= $aula->getId() ?>')">Alterar link</button>
+                                        <?php else:  ?>
+                                            <button href="" class="link-button" id="linkButton"
+                                                onclick="abrirModalLink('<?= $aula->getId() ?>')">Adicionar link</button>
                                         <?php endif; ?>
                                     <?php else: ?>
                                         <button href="" class="link-button" id="linkButton" disabled>Adicionar link</button>
@@ -182,7 +185,7 @@
                                             href="../service/deleteAula.php?aula=<?= $aula->getId() ?>&idProfessor=<?= $aula->getProfessorId() ?>"><img
                                                 src="../../public/images/delete-icon.png" alt="Excluir" class="icone"></a>
 
-                                        
+
                                     </div>
                                 </td>
                             </tr>
@@ -356,7 +359,7 @@
         }
 
 
-        document.addEventListener("keydown", function (event) {
+        document.addEventListener("keydown", function(event) {
             if (event.key === "Escape") {
                 document.getElementById("modal").style.opacity = "0";
 
@@ -383,7 +386,7 @@
 
         const abrirModalLink = (idAula) => {
 
-          
+
             document.getElementById("modalLink").style.display = "flex";
             document.getElementById("aulaIdModal").value = idAula;
 

@@ -75,5 +75,5 @@ if ($nome && $email && $cpf && $senha && $telefone) {
 }
 
 
-header('Location: ../views/login.php');
+header('Location: ../views/telaLogin.php');
 exit;
