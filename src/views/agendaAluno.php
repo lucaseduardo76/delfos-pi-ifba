@@ -307,6 +307,12 @@
 
     ?>
 
+    <style>
+        #dropdownMenu {
+            left: 56%;
+        }
+    </style>
+
     <script src="../../public/js/avaliacao.js"></script>
 
 </body>

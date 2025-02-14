@@ -58,12 +58,23 @@ header {
     border-radius: 10px;
     cursor: pointer;
     font-weight: bold;
+    text-decoration: none;
+    color: black;
+    outline: none;
 }
 
 .perfil-button.prof {
     width: 12rem;
 }
 
+.perfil-button.notif {
+    width: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.perfil-button.notif img,
 .perfil-button.notifAgenda img {
     margin: 0;
 }

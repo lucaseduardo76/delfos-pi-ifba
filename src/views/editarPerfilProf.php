@@ -14,7 +14,9 @@
     <script src="../../public/js/navAgenda.js"></script>
     <style>
       
-
+        #dropdownMenu {
+            left: 68%;
+        }
         
 
         .file-input {

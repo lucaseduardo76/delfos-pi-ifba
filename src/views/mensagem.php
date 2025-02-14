@@ -271,6 +271,12 @@
 
     </main>
 
+    <style>
+        #dropdownMenu {
+            left: 61%;
+        }
+    </style>
+
     <script src="../../public/js/mensagens.js"></script>
 
 

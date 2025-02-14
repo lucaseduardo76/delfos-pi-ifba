@@ -13,6 +13,10 @@
     <link rel="stylesheet" href="../../public/css/navAgenda.css">
     <script src="../../public/js/navAgenda.js"></script>
     <style>
+
+        #dropdownMenu {
+            left: 64%;
+        }
         .file-input {
             display: none;
         }

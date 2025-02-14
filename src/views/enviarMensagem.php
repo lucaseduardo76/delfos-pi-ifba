@@ -83,7 +83,7 @@
                 </nav>
 
                 <a href="mensagem.php">
-                    <div class="perfil-button notif"><img src="../../public/images/sino-icon.png" alt=""></div>
+                    <div class="perfil-button notif"><img src="../../public/images/email.svg" alt=""></div>
                 </a>
                 <?php if (!$isUserProf): ?>
                     <a class="perfil-button prof" href="./novoPerfilProf.php"><img src="../../public/images/school-icon.png"
