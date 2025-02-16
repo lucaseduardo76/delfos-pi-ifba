@@ -355,6 +355,45 @@ main {
     }
 }
 
+@media screen and (max-width: 600px) {
+    .titulo-principal h1 {
+        font-size: 25px;
+    }
+
+    .subtitulo h1 {
+        font-size: 20px;
+    }
+
+    #botao-link {
+        font-size: 18px;
+    }
+
+    .image-container {
+        width: 290px;
+        height: 290px;
+    }
+
+    .slider {
+        gap: 10px;
+    }
+
+    .slider-container.slider-small h2 {
+        font-size: 20px;
+    }
+
+    .divisoria {
+        margin-bottom: 290px;
+    }
+
+    .divisoria-pilar {
+        width: 200px;
+        height: 250px;
+    }
+
+    .divisoria-wpp {
+        top: 100px;
+    }
+}
 @media screen and (min-width: 451px) {
     .buttons-mob {
         display: none;

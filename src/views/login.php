@@ -33,7 +33,7 @@
     <div id="popup" class="modal-sign">
         <div class="modal-content">
             <div class="mensagem">
-                <img alt="Cadastro realizado!" src="../../public/images/gif.gif" class="checkGif" />
+                <img alt="Cadastro realizado!" src="../../public/images/Gif Check - animado.gif" class="checkGif" />
 
                 <p>Cadastro realizado com sucesso</p>
                 <a id="closeModalBtn" style="cursor: pointer;">Login</a>
