@@ -59,22 +59,25 @@ if ($nome && $email && $telefone) {
 
     if (!$uDao->findByEmail($email)) {
         $usuario->setEmail($email);
-        
-    $uDao->update($usuario);
+
+        $uDao->update($usuario);
     } else {
-        $_SESSION["aviso"] = "Email já está em uso.";
-        header('Location: ../views/editarPerfilAluno.php');
-        exit;
+        if ($email != $usuario->getEmail()) {
+            $_SESSION["aviso"] = "Email já está em uso.";
+            header('Location: ../views/editarPerfilAluno.php');
+            exit;
+        }
     }
 
-    
+
     $_SESSION["aviso"] = "Informação alterada com sucesso!";
 } else {
 
     $_SESSION["aviso"] = "Preencha todos os campos";
 }
 
-function limparTelefone($telefone) {
+function limparTelefone($telefone)
+{
     return preg_replace('/\D/', '', $telefone); // Remove tudo que não for número
 }
 

@@ -99,6 +99,27 @@
             </div>
         </div>
 
+        <div class="menu-toggle" id="menuToggle">
+                &#9776;
+            </div>
+
+            <div class="buttons-mob" id="buttonsMob">
+
+                <?php if (!$isUserProf): ?>
+                    <a href="">Seja um professor</a>
+                <?php endif; ?>
+
+                <?php if ($isUserProf): ?>
+                    <a href="">Agenda de Professor</a>
+                    <a href="">Perfil do Professor</a>
+                <?php endif; ?>    
+
+                <a href="">Agenda de Aluno</a>
+                <a href="">Mensagens</a>
+                <a href="">Perfil</a>
+                <a href="">Sair</a>
+            </div>
+
     </header>
 
     <main>

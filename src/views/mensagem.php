@@ -106,7 +106,6 @@
 
 
                 <aside class="email-sidebar">
-                    <input type="text" class="barra-pesquisa" placeholder="Procurando">
 
                     <ul class="email-list">
 
@@ -191,7 +190,6 @@
 
 
                 <aside class="email-sidebar">
-                    <input type="text" class="barra-pesquisa" placeholder="Procurando">
 
                     <ul class="email-list">
 

@@ -154,4 +154,12 @@ class UsuarioDaoMySql implements UserDaoMySql{
         $sql->bindValue(':id', $u->getId());
         $sql->execute();
 	}
+
+    public function updateToken(User $u) {
+		$sql = $this->pdo->prepare("UPDATE tb_user SET token = :token WHERE id = :id"); 
+      
+        $sql->bindValue(':token', $u->getToken());
+        $sql->bindValue(':id', $u->getId());
+        $sql->execute();
+	}
 }
