@@ -238,5 +238,46 @@ main {
     margin-bottom: 20px;
 }
 
-/*modal*/
 
+@media screen and (max-width: 450px) {
+    body {
+        overflow-x: hidden;
+    }
+    
+    header {
+        width: 100%;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+    .header {
+        width: 100%;
+        max-width: none;
+        justify-content: space-around;
+    }
+
+    .logo {
+        width: 7.1rem;
+        height: 3rem;
+    }
+
+    .container {
+        margin-top: 30px;
+        flex-direction: column-reverse;
+        gap: 0;
+    }
+
+    .img-container2, 
+    .img-container {
+        min-width: auto;
+        min-height: auto;
+        max-width: 500px;
+        max-height: 300px;
+    }
+
+    .img-container2 img,
+    .img-container img {
+        width: 100%;
+        height: 100%;
+    }
+}

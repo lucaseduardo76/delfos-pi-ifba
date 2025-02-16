@@ -188,7 +188,7 @@ main {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    z-index: 10;
+    z-index: 9;
     background: rgba(0, 0, 0, 0.5);
     color: #fff;
     border: none;
@@ -294,4 +294,69 @@ main {
     width: 20px;
     height: 20px;
     margin-left: 10px;
+}
+
+.menu-toggle {
+    display: none;
+    font-size: 35px;
+    color: white;
+    cursor: pointer;
+}
+
+.buttons-mob {
+    display: none;
+    flex-direction: column;
+    background-color: #FFE3C9;
+    position: absolute;
+    top: 85px;
+    width: 100%;
+    left: 0;
+    text-align: center;
+    z-index: 10;
+}
+
+.buttons-mob a {
+    padding: 20px;
+    color: black;
+    text-decoration: none;
+    display: block;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+
+@media screen and (max-width: 700px) {
+    body {
+        overflow-x: hidden;
+    }
+    
+    header {
+        width: 100%;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+    .header {
+        width: 100%;
+        max-width: none;
+        justify-content: space-around;
+    }
+
+    .logo {
+        width: 7.1rem;
+        height: 3rem;
+    }
+    
+    .buttons {
+        display: none;
+    }
+
+    .menu-toggle {
+        display: flex;
+    }
+}
+
+@media screen and (min-width: 451px) {
+    .buttons-mob {
+        display: none;
+    }
 }

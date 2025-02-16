@@ -126,6 +126,10 @@ main {
     object-fit: cover;
 }
 
+.profile-sup {
+    width: 100%;
+}
+
 .profile-sup h2,
 .profile-sup p,
 .profile-sup h3,
@@ -134,6 +138,7 @@ main {
     border-radius: 10px;
     padding: 10px;
     margin-bottom: 7px;
+    width: 400px;
 }
 
 .stats p {

@@ -156,6 +156,27 @@
                         src="../../public/images/login-icon.png" alt=""></a>
             </div>
 
+            <div class="menu-toggle" id="menuToggle">
+                &#9776;
+            </div>
+
+            <div class="buttons-mob" id="buttonsMob">
+
+                <?php if (!$isUserProf): ?>
+                    <a href="">Seja um professor</a>
+                <?php endif; ?>
+
+                <?php if ($isUserProf): ?>
+                    <a href="">Agenda de Professor</a>
+                    <a href="">Perfil do Professor</a>
+                <?php endif; ?>    
+
+                <a href="">Agenda de Aluno</a>
+                <a href="">Mensagens</a>
+                <a href="">Perfil</a>
+                <a href="">Sair</a>
+            </div>
+
 
         </div>
 
@@ -279,6 +300,18 @@
 
     <script src="../../public/js/sliders.js"></script>
     <script src="../../public/js/navAgenda.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const menuToggle = document.getElementById("menuToggle");
+            const mobileMenu = document.getElementById("buttonsMob");
+
+        menuToggle.addEventListener("click", function () {
+            mobileMenu.style.display = (mobileMenu.style.display === "flex") ? "none" : "flex";
+        });
+    });
+
+    </script>
 
 </body>
 
