@@ -183,7 +183,7 @@
                                 <td>
                                     <?php if ($aula->getConfirmada() == 2 && $aula->getLinkAula() != null): ?>
                                         <?php if ($aula->isHorarioPermitido()): ?>
-                                            <a href="<?= $aula->getLinkAula() ?>" target="_blank" class="link-button">Abrir reunião</a>
+                                            <a href="<?= $aula->getLinkAula() ?>" target="_blank" class="link-button" style="margin-bottom: 10px; background-color: #FA8374;">Abrir reunião</a>
                                         <?php else: ?>
                                             <a href="" class="link-button">Fora do horário</a>
                                         <?php endif; ?>
