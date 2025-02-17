@@ -26,6 +26,7 @@
     require_once("../dao/AgendaDaoMysql.php");
     require_once("../dao/ProfessorDaoMysql.php");
     require_once("../dao/UsuarioDaoMysql.php");
+    require_once("../script/retornaDiaPelaData.php");
 
     $auth = new Auth();
     $userInfo = $auth->checkToken($pdo);
@@ -150,7 +151,7 @@
                                 <td><?= $mes ?></td>
                                 <td><?= $uDao->findById($aula->getAlunoId())->getNome() ?></td>
                                 <td><?= $aula->getHora(); ?></td>
-                                <td>Seg</td>
+                                <td><?= retornaDiaPelaData($aula->getData()) ?></td>
                                 <td style="">
                                     <div class="bola <?= corBola($aula->getConfirmada()) ?>"></div>
                                 </td>
@@ -159,9 +160,7 @@
                                         if ($aula->getLinkAula() != null && $aula->isHorarioPermitido()):
                                     ?>
                                             <a href="<?= $aula->getLinkAula() ?>" target="_blank" class="link-button" id="linkButton" style="margin-bottom: 10px; background-color: #FA8374;">Ir para Aula</a>
-                                            <button href="" class="link-button" id="linkButton"
-                                                onclick="abrirModalLink('<?= $aula->getId() ?>')">Alterar
-                                                link</button>
+                                           
                                         <?php elseif ($aula->getLinkAula() != null): ?>
                                             <button href="" class="link-button" id="linkButton"
                                                 onclick="abrirModalLink('<?= $aula->getId() ?>')">Alterar link</button>

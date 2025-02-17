@@ -30,7 +30,7 @@
     }
     ?>
 
-    <div id="popup" class="modal-sign">
+    <div id="popup" class="modal-sign" >
         <div class="modal-content">
             <div class="mensagem">
                 <img alt="Cadastro realizado!" src="../../public/images/gif.gif" class="checkGif" />
